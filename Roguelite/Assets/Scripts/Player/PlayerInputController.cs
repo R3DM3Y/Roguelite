@@ -33,7 +33,8 @@ public class PlayerInputController : MonoBehaviour
     private void ReadMovement()
     {
         Vector2 move = _gameInput.Gameplay.Movement.ReadValue<Vector2>();
-        _player.Move(move.x);
+        _player.InputX = move.x; // Добавляем это
+        _player.InputY = move.y; // на случай вертикального спуска
     }
 
     private void HandleDropDown()

@@ -6,7 +6,7 @@ public class PlayerFallState : PlayerState
 
     public override void Update()
     {
-        controller.Move(controller.InputX);
+        controller.Move(controller.InputX); // движение в воздухе теперь работает
 
         if (controller.IsGrounded())
         {
@@ -16,4 +16,5 @@ public class PlayerFallState : PlayerState
                 stateMachine.ChangeState(new PlayerIdleState(stateMachine, controller));
         }
     }
+
 }
