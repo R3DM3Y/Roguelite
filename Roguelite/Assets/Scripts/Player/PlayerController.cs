@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Health")]
+    public int maxHealth = 5;
+    private int currentHealth;
+    
     [Header("Movement")]
     public float moveSpeed = 5f;
 
@@ -29,6 +33,28 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        currentHealth = maxHealth;
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            // Можно добавить эффект удара или анимацию
+            Debug.Log($"Игрок получил {damage} урона, осталось {currentHealth} HP");
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Игрок погиб");
+        // Здесь можно проиграть анимацию смерти или перезапустить сцену
+        Destroy(gameObject);
     }
 
     public void Move(float x)
