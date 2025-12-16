@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     [Header("DropDown")]
     public float dropDownTime = 0.2f;
     
+    [HideInInspector] public Animator animator;
+    
+    private bool wasGrounded;
+    private bool facingRight = true;
     [HideInInspector] public float InputX;
     [HideInInspector] public float InputY;
     [HideInInspector] public bool JumpPressed;
@@ -32,9 +36,26 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
     }
+    
+    private void Update()
+    {
+        UpdateAnimations();
+    }
+    
+    private void UpdateAnimations()
+    {
+        bool grounded = IsGrounded();
+        animator.SetBool("IsGrounded", grounded);
+        animator.SetBool("InAir", !grounded);
+
+        float speed = Mathf.Abs(rb.linearVelocity.x);
+        animator.SetFloat("Speed", speed);
+    }
+
     
     public void TakeDamage(int damage)
     {
@@ -60,16 +81,33 @@ public class PlayerController : MonoBehaviour
     public void Move(float x)
     {
         rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
+
+        if (x > 0 && !facingRight)
+            Flip();
+        else if (x < 0 && facingRight)
+            Flip();
     }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+    }
+
 
     public void Jump()
     {
-        if (IsGrounded() && rb.linearVelocity.y <= 0f)
+        if (IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+
+            animator.SetBool("InAir", true); // 👈 МГНОВЕННО
         }
     }
 
+    
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
