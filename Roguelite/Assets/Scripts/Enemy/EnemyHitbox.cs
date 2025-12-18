@@ -7,20 +7,22 @@ public class EnemyHitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Проверяем, столкнулся ли игрок
+        TryHit(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        TryHit(collision);
+    }
+
+    private void TryHit(Collider2D collision)
+    {
         PlayerController player = collision.GetComponent<PlayerController>();
         if (player != null)
         {
-            // Можно здесь вызвать метод у игрока, например TakeDamage
-            player.TakeDamage(damage); 
-        }
-
-        // Проверяем, если урон должен получать сам враг
-        EnemyController enemy = collision.GetComponent<EnemyController>();
-        if (enemy != null)
-        {
-            // Передаем урон целым числом
-            enemy.TakeDamage(damage);
+            Vector2 hitDirection = (player.transform.position - transform.position).normalized;
+            player.TakeDamage(damage, hitDirection);
         }
     }
+
 }

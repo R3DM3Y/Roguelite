@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("Health")]
     public int maxHealth = 5;
     private int currentHealth;
-    
+
     [Header("Movement")]
     public float moveSpeed = 5f;
 
@@ -18,14 +19,37 @@ public class PlayerController : MonoBehaviour
 
     [Header("DropDown")]
     public float dropDownTime = 0.2f;
+
+    [Header("Combat")]
     
+    
+    
+    
+    
+    
+    
+    
+    [Header("Knockback")]
+    public float knockbackSideForce = 6f;
+    public float knockbackUpForce = 8f;
+    
+    [Header("Post-Hit Invulnerability")]
+    public float postHitInvulnerableTime = 1f; // время неуязвимости после касания земли
+    public SpriteRenderer spriteRenderer;      // мигание
+    public float blinkInterval = 0.1f;         // частота мигания
+
+    private bool isInvulnerable;               // общий флаг неуязвимости
+    private bool isHitLocked = false;          // блокировка действий после удара
+
+    
+    [HideInInspector] public bool IsAttacking;
+    [HideInInspector] public bool sHeld;  // флаг, что S зажат
     [HideInInspector] public Animator animator;
-    
-    private bool wasGrounded;
+
     private bool facingRight = true;
     [HideInInspector] public float InputX;
     [HideInInspector] public float InputY;
-    [HideInInspector] public bool JumpPressed;
+    [HideInInspector] public bool JumpPressed; 
     [HideInInspector] public bool IsDropping;
 
     [HideInInspector] public Rigidbody2D rb;
@@ -39,53 +63,99 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
+        
     }
-    
+
     private void Update()
     {
         UpdateAnimations();
     }
-    
+
     private void UpdateAnimations()
     {
         bool grounded = IsGrounded();
         animator.SetBool("IsGrounded", grounded);
         animator.SetBool("InAir", !grounded);
-
-        float speed = Mathf.Abs(rb.linearVelocity.x);
-        animator.SetFloat("Speed", speed);
+        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
     }
 
-    
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 hitDirection)
     {
+        if (isInvulnerable) return;
+
         currentHealth -= damage;
+        Debug.Log($"Игрок получил {damage} урона, осталось {currentHealth} HP");
+
+        animator.SetTrigger("Hit");
+
+        // блокируем действия и отталкиваем в сторону
+        isHitLocked = true;
+        isInvulnerable = true;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(new Vector2(Mathf.Sign(hitDirection.x) * knockbackSideForce, 0), ForceMode2D.Impulse);
+
         if (currentHealth <= 0)
         {
             Die();
+            return;
+        }
+
+        StartCoroutine(WaitForGroundAfterHit());
+    }
+    
+    private IEnumerator WaitForGroundAfterHit()
+    {
+        // Ждем, пока игрок не коснется земли
+        while (!IsGrounded())
+            yield return null;
+
+        // После касания земли — пост-хит мигание
+        float timer = 0f;
+        while (timer < postHitInvulnerableTime)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+            timer += blinkInterval;
+        }
+
+        spriteRenderer.enabled = true;
+        isInvulnerable = false;
+        isHitLocked = false; // снимаем блокировку действий
+    }
+    
+    private void ApplyKnockback(Vector2 direction)
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        // Удар сверху (игрок был над врагом)
+        if (direction.y > 0.5f)
+        {
+            rb.linearVelocity = new Vector2(0, knockbackUpForce);
         }
         else
         {
-            // Можно добавить эффект удара или анимацию
-            Debug.Log($"Игрок получил {damage} урона, осталось {currentHealth} HP");
+            // Удар сбоку
+            rb.linearVelocity = new Vector2(
+                Mathf.Sign(direction.x) * knockbackSideForce,
+                knockbackUpForce * 0.5f
+            );
         }
     }
 
     private void Die()
     {
         Debug.Log("Игрок погиб");
-        // Здесь можно проиграть анимацию смерти или перезапустить сцену
         Destroy(gameObject);
     }
 
     public void Move(float x)
     {
+        if (isHitLocked) return;
+        
         rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
-
-        if (x > 0 && !facingRight)
-            Flip();
-        else if (x < 0 && facingRight)
-            Flip();
+        if (x > 0 && !facingRight) Flip();
+        else if (x < 0 && facingRight) Flip();
     }
 
     private void Flip()
@@ -96,18 +166,15 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
-
     public void Jump()
     {
         if (IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-
-            animator.SetBool("InAir", true); // 👈 МГНОВЕННО
+            animator.SetBool("InAir", true);
         }
     }
 
-    
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
@@ -115,16 +182,12 @@ public class PlayerController : MonoBehaviour
 
     public void DropDown()
     {
-        // Если уже спускаемся или не на платформе — ничего не делаем
-        if (isDropping || !IsStandingOnOneWayPlatform())
-            return;
-
+        if (isDropping || !IsStandingOnOneWayPlatform()) return;
         StartCoroutine(DisableColliderTemporarily());
     }
 
     private bool IsStandingOnOneWayPlatform()
     {
-        // Только проверяем объекты под игроком
         Collider2D[] hits = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, groundLayer);
         foreach (var hit in hits)
         {
@@ -138,13 +201,10 @@ public class PlayerController : MonoBehaviour
     {
         isDropping = true;
         playerCollider.enabled = false;
-
-        // Ждём один FixedUpdate для безопасного проваливания через платформу
         yield return new WaitForFixedUpdate();
-
-        // Временно выключаем коллайдер на заданное время
         yield return new WaitForSeconds(dropDownTime);
         playerCollider.enabled = true;
         isDropping = false;
     }
+    
 }

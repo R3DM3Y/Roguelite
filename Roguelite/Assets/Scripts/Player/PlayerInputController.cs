@@ -6,7 +6,6 @@ public class PlayerInputController : MonoBehaviour
     private GameInput _gameInput;
     private PlayerController _player;
 
-    // Флаг для отслеживания нового нажатия S
     private bool sPressed = false;
 
     private void Awake()
@@ -20,8 +19,10 @@ public class PlayerInputController : MonoBehaviour
             Debug.LogError("PlayerController не найден на объекте!");
         }
 
-        // Подключаем прыжок
         _gameInput.Gameplay.Jump.performed += ctx => _player.Jump();
+
+        // ЛКМ всегда через TryAttack
+        
     }
 
     private void Update()
@@ -33,18 +34,18 @@ public class PlayerInputController : MonoBehaviour
     private void ReadMovement()
     {
         Vector2 move = _gameInput.Gameplay.Movement.ReadValue<Vector2>();
-        _player.InputX = move.x; // Добавляем это
-        _player.InputY = move.y; // на случай вертикального спуска
+        _player.InputX = move.x;
+        _player.InputY = move.y;
+
+        // Отслеживаем зажатый S / вниз
+        _player.sHeld = move.y < -0.5f;
     }
 
     private void HandleDropDown()
     {
-        // Читаем вертикальное направление
-        float inputY = _gameInput.Gameplay.Movement.ReadValue<Vector2>().y;
-
+        float inputY = _player.InputY;
         if (inputY < -0.5f)
         {
-            // Спуск срабатывает только при новом нажатии S
             if (!sPressed)
             {
                 sPressed = true;
@@ -53,7 +54,6 @@ public class PlayerInputController : MonoBehaviour
         }
         else
         {
-            // Сбрасываем флаг после отпускания S
             sPressed = false;
         }
     }

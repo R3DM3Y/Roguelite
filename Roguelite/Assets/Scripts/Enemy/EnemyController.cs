@@ -4,7 +4,8 @@ public class EnemyController : MonoBehaviour
 {
     [Header("Health")]
     public int maxHealth = 3;
-    private int currentHealth;
+
+    public int currentHealth;
 
     [Header("Movement")]
     public float moveSpeed = 2f;
@@ -23,7 +24,7 @@ public class EnemyController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        currentHealth = maxHealth; // <-- здесь корректно используем currentHealth
+        currentHealth = maxHealth;
     }
 
     private void FixedUpdate()
@@ -76,12 +77,15 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        Debug.Log($"Враг получил {damage} урона. Осталось здоровья: {currentHealth}");
+
         if (currentHealth <= 0)
             Die();
     }
 
     private void Die()
     {
+        Debug.Log("Враг погиб");
         Destroy(gameObject);
     }
 }
