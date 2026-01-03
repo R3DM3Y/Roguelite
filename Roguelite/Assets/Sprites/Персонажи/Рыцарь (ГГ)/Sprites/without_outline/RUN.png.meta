@@ -150,12 +150,12 @@ TextureImporter:
       name: RUN_0
       rect:
         serializedVersion: 2
-        x: 33
-        y: 22
-        width: 30
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 34
+        y: 23
+        width: 28
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -172,12 +172,12 @@ TextureImporter:
       name: RUN_1
       rect:
         serializedVersion: 2
-        x: 130
-        y: 22
-        width: 29
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 131
+        y: 23
+        width: 27
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -194,12 +194,12 @@ TextureImporter:
       name: RUN_2
       rect:
         serializedVersion: 2
-        x: 220
-        y: 25
-        width: 34
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 221
+        y: 26
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -216,12 +216,12 @@ TextureImporter:
       name: RUN_3
       rect:
         serializedVersion: 2
-        x: 315
-        y: 22
-        width: 34
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 316
+        y: 23
+        width: 32
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -238,12 +238,12 @@ TextureImporter:
       name: RUN_4
       rect:
         serializedVersion: 2
-        x: 411
-        y: 22
-        width: 32
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 412
+        y: 23
+        width: 30
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -260,12 +260,12 @@ TextureImporter:
       name: RUN_5
       rect:
         serializedVersion: 2
-        x: 506
-        y: 22
-        width: 44
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 507
+        y: 23
+        width: 42
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -282,12 +282,12 @@ TextureImporter:
       name: RUN_6
       rect:
         serializedVersion: 2
-        x: 604
-        y: 25
-        width: 39
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 605
+        y: 26
+        width: 37
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -304,12 +304,12 @@ TextureImporter:
       name: RUN_7
       rect:
         serializedVersion: 2
-        x: 702
-        y: 22
-        width: 38
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 703
+        y: 23
+        width: 36
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -326,7 +326,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 310452fe4ab7e7d49900a5990cc9d609
     internalID: 0
     vertices: []
     indices: 
@@ -334,7 +334,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       RUN_0: -4726913989911992049
       RUN_1: -1224304467317232117

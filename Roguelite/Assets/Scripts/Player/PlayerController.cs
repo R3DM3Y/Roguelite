@@ -19,15 +19,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("DropDown")]
     public float dropDownTime = 0.2f;
-
-    [Header("Combat")]
     
-    
-    
-    
-    
-    
-    
+    [Header("Wall Check")]
+    public Transform wallCheck;
+    public float wallCheckDistance = 0.1f;
+    public LayerMask wallLayer;
     
     [Header("Knockback")]
     public float knockbackSideForce = 6f;
@@ -123,6 +119,7 @@ public class PlayerController : MonoBehaviour
         isInvulnerable = false;
         isHitLocked = false; // снимаем блокировку действий
     }
+
     
     private void ApplyKnockback(Vector2 direction)
     {
@@ -152,10 +149,38 @@ public class PlayerController : MonoBehaviour
     public void Move(float x)
     {
         if (isHitLocked) return;
-        
-        rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
-        if (x > 0 && !facingRight) Flip();
-        else if (x < 0 && facingRight) Flip();
+
+        float moveX = x;
+
+        if (Mathf.Abs(x) > 0.01f)
+        {
+            float dir = Mathf.Sign(x);
+
+            if (IsTouchingWall(dir))
+            {
+                moveX = 0;
+            }
+        }
+
+        rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
+
+        if (moveX > 0 && !facingRight) Flip();
+        else if (moveX < 0 && facingRight) Flip();
+    }
+    
+    public bool IsTouchingWall(float direction)
+    {
+        Debug.DrawRay(
+            wallCheck.position,
+            Vector2.right * direction * wallCheckDistance,
+            Color.red
+        );
+        return Physics2D.Raycast(
+            wallCheck.position,
+            Vector2.right * direction,
+            wallCheckDistance,
+            wallLayer
+        );
     }
 
     private void Flip()
@@ -179,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
-
+    
     public void DropDown()
     {
         if (isDropping || !IsStandingOnOneWayPlatform()) return;

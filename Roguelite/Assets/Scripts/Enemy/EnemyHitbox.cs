@@ -22,6 +22,7 @@ public class EnemyHitbox : MonoBehaviour
         {
             Vector2 hitDirection = (player.transform.position - transform.position).normalized;
             player.TakeDamage(damage, hitDirection);
+
         }
     }
 

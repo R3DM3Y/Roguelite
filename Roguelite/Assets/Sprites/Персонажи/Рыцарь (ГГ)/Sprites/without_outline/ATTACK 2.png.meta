@@ -141,12 +141,12 @@ TextureImporter:
       name: ATTACK 2_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 22
-        width: 33
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 29
+        y: 23
+        width: 31
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,12 +163,12 @@ TextureImporter:
       name: ATTACK 2_1
       rect:
         serializedVersion: 2
-        x: 120
-        y: 22
-        width: 51
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 121
+        y: 23
+        width: 49
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,12 +185,12 @@ TextureImporter:
       name: ATTACK 2_2
       rect:
         serializedVersion: 2
-        x: 215
-        y: 22
-        width: 44
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 216
+        y: 23
+        width: 42
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,12 +207,12 @@ TextureImporter:
       name: ATTACK 2_3
       rect:
         serializedVersion: 2
-        x: 311
-        y: 22
-        width: 37
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 312
+        y: 23
+        width: 35
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -229,12 +229,12 @@ TextureImporter:
       name: ATTACK 2_4
       rect:
         serializedVersion: 2
-        x: 407
-        y: 22
-        width: 37
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 408
+        y: 23
+        width: 35
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -251,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f6951bfa409ddbc4d8efe13e8c2ea060
     internalID: 0
     vertices: []
     indices: 
@@ -259,7 +259,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ATTACK 2_0: 5816446277478414527
       ATTACK 2_1: -6764790898365541813
