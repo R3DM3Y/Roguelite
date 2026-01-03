@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.DrawRay(
             wallCheck.position,
-            Vector2.right * direction * wallCheckDistance,
+            Vector2.right * (direction * wallCheckDistance),
             Color.red
         );
         return Physics2D.Raycast(
@@ -210,14 +210,6 @@ public class PlayerController : MonoBehaviour
             groundLayer
         );
     }
-    private void OnDrawGizmosSelected()
-    {
-        if (groundCheck == null) return;
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
-    }
-
     
     public void DropDown()
     {
