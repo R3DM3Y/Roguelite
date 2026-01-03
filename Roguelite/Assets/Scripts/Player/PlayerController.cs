@@ -13,9 +13,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     public float jumpForce = 7f;
-    public LayerMask groundLayer;
+    [Header("Ground Check")]
     public Transform groundCheck;
-    public float groundCheckRadius = 0.1f;
+    public Vector2 groundCheckSize = new Vector2(0.8f, 0.1f);
+    public LayerMask groundLayer;
 
     [Header("DropDown")]
     public float dropDownTime = 0.2f;
@@ -202,8 +203,21 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        return Physics2D.OverlapBox(
+            groundCheck.position,
+            groundCheckSize,
+            0f,
+            groundLayer
+        );
     }
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck == null) return;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+    }
+
     
     public void DropDown()
     {
@@ -213,14 +227,22 @@ public class PlayerController : MonoBehaviour
 
     private bool IsStandingOnOneWayPlatform()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, groundLayer);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(
+            groundCheck.position,
+            groundCheckSize,
+            0f,
+            groundLayer
+        );
+
         foreach (var hit in hits)
         {
             if (hit.CompareTag("OneWayPlatform") && rb.linearVelocity.y <= 0f)
                 return true;
         }
+
         return false;
     }
+
 
     private IEnumerator DisableColliderTemporarily()
     {
