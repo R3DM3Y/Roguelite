@@ -2084,7 +2084,7 @@ MonoBehaviour:
     m_Bits: 8
   dropDownTime: 0.2
   wallCheck: {fileID: 1467322948}
-  wallCheckDistance: 0.1
+  wallCheckDistance: 0.7
   wallLayer:
     serializedVersion: 2
     m_Bits: 520
