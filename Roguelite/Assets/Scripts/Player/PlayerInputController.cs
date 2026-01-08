@@ -20,15 +20,14 @@ public class PlayerInputController : MonoBehaviour
         }
 
         _gameInput.Gameplay.Jump.performed += ctx => _player.Jump();
-
-        // ЛКМ всегда через TryAttack
         
+        _gameInput.Gameplay.Attack.performed += ctx => _player.StartAttack();
     }
 
     private void Update()
     {
         ReadMovement();
-        HandleDropDown();
+        HandleDropDown();   
     }
 
     private void ReadMovement()

@@ -38,11 +38,13 @@ public class PlayerController : MonoBehaviour
     private bool isInvulnerable;               // общий флаг неуязвимости
     private bool isHitLocked = false;          // блокировка действий после удара
 
-    
+    [Header("Attack")]
+    public PlayerAttackHitbox attackHitbox;
     [HideInInspector] public bool IsAttacking;
-    [HideInInspector] public bool sHeld;  // флаг, что S зажат
     [HideInInspector] public Animator animator;
-
+    
+    [HideInInspector] public bool sHeld;  // флаг, что S зажат
+    
     private bool facingRight = true;
     [HideInInspector] public float InputX;
     [HideInInspector] public float InputY;
@@ -246,4 +248,30 @@ public class PlayerController : MonoBehaviour
         isDropping = false;
     }
     
+    public void StartAttack()
+    {
+        if (IsAttacking) return;
+
+        IsAttacking = true;
+        animator.SetTrigger("Attack"); // лучше Trigger, а не Bool
+    }
+
+
+    public void ActivateAttackHitbox()
+    {
+        attackHitbox.ActivateHitbox(); // хитбокс активируется ровно в момент удара
+    }
+
+    public void EndAttack()
+    {
+        IsAttacking = false;
+    }
+    
+    private IEnumerator ResetAttack()
+    {
+        yield return new WaitForSeconds(0.6f); // длина всей анимации
+        EndAttack();
+    }
+
+
 }
