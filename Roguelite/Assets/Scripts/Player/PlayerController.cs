@@ -31,19 +31,19 @@ public class PlayerController : MonoBehaviour
     public float knockbackUpForce = 8f;
     
     [Header("Post-Hit Invulnerability")]
-    public float postHitInvulnerableTime = 1f; // время неуязвимости после касания земли
-    public SpriteRenderer spriteRenderer;      // мигание
-    public float blinkInterval = 0.1f;         // частота мигания
+    public float postHitInvulnerableTime = 1f; 
+    public SpriteRenderer spriteRenderer;      
+    public float blinkInterval = 0.1f;         
 
-    private bool isInvulnerable;               // общий флаг неуязвимости
-    private bool isHitLocked = false;          // блокировка действий после удара
+    private bool isInvulnerable;               
+    private bool isHitLocked = false;          
 
     [Header("Attack")]
     public PlayerAttackHitbox attackHitbox;
     [HideInInspector] public bool IsAttacking;
     [HideInInspector] public Animator animator;
     
-    [HideInInspector] public bool sHeld;  // флаг, что S зажат
+    [HideInInspector] public bool sHeld;  
     
     private bool facingRight = true;
     [HideInInspector] public float InputX;
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetTrigger("Hit");
 
-        // блокируем действия и отталкиваем в сторону
+        
         isHitLocked = true;
         isInvulnerable = true;
 
@@ -105,11 +105,9 @@ public class PlayerController : MonoBehaviour
     
     private IEnumerator WaitForGroundAfterHit()
     {
-        // Ждем, пока игрок не коснется земли
         while (!IsGrounded())
             yield return null;
-
-        // После касания земли — пост-хит мигание
+        
         float timer = 0f;
         while (timer < postHitInvulnerableTime)
         {
@@ -120,15 +118,14 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer.enabled = true;
         isInvulnerable = false;
-        isHitLocked = false; // снимаем блокировку действий
+        isHitLocked = false; 
     }
 
     
     private void ApplyKnockback(Vector2 direction)
     {
         rb.linearVelocity = Vector2.zero;
-
-        // Удар сверху (игрок был над врагом)
+        
         if (direction.y > 0.5f)
         {
             rb.linearVelocity = new Vector2(0, knockbackUpForce);
@@ -173,19 +170,25 @@ public class PlayerController : MonoBehaviour
     
     public bool IsTouchingWall(float direction)
     {
-        Debug.DrawRay(
-            wallCheck.position,
-            Vector2.right * (direction * wallCheckDistance),
-            Color.red
-        );
-        return Physics2D.Raycast(
-            wallCheck.position,
-            Vector2.right * direction,
-            wallCheckDistance,
+        Vector2 boxSize = new Vector2(0.1f, 1.45f); 
+        Vector2 boxCenter = (Vector2)wallCheck.position + Vector2.right * (direction * (boxSize.x / 2f));
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(
+            boxCenter,
+            boxSize,
+            0f,
             wallLayer
         );
-    }
 
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("OneWayPlatform")) continue; 
+            return true;
+        }
+
+        return false;
+    }
+    
     private void Flip()
     {
         facingRight = !facingRight;
@@ -253,13 +256,13 @@ public class PlayerController : MonoBehaviour
         if (IsAttacking) return;
 
         IsAttacking = true;
-        animator.SetTrigger("Attack"); // лучше Trigger, а не Bool
+        animator.SetTrigger("Attack"); 
     }
 
 
     public void ActivateAttackHitbox()
     {
-        attackHitbox.ActivateHitbox(); // хитбокс активируется ровно в момент удара
+        attackHitbox.ActivateHitbox();
     }
 
     public void EndAttack()
@@ -269,9 +272,7 @@ public class PlayerController : MonoBehaviour
     
     private IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(0.6f); // длина всей анимации
+        yield return new WaitForSeconds(0.6f); 
         EndAttack();
     }
-
-
 }
