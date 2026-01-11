@@ -60,8 +60,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float InputY;
     [HideInInspector] public bool JumpPressed; 
     [HideInInspector] public bool IsDropping;
-
     [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public bool IsDead;
 
     private Collider2D playerCollider;
     private bool isDropping = false;
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (IsDead) return;
         UpdateAnimations();
     }
 
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
     
     public void TakeDamage(int damage, Vector2 hitDirection)
     {
-        if (isInvulnerable) return;
+        if (IsDead || isInvulnerable) return;
 
         currentHealth -= damage;
         Debug.Log($"Игрок получил {damage} урона, осталось {currentHealth} HP");
@@ -170,13 +171,29 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Игрок погиб");
+        if (IsDead) return;
+
+        IsDead = true;
+        isHitLocked = true;
+        isInvulnerable = true;
+
+        CancelAllAttacks();
+
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = 1.5f;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        animator.SetTrigger("Die");
+    }
+    
+    public void OnDeathAnimationFinished()
+    {
         Destroy(gameObject);
     }
 
     public void Move(float x)
     {
-        if (isHitLocked) return;
+        if (IsDead || isHitLocked) return;
 
         float moveX = x;
 
@@ -227,7 +244,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (isHitLocked) return;
+        if (IsDead || isHitLocked) return;
         
         if (IsGrounded())
         {
@@ -248,6 +265,7 @@ public class PlayerController : MonoBehaviour
     
     public void DropDown()
     {
+        if (IsDead) return;
         if (isDropping || !IsStandingOnOneWayPlatform()) return;
         StartCoroutine(DisableColliderTemporarily());
     }
@@ -282,8 +300,7 @@ public class PlayerController : MonoBehaviour
     
     public void StartAttack()
     {
-        if (isHitLocked) return;
-        
+        if (IsDead || isHitLocked) return;
         if (IsAttackingNormal || IsAttackingDown) return; 
         if (!IsGrounded() && sHeld) return; 
     
@@ -305,8 +322,7 @@ public class PlayerController : MonoBehaviour
     
     public void StartAirAttackDown()
     {
-        if (isHitLocked) return;
-        
+        if (IsDead || isHitLocked) return;
         if (IsGrounded() || !sHeld || IsAttackingDown) return;
 
         IsAttackingDown = true;

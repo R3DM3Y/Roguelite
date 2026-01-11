@@ -30,6 +30,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
+        if (controller.IsDead) return;
         if (controller.isHitLocked) return;
         CurrentState.Update();
     }
