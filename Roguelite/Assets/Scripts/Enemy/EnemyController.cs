@@ -77,7 +77,6 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log($"Враг получил {damage} урона. Осталось здоровья: {currentHealth}");
 
         if (currentHealth <= 0)
             Die();
@@ -85,7 +84,6 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Враг погиб");
         Destroy(gameObject);
     }
 }

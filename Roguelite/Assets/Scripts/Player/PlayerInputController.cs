@@ -14,10 +14,6 @@ public class PlayerInputController : MonoBehaviour
         _gameInput.Enable();
 
         _player = GetComponent<PlayerController>();
-        if (_player == null)
-        {
-            Debug.LogError("PlayerController не найден на объекте!");
-        }
 
         _gameInput.Gameplay.Jump.performed += ctx => _player.Jump();
         

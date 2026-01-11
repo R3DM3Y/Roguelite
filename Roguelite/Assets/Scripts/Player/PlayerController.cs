@@ -89,10 +89,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsGrounded", grounded);
         animator.SetBool("InAir", !grounded);
         animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
-
-        // Лог
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("AirAttackDown"))
-            Debug.Log("Currently playing AirAttackDown animation");
     }
     
     public void TakeDamage(int damage, Vector2 hitDirection)
@@ -100,7 +96,6 @@ public class PlayerController : MonoBehaviour
         if (IsDead || isInvulnerable) return;
 
         currentHealth -= damage;
-        Debug.Log($"Игрок получил {damage} урона, осталось {currentHealth} HP");
         
         CancelAllAttacks();
 
@@ -311,13 +306,11 @@ public class PlayerController : MonoBehaviour
     public void ActivateAttackHitbox()
     {
         attackHitbox.ActivateHitbox();
-        Debug.Log("Normal attack hitbox activated");
     }
 
     public void EndAttackNormal()
     {
         IsAttackingNormal = false;
-        Debug.Log("Normal attack ended");
     }
     
     public void StartAirAttackDown()
@@ -339,13 +332,11 @@ public class PlayerController : MonoBehaviour
         if (airDownHitbox != null)
         {
             airDownHitbox.ActivateHitbox();
-            Debug.Log("AirDown hitbox activated");
         }
     }
 
     public void EndAttackDown()
     {
         IsAttackingDown = false;
-        Debug.Log("AirDown attack ended");
     }
 }

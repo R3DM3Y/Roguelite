@@ -4,11 +4,6 @@ public class PlayerRunState : PlayerState
 {
     public PlayerRunState(PlayerStateMachine sm, PlayerController pc) : base(sm, pc) { }
 
-    public override void Enter()
-    {
-        // Можно добавить анимацию Run
-    }
-
     public override void Update()
     {
         controller.Move(controller.InputX);

@@ -2276,7 +2276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1be70b6087894f44ae060aa4c88e758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  maxHealth: 100
+  maxHealth: 3
   moveSpeed: 10
   jumpForce: 15
   groundCheck: {fileID: 958997583}
@@ -2311,6 +2311,7 @@ MonoBehaviour:
   JumpPressed: 0
   IsDropping: 0
   rb: {fileID: 0}
+  IsDead: 0
 --- !u!114 &2008132271
 MonoBehaviour:
   m_ObjectHideFlags: 0

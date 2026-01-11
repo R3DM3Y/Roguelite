@@ -4,11 +4,6 @@ public class PlayerIdleState : PlayerState
 {
     public PlayerIdleState(PlayerStateMachine sm, PlayerController pc) : base(sm, pc) { }
 
-    public override void Enter()
-    {
-        // Можно добавить анимацию Idle
-    }
-
     public override void Update()
     {
         if (controller.InputX != 0)

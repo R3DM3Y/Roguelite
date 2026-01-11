@@ -19,8 +19,8 @@ public class PlayerAttackHitbox : MonoBehaviour
 
     public void ActivateHitbox()
     {
-        StopAllCoroutines(); // чтобы не было конфликтов при повторном активации
-        hitEnemies.Clear();  // каждый новый удар может поразить врагов заново
+        StopAllCoroutines(); 
+        hitEnemies.Clear();  
         StartCoroutine(HitboxRoutine());
     }
 

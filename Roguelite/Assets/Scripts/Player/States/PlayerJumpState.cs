@@ -17,7 +17,7 @@ public class PlayerJumpState : PlayerState
 
     public override void Update()
     {
-        controller.Move(controller.InputX); // теперь InputX обновляется из PlayerInputController
+        controller.Move(controller.InputX);
 
         if (controller.rb.linearVelocity.y < 0)
         {

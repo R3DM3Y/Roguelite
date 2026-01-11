@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyHitbox : MonoBehaviour
 {
     [Header("Damage Settings")]
-    public int damage = 1; // Урон игроку
+    public int damage = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
