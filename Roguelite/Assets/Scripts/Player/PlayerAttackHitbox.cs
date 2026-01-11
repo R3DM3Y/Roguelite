@@ -34,14 +34,27 @@ public class PlayerAttackHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!hitbox.enabled) return;
-        if (hitEnemies.Contains(collision)) return; // уже ударили этого врага
+        if (hitEnemies.Contains(collision)) return;
 
         EnemyController enemy = collision.GetComponent<EnemyController>();
-        if (enemy != null)
+        if (enemy == null) return;
+
+        if (player.IsAttackingDown)
         {
-            Vector2 hitDir = (enemy.transform.position - player.transform.position).normalized;
-            enemy.TakeDamage(1);
-            hitEnemies.Add(collision);
+            enemy.TakeDamage(player.airDownAttackDamage);
+            player.OnAirDownHitSuccess();
         }
+        else
+        {
+            enemy.TakeDamage(player.normalAttackDamage);
+        }
+
+        hitEnemies.Add(collision);
+    }
+    
+    public void DisableImmediately()
+    {
+        StopAllCoroutines();
+        hitbox.enabled = false;
     }
 }

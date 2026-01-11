@@ -22,6 +22,9 @@ public class PlayerInputController : MonoBehaviour
         _gameInput.Gameplay.Jump.performed += ctx => _player.Jump();
         
         _gameInput.Gameplay.Attack.performed += ctx => _player.StartAttack();
+        
+        _gameInput.Gameplay.AirAttackDown.performed += ctx => _player.StartAirAttackDown();
+
     }
 
     private void Update()
@@ -36,7 +39,6 @@ public class PlayerInputController : MonoBehaviour
         _player.InputX = move.x;
         _player.InputY = move.y;
 
-        // Отслеживаем зажатый S / вниз
         _player.sHeld = move.y < -0.5f;
     }
 

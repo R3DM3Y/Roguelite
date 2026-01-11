@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     public float jumpForce = 7f;
+    
     [Header("Ground Check")]
     public Transform groundCheck;
     public Vector2 groundCheckSize = new Vector2(0.8f, 0.1f);
@@ -35,15 +36,24 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRenderer;      
     public float blinkInterval = 0.1f;         
 
-    private bool isInvulnerable;               
-    private bool isHitLocked = false;          
+    private bool isInvulnerable;
+    [HideInInspector] public bool isHitLocked = false;          
 
     [Header("Attack")]
+    public int normalAttackDamage = 1;
     public PlayerAttackHitbox attackHitbox;
-    [HideInInspector] public bool IsAttacking;
     [HideInInspector] public Animator animator;
     
     [HideInInspector] public bool sHeld;  
+    
+    [Header("Air Down Attack")]
+    public int airDownAttackDamage = 1;
+    public PlayerAttackHitbox airDownHitbox; 
+    [HideInInspector] public bool isAirAttackingDown;
+    public float airDownBounceForce = 6f;
+    
+    [HideInInspector] public bool IsAttackingNormal;
+    [HideInInspector] public bool IsAttackingDown;
     
     private bool facingRight = true;
     [HideInInspector] public float InputX;
@@ -55,6 +65,8 @@ public class PlayerController : MonoBehaviour
 
     private Collider2D playerCollider;
     private bool isDropping = false;
+    
+    private bool airDownHitboxActivated = false;
 
     private void Awake()
     {
@@ -76,14 +88,20 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsGrounded", grounded);
         animator.SetBool("InAir", !grounded);
         animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
-    }
 
+        // Лог
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("AirAttackDown"))
+            Debug.Log("Currently playing AirAttackDown animation");
+    }
+    
     public void TakeDamage(int damage, Vector2 hitDirection)
     {
         if (isInvulnerable) return;
 
         currentHealth -= damage;
         Debug.Log($"Игрок получил {damage} урона, осталось {currentHealth} HP");
+        
+        CancelAllAttacks();
 
         animator.SetTrigger("Hit");
 
@@ -120,7 +138,18 @@ public class PlayerController : MonoBehaviour
         isInvulnerable = false;
         isHitLocked = false; 
     }
+    
+    private void CancelAllAttacks()
+    {
+        IsAttackingNormal = false;
+        IsAttackingDown = false;
 
+        if (attackHitbox != null)
+            attackHitbox.DisableImmediately();
+
+        if (airDownHitbox != null)
+            airDownHitbox.DisableImmediately();
+    }
     
     private void ApplyKnockback(Vector2 direction)
     {
@@ -132,7 +161,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // Удар сбоку
             rb.linearVelocity = new Vector2(
                 Mathf.Sign(direction.x) * knockbackSideForce,
                 knockbackUpForce * 0.5f
@@ -199,6 +227,8 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
+        if (isHitLocked) return;
+        
         if (IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -240,7 +270,6 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-
     private IEnumerator DisableColliderTemporarily()
     {
         isDropping = true;
@@ -253,26 +282,54 @@ public class PlayerController : MonoBehaviour
     
     public void StartAttack()
     {
-        if (IsAttacking) return;
-
-        IsAttacking = true;
-        animator.SetTrigger("Attack"); 
+        if (isHitLocked) return;
+        
+        if (IsAttackingNormal || IsAttackingDown) return; 
+        if (!IsGrounded() && sHeld) return; 
+    
+        IsAttackingNormal = true;
+        animator.SetTrigger("Attack");
     }
-
 
     public void ActivateAttackHitbox()
     {
         attackHitbox.ActivateHitbox();
+        Debug.Log("Normal attack hitbox activated");
     }
 
-    public void EndAttack()
+    public void EndAttackNormal()
     {
-        IsAttacking = false;
+        IsAttackingNormal = false;
+        Debug.Log("Normal attack ended");
     }
     
-    private IEnumerator ResetAttack()
+    public void StartAirAttackDown()
     {
-        yield return new WaitForSeconds(0.6f); 
-        EndAttack();
+        if (isHitLocked) return;
+        
+        if (IsGrounded() || !sHeld || IsAttackingDown) return;
+
+        IsAttackingDown = true;
+        animator.SetTrigger("AirAttackDown");
+    }
+    
+    public void OnAirDownHitSuccess()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, airDownBounceForce);
+    }
+    
+    public void ActivateAirDownHitbox()
+    {
+        if (airDownHitbox != null)
+        {
+            airDownHitbox.ActivateHitbox();
+            Debug.Log("AirDown hitbox activated");
+        }
+    }
+
+    public void EndAttackDown()
+    {
+        IsAttackingDown = false;
+        Debug.Log("AirDown attack ended");
     }
 }
