@@ -5,10 +5,15 @@ using System.Collections.Generic;
 public class PlayerAttackHitbox : MonoBehaviour
 {
     private Collider2D hitbox;
-    private PlayerController player;
+    public PlayerController player;
     private HashSet<Collider2D> hitEnemies = new HashSet<Collider2D>();
 
     public float activeTime = 0.2f;
+    
+    public int Damage =>
+        player.IsAttackingDown
+            ? player.airDownAttackDamage
+            : player.normalAttackDamage;
 
     private void Awake()
     {

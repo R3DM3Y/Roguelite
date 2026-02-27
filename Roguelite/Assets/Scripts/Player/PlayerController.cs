@@ -210,23 +210,26 @@ public class PlayerController : MonoBehaviour
     
     public bool IsTouchingWall(float direction)
     {
-        Vector2 boxSize = new Vector2(0.1f, 1.45f); 
-        Vector2 boxCenter = (Vector2)wallCheck.position + Vector2.right * (direction * (boxSize.x / 2f));
+        RaycastHit2D[] hits = new RaycastHit2D[2];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(wallLayer);
+        filter.useTriggers = false;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(
-            boxCenter,
-            boxSize,
-            0f,
-            wallLayer
+        int count = playerCollider.Cast(
+            Vector2.right * direction,
+            filter,
+            hits,
+            wallCheckDistance
         );
 
-        foreach (var hit in hits)
+        // Игнорируем платформы
+        for (int i = 0; i < count; i++)
         {
-            if (hit.CompareTag("OneWayPlatform")) continue; 
-            return true;
+            if (hits[i].collider.CompareTag("OneWayPlatform"))
+                count--; // не считаем платформу стеной
         }
 
-        return false;
+        return count > 0;
     }
     
     private void Flip()
@@ -281,6 +284,21 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        }
+
+        if (wallCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * wallCheckDistance);
+        }
     }
 
     private IEnumerator DisableColliderTemporarily()

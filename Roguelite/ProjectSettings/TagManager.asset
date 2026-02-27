@@ -18,9 +18,9 @@ TagManager:
   - Platform
   - Player
   - Wall
-  - 
-  - 
-  - 
+  - EnemyAttack
+  - EnemyHurtbox
+  - PlayerAttack
   - 
   - 
   - 

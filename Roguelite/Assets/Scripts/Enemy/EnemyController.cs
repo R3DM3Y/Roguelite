@@ -1,82 +1,207 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Health")]
-    public int maxHealth = 3;
+    #region === SETTINGS ===
 
-    public int currentHealth;
+    [Header("Health")]
+    [SerializeField] private int maxHealth = 3;
 
     [Header("Movement")]
-    public float moveSpeed = 2f;
-    public Transform[] patrolPoints;
-    private int currentPointIndex = 0;
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private Transform[] patrolPoints;
 
     [Header("Ground Check")]
-    public Transform groundCheck;
-    public float groundCheckDistance = 0.2f;
-    public LayerMask groundLayer;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
-    [HideInInspector] public Rigidbody2D rb;
+    [Header("Detection & Attack")]
+    [SerializeField] private float detectionRadius = 5f;
+    [SerializeField] private float attackRange = 1.2f;
+    [SerializeField] private float attackCooldown = 1.5f;
+    [SerializeField] private EnemyAttackHitbox attackHitbox;
+
+    #endregion
+
+    #region === PRIVATE FIELDS ===
+
+    private int currentHealth;
+    private int currentPointIndex;
+
+    private bool canAttack = true;
+    private bool isDead;
     private bool facingRight = true;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private Collider2D col;
+    private Transform player;
+
+    #endregion
+
+    #region === UNITY METHODS ===
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        animator = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
+
         currentHealth = maxHealth;
+    }
+
+    private void Start()
+    {
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+            player = p.transform;
     }
 
     private void FixedUpdate()
     {
-        Patrol();
+        if (isDead || player == null)
+            return;
+
+        if (!IsPlayerInDetectionRange())
+        {
+            Patrol();
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, player.position);
+
+        if (distance > attackRange)
+        {
+            MoveToPlayer();
+        }
+        else if (canAttack)
+        {
+            StartCoroutine(AttackRoutine());
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+            animator.SetBool("IsMoving", false);
+        }
+    }
+
+    #endregion
+
+    #region === MOVEMENT ===
+
+    private void MoveToPlayer()
+    {
+        float dir = Mathf.Sign(player.position.x - transform.position.x);
+
+        rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
+        animator.SetBool("IsMoving", true);
+
+        HandleFlip(dir);
     }
 
     private void Patrol()
     {
-        if (patrolPoints.Length == 0) return;
+        if (patrolPoints == null || patrolPoints.Length == 0)
+            return;
 
-        Transform targetPoint = patrolPoints[currentPointIndex];
-        float direction = Mathf.Sign(targetPoint.position.x - transform.position.x);
+        Transform target = patrolPoints[currentPointIndex];
+        float dir = Mathf.Sign(target.position.x - transform.position.x);
 
-        if (!IsGroundAhead(direction))
+        if (!IsGroundAhead(dir))
         {
             Flip();
             return;
         }
+        
 
-        rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
+        animator.SetBool("IsMoving", true);
 
-        if (Mathf.Abs(transform.position.x - targetPoint.position.x) < 0.1f)
-        {
+        if (Mathf.Abs(transform.position.x - target.position.x) < 0.1f)
             currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
-        }
 
-        if ((direction > 0 && !facingRight) || (direction < 0 && facingRight))
-        {
-            Flip();
-        }
+        HandleFlip(dir);
     }
 
-    private bool IsGroundAhead(float direction)
+    private bool IsGroundAhead(float dir)
     {
-        Vector2 origin = groundCheck.position + Vector3.right * direction * 0.1f;
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance, groundLayer);
-        Debug.DrawRay(origin, Vector2.down * groundCheckDistance, Color.red);
-        return hit.collider != null;
+        if (groundCheck == null)
+            return false;
+
+        Vector2 pos = (Vector2)groundCheck.position + Vector2.right * (dir * 0.2f);
+
+        return Physics2D.OverlapBox(pos, new Vector2(0.3f, 0.15f), 0f, groundLayer);
+    }
+
+    private void HandleFlip(float dir)
+    {
+        if ((dir > 0 && !facingRight) || (dir < 0 && facingRight))
+            Flip();
     }
 
     private void Flip()
     {
         facingRight = !facingRight;
+
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }
 
+    #endregion
+
+    #region === ATTACK ===
+
+    private IEnumerator AttackRoutine()
+    {
+        canAttack = false;
+
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("IsMoving", false);
+
+        FacePlayer();
+        animator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(attackCooldown);
+
+        canAttack = true;
+    }
+
+    public void ActivateAttackHitbox()
+    {
+        if (attackHitbox != null)
+            attackHitbox.Activate();
+    }
+
+    public void DeactivateAttackHitbox()
+    {
+        if (attackHitbox != null)
+            attackHitbox.Deactivate();
+    }
+
+    private void FacePlayer()
+    {
+        if (player == null)
+            return;
+
+        if (player.position.x > transform.position.x && !facingRight)
+            Flip();
+        else if (player.position.x < transform.position.x && facingRight)
+            Flip();
+    }
+
+    #endregion
+
+    #region === HEALTH ===
+
     public void TakeDamage(int damage)
     {
+        if (isDead)
+            return;
+
         currentHealth -= damage;
+        animator.SetTrigger("Hit");
 
         if (currentHealth <= 0)
             Die();
@@ -84,6 +209,36 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
+        isDead = true;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false;
+        col.enabled = false;
+
+        animator.SetBool("IsMoving", false);
+        animator.SetTrigger("Die");
+    }
+
+    public void OnDeathAnimationFinished()
+    {
         Destroy(gameObject);
     }
+
+    #endregion
+
+    #region === DETECTION ===
+
+    private bool IsPlayerInDetectionRange()
+    {
+        if (player == null)
+            return false;
+
+        PlayerController pc = player.GetComponent<PlayerController>();
+        if (pc == null || pc.IsDead)
+            return false;
+
+        return Vector2.Distance(transform.position, player.position) <= detectionRadius;
+    }
+
+    #endregion
 }
