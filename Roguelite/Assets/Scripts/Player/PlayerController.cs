@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.CompareTag("OneWayPlatform") && rb.linearVelocity.y <= 0f)
                 return true;
-        }
+        }   
 
         return false;
     }
