@@ -1408,7 +1408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
       propertyPath: normalAttackDamage
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
       propertyPath: postHitInvulnerableTime
@@ -1484,8 +1484,12 @@ PrefabInstance:
       value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
+      propertyPath: moveSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: flipRadius
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: attackCooldown
