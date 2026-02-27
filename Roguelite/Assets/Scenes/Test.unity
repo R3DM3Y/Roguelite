@@ -1155,6 +1155,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7038979016366557137, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
   m_PrefabInstance: {fileID: 2851362474169041194}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2008132270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+  m_PrefabInstance: {fileID: 2851362474169041194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1be70b6087894f44ae060aa4c88e758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &2011608303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,6 +1330,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4113757096357082074, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: -0.36978704
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113757096357082074, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -0.05448343
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113757096357082074, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.07989016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113757096357082074, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: -0.052424207
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113757096357082074, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: 0.5068367
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113757096357082074, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
+      value: -0.05151496
+      objectReference: {fileID: 0}
     - target: {fileID: 7038979016366557137, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.76
@@ -1362,6 +1397,30 @@ PrefabInstance:
     - target: {fileID: 7114266540879575374, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: jumpForce
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: normalAttackDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378554343634870213, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: postHitInvulnerableTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691611738518767651, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2008132270}
+    - target: {fileID: 7691611738518767651, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+      propertyPath: activeTime
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1419,6 +1478,18 @@ PrefabInstance:
     - target: {fileID: 2726134798369023318, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
+      propertyPath: maxHealth
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
+      propertyPath: flipRadius
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
+      propertyPath: attackCooldown
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 8901663337130743089, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: detectionRadius
