@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 439934740305266016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.14, y: 0.24000013, z: 0}
+  m_LocalPosition: {x: 8.14, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -182,7 +182,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.14325428, y: 0.72206545}
+  m_Offset: {x: -0.14325428, y: 0.7248106}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -192,7 +192,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7916298, y: 1.4481444}
+  m_Size: {x: 0.7916298, y: 1.4426541}
   m_EdgeRadius: 0
 --- !u!114 &8901663337130743089
 MonoBehaviour:
@@ -206,8 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf86ffdbd39db44da31c5b8f2ce49b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  maxHealth: 15
-  moveSpeed: 2
+  stats: {fileID: 11400000, guid: b80da4b9e20fdc948b6fee6aa065949a, type: 2}
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -215,9 +214,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  detectionRadius: 10
-  attackRange: 1.2
-  attackCooldown: 1.5
   attackHitbox: {fileID: 4056391480176551262}
 --- !u!1 &1707646086277152723
 GameObject:
@@ -317,7 +313,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.11617589, y: 0.7107241}
+  m_Offset: {x: -0.11863923, y: 0.7176401}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -327,7 +323,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.90432596, y: 1.4510365}
+  m_Size: {x: 0.83042765, y: 1.4372045}
   m_EdgeRadius: 0
 --- !u!114 &4012581961460152407
 MonoBehaviour:
@@ -506,7 +502,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.14653444, y: 0.71823895}
+  m_Offset: {x: -0.14653444, y: 0.71996796}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -516,7 +512,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7937517, y: 1.4425337}
+  m_Size: {x: 0.7937517, y: 1.4390757}
   m_EdgeRadius: 0
 --- !u!114 &1948505196405607599
 MonoBehaviour:

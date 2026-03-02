@@ -10,6 +10,11 @@ public class EnemyAttackHitbox : MonoBehaviour
         hitbox = GetComponent<Collider2D>();
         hitbox.enabled = false;
     }
+    
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
 
     public void Activate()
     {

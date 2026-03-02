@@ -3,27 +3,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    #region === SETTINGS ===
+    #region === REFERENCES ===
 
-    [Header("Health")]
-    [SerializeField] private int maxHealth = 3;
-
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private EnemyStats stats;
     [SerializeField] private Transform[] patrolPoints;
-
-    [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-
-    [Header("Detection & Attack")]
-    [SerializeField] private float detectionRadius = 5f;
-    [SerializeField] private float attackRange = 1.2f;
-    [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private EnemyAttackHitbox attackHitbox;
-
-    [Header("Flip Settings")]
-    [SerializeField] private float flipRadius = 0.5f; // горизонтальный радиус для разворота на игрока
 
     #endregion
 
@@ -43,18 +29,19 @@ public class EnemyController : MonoBehaviour
 
     #endregion
 
-    #region === UNITY METHODS ===
+    #region === UNITY ===
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
-        currentHealth = maxHealth;
     }
 
     private void Start()
     {
+        currentHealth = stats.maxHealth;
+
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null)
             player = p.transform;
@@ -65,40 +52,38 @@ public class EnemyController : MonoBehaviour
         if (isDead || player == null)
             return;
 
-        // Считаем расстояние до игрока
+        float distance = Vector2.Distance(transform.position, player.position);
         float distanceX = Mathf.Abs(player.position.x - transform.position.x);
         float distanceY = player.position.y - transform.position.y;
 
-        bool playerInRange = IsPlayerInDetectionRange();
+        bool playerInRange = distance <= stats.detectionRadius;
 
         if (!playerInRange)
         {
-            // Если игрок вне радиуса — патрулируем
-            Patrol();
+            if (stats.canPatrol)
+                Patrol();
             return;
         }
 
-        // Если игрок слишком высоко над врагом и почти сверху → враг не двигается
-        if (distanceY > 1.5f && distanceX < 0.5f)
+        // Если игрок слишком высоко и враг должен останавливаться
+        if (stats.stopIfPlayerAbove &&
+            distanceY > stats.stopAboveHeight &&
+            distanceX < 0.5f)
         {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            animator.SetBool("IsMoving", false);
+            StopMoving();
             return;
         }
 
-        // Двигаемся к игроку только по горизонтали
-        if (distanceX > attackRange)
+        if (distanceX > stats.attackRange)
         {
             MoveToPlayer();
         }
         else
         {
-            // Останавливаемся при достижении диапазона атаки
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            animator.SetBool("IsMoving", false);
+            StopMoving();
 
-            // Атакуем только если игрок "доступен" по вертикали
-            if (canAttack && distanceY <= 1f)
+            if (canAttack &&
+                Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
             {
                 StartCoroutine(AttackRoutine());
             }
@@ -111,23 +96,12 @@ public class EnemyController : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        if (player == null) return;
-
         float dir = Mathf.Sign(player.position.x - transform.position.x);
 
-        // Не подходить ближе, чем радиус атаки
-        float distanceX = Mathf.Abs(player.position.x - transform.position.x);
-        if (distanceX < attackRange)
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            animator.SetBool("IsMoving", false);
-            return;
-        }
-
-        rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
         animator.SetBool("IsMoving", true);
 
-        HandleFlip(dir);
+        HandleFlipToPlayer();
     }
 
     private void Patrol()
@@ -144,14 +118,19 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
         animator.SetBool("IsMoving", true);
 
         if (Mathf.Abs(transform.position.x - target.position.x) < 0.1f)
             currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
 
-        // Патруль не зависит от игрока
         HandleFlip(dir);
+    }
+
+    private void StopMoving()
+    {
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        animator.SetBool("IsMoving", false);
     }
 
     private bool IsGroundAhead(float dir)
@@ -163,6 +142,10 @@ public class EnemyController : MonoBehaviour
         return Physics2D.OverlapBox(pos, new Vector2(0.3f, 0.15f), 0f, groundLayer);
     }
 
+    #endregion
+
+    #region === FLIP ===
+
     private void HandleFlip(float dir)
     {
         if ((dir > 0 && !facingRight) || (dir < 0 && facingRight))
@@ -171,19 +154,16 @@ public class EnemyController : MonoBehaviour
 
     private void HandleFlipToPlayer()
     {
-        if (player == null) return;
-
         float horizontalDistance = player.position.x - transform.position.x;
 
-        // Если игрок слишком близко по горизонтали — не переворачиваем
-        if (Mathf.Abs(horizontalDistance) < flipRadius) 
+        if (Mathf.Abs(horizontalDistance) < stats.flipRadius)
             return;
 
-        // Переворачиваем только если игрок слева/справа за пределами радиуса
-        if (horizontalDistance > 0 && !facingRight)
+        if ((horizontalDistance > 0 && !facingRight) ||
+            (horizontalDistance < 0 && facingRight))
+        {
             Flip();
-        else if (horizontalDistance < 0 && facingRight)
-            Flip();
+        }
     }
 
     private void Flip()
@@ -203,13 +183,11 @@ public class EnemyController : MonoBehaviour
     {
         canAttack = false;
 
-        rb.linearVelocity = Vector2.zero;
-        animator.SetBool("IsMoving", false);
-
+        StopMoving();
         FacePlayer();
         animator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(stats.attackCooldown);
 
         canAttack = true;
     }
@@ -217,7 +195,10 @@ public class EnemyController : MonoBehaviour
     public void ActivateAttackHitbox()
     {
         if (attackHitbox != null)
+        {
+            attackHitbox.SetDamage(stats.attackDamage);
             attackHitbox.Activate();
+        }
     }
 
     public void DeactivateAttackHitbox()
@@ -231,10 +212,11 @@ public class EnemyController : MonoBehaviour
         if (player == null)
             return;
 
-        if (player.position.x > transform.position.x && !facingRight)
+        if ((player.position.x > transform.position.x && !facingRight) ||
+            (player.position.x < transform.position.x && facingRight))
+        {
             Flip();
-        else if (player.position.x < transform.position.x && facingRight)
-            Flip();
+        }
     }
 
     #endregion
@@ -257,14 +239,12 @@ public class EnemyController : MonoBehaviour
     {
         isDead = true;
 
-        rb.linearVelocity = Vector2.zero;
+        StopMoving();
         rb.simulated = false;
         col.enabled = false;
 
-        animator.SetBool("IsMoving", false);
         animator.SetTrigger("Die");
 
-        // Удаляем точки патрулирования, если они есть
         if (patrolPoints != null)
         {
             foreach (var point in patrolPoints)
@@ -278,22 +258,6 @@ public class EnemyController : MonoBehaviour
     public void OnDeathAnimationFinished()
     {
         Destroy(gameObject);
-    }
-
-    #endregion
-
-    #region === DETECTION ===
-
-    private bool IsPlayerInDetectionRange()
-    {
-        if (player == null)
-            return false;
-
-        PlayerController pc = player.GetComponent<PlayerController>();
-        if (pc == null || pc.IsDead)
-            return false;
-
-        return Vector2.Distance(transform.position, player.position) <= detectionRadius;
     }
 
     #endregion
