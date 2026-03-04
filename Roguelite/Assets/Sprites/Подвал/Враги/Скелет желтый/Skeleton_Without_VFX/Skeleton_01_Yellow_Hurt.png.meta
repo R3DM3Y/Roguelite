@@ -49,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +87,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -141,12 +141,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Hurt_0
       rect:
         serializedVersion: 2
-        x: 33
+        x: 34
         y: 0
-        width: 36
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 34
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,12 +163,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Hurt_1
       rect:
         serializedVersion: 2
-        x: 125
+        x: 126
         y: 0
-        width: 29
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 27
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,12 +185,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Hurt_2
       rect:
         serializedVersion: 2
-        x: 223
+        x: 224
         y: 0
-        width: 28
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 26
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,12 +207,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Hurt_3
       rect:
         serializedVersion: 2
-        x: 321
+        x: 322
         y: 0
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 32
+        height: 45
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -229,12 +229,12 @@ TextureImporter:
       name: Skeleton_01_Yellow_Hurt_4
       rect:
         serializedVersion: 2
-        x: 417
+        x: 418
         y: 0
-        width: 36
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 34
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -251,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5340c303a865ae14a8ec2f944a5826c8
     internalID: 0
     vertices: []
     indices: 
@@ -259,7 +259,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Skeleton_01_Yellow_Hurt_0: 6446044657564510885
       Skeleton_01_Yellow_Hurt_1: -1459965815020425431
