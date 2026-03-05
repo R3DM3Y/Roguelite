@@ -188,26 +188,28 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float x)
     {
-        if (IsDead || isHitLocked) return;
-
+        if (IsDead || isHitLocked) return; 
         float moveX = x;
-
+        
         if (Mathf.Abs(x) > 0.01f)
         {
-            float dir = Mathf.Sign(x);
-
-            if (IsTouchingWall(dir))
-            {
-                moveX = 0;
-            }
-        }
-
+            float dir = Mathf.Sign(x); if (IsTouchingWall(dir)) { moveX = 0; } 
+            
+        } 
+        
         rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
 
-        if (moveX > 0 && !facingRight) Flip();
-        else if (moveX < 0 && facingRight) Flip();
+        if (moveX > 0 && !facingRight)
+        {
+            Flip();
+        } 
+        else if (moveX < 0 && facingRight)
+        {
+            Flip();
+        } 
+        
     }
-    
+
     public bool IsTouchingWall(float direction)
     {
         RaycastHit2D[] hits = new RaycastHit2D[2];

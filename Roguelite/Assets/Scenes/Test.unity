@@ -1175,9 +1175,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 640729573377478610, guid: a3274117d9c726744abd07e3c1aa1b51, type: 3}
+      propertyPath: hoverSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 643881013118105533, guid: a3274117d9c726744abd07e3c1aa1b51, type: 3}
       propertyPath: m_Name
       value: Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 643881013118105533, guid: a3274117d9c726744abd07e3c1aa1b51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5231655362267294820, guid: a3274117d9c726744abd07e3c1aa1b51, type: 3}
       propertyPath: m_SortingLayer
@@ -1193,7 +1201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5684674982923419243, guid: a3274117d9c726744abd07e3c1aa1b51, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32.4
+      value: 11.32
       objectReference: {fileID: 0}
     - target: {fileID: 5684674982923419243, guid: a3274117d9c726744abd07e3c1aa1b51, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5181,6 +5189,10 @@ PrefabInstance:
     - target: {fileID: 7109242209476661193, guid: e46c524b2c505484abaaa1e5e87e3c9c, type: 3}
       propertyPath: m_Name
       value: YellowSkeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109242209476661193, guid: e46c524b2c505484abaaa1e5e87e3c9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10462,6 +10474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WhiteSkeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 439934740305266016, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2009768868067602682, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -10484,7 +10500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2726134798369023318, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2726134798369023318, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11404,6 +11420,10 @@ PrefabInstance:
     - target: {fileID: 6914282762887645105, guid: b27ef0fcad56013448818edf79bcadc7, type: 3}
       propertyPath: m_Name
       value: Goblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914282762887645105, guid: b27ef0fcad56013448818edf79bcadc7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

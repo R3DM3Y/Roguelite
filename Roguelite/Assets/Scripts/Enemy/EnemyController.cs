@@ -13,11 +13,7 @@ public class EnemyController : MonoBehaviour
     
     private float orbitAngle;
     private bool isDashing;
-
-    [SerializeField] private float hoverRadius = 2f;
-    [SerializeField] private float hoverSpeed = 2f;
-    [SerializeField] private float dashSpeedMultiplier = 4f;
-    [SerializeField] private float dashDuration = 0.4f;
+    
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
 
@@ -36,6 +32,8 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     private Collider2D col;
     private Transform player;
+    
+    public EnemyStats Stats => stats;
 
     #endregion
 
@@ -72,41 +70,53 @@ public class EnemyController : MonoBehaviour
         }
     }
     
+    private float patrolTargetX;
+    private bool movingRight = true;
+
     private void HandleGroundEnemy()
     {
-        float distance = Vector2.Distance(transform.position, player.position);
         float distanceX = Mathf.Abs(player.position.x - transform.position.x);
         float distanceY = player.position.y - transform.position.y;
+        bool playerAbove = distanceY > stats.stopAboveHeight;
 
-        bool playerInRange = distance <= stats.detectionRadius;
-
-        if (!playerInRange)
+        // Если игрок не в зоне обнаружения — патрулируем
+        if (Vector2.Distance(transform.position, player.position) > stats.detectionRadius)
         {
-            if (stats.canPatrol)
-                Patrol();
+            Patrol();
             return;
         }
 
-        if (stats.stopIfPlayerAbove &&
-            distanceY > stats.stopAboveHeight &&
-            distanceX < 0.5f)
+        if (playerAbove)
         {
-            StopMoving();
-            return;
-        }
+            // Игрок в воздухе — враг идёт под ним с плавным колебанием
+            float orbitOffset = Mathf.Sin(Time.time * 1.5f) * stats.aboveOffsetRange;
+            float patrolTargetX = player.position.x + orbitOffset;
 
-        if (distanceX > stats.attackRange)
-        {
-            MoveToPlayer();
+            float dir = Mathf.Sign(patrolTargetX - transform.position.x);
+
+            // Двигаемся через velocity, чтобы физика работала корректно
+            rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
+
+            // Анимация движения
+            animator.SetBool("IsMoving", Mathf.Abs(rb.linearVelocity.x) > 0.01f);
+
+            // Поворот только если направление изменилось
+            if ((dir > 0 && !facingRight) || (dir < 0 && facingRight))
+                Flip();
         }
         else
         {
-            StopMoving();
-
-            if (canAttack &&
-                Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
+            // Игрок на земле — стандартное поведение
+            if (distanceX > stats.attackRange)
             {
-                StartCoroutine(AttackRoutine());
+                MoveToPlayer();
+            }
+            else
+            {
+                StopMoving();
+
+                if (canAttack && Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
+                    StartCoroutine(AttackRoutine());
             }
         }
     }
@@ -115,6 +125,26 @@ public class EnemyController : MonoBehaviour
     {
         if (player == null) return;
 
+        float distance = Vector2.Distance(transform.position, player.position);
+
+        // Игрок слишком далеко — призрак просто висит
+        if (distance > stats.detectionRadius)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        // Подлет к игроку
+        if (distance > stats.hoverRadius)
+        {
+            Vector2 dir = (player.position - transform.position).normalized;
+            rb.linearVelocity = dir * stats.approachSpeed;
+
+            FacePlayer();
+            return;
+        }
+
+        // Кружение вокруг игрока
         if (!isDashing)
         {
             OrbitAroundPlayer();
@@ -141,21 +171,28 @@ public class EnemyController : MonoBehaviour
             return;
 
         Transform target = patrolPoints[currentPointIndex];
-        float dir = Mathf.Sign(target.position.x - transform.position.x);
+        Vector2 direction = (target.position - transform.position);
 
-        if (!IsGroundAhead(dir))
-        {
+        // Добавляем небольшую корректировку по Y, чтобы не застревать
+        float stepY = Mathf.Clamp(direction.y, -0.05f, 0.05f);
+
+        // Нормализуем по горизонтали, чтобы движение было ровное
+        Vector2 moveDir = new Vector2(Mathf.Sign(direction.x), stepY);
+
+        // Плавное движение к цели
+        Vector2 newPos = rb.position + moveDir * stats.moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPos);
+
+        // Анимация движения
+        animator.SetBool("IsMoving", Mathf.Abs(direction.x) > 0.05f);
+
+        // Поворот только если направление изменилось
+        if ((moveDir.x > 0 && !facingRight) || (moveDir.x < 0 && facingRight))
             Flip();
-            return;
-        }
 
-        rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
-        animator.SetBool("IsMoving", true);
-
-        if (Mathf.Abs(transform.position.x - target.position.x) < 0.1f)
+        // Проверка, достигли ли точки
+        if (Vector2.Distance(transform.position, target.position) < 0.1f)
             currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
-
-        HandleFlip(dir);
     }
 
     private void StopMoving()
@@ -175,20 +212,33 @@ public class EnemyController : MonoBehaviour
     
     private void OrbitAroundPlayer()
     {
-        orbitAngle += hoverSpeed * Time.fixedDeltaTime;
+        orbitAngle += stats.orbitSpeed * Time.fixedDeltaTime;
 
-        float x = Mathf.Cos(orbitAngle) * hoverRadius;
-        float y = Mathf.Sin(orbitAngle) * hoverRadius;
+        float x = Mathf.Cos(orbitAngle) * stats.hoverRadius;
+        float y = Mathf.Sin(orbitAngle) * stats.hoverRadius;
+
+        y += Mathf.Sin(Time.time * 2f) * stats.orbitHeightVariation;
 
         Vector2 orbitPosition = (Vector2)player.position + new Vector2(x, y);
 
-        Vector2 moveDir = (orbitPosition - (Vector2)transform.position);
-        rb.linearVelocity = moveDir * 5f; // скорость возврата на орбиту
+        Vector2 moveDir = orbitPosition - (Vector2)transform.position;
+
+        if (moveDir.magnitude > 0.05f)
+        {
+            rb.linearVelocity = moveDir.normalized * stats.returnToOrbitSpeed;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+        
+        Vector2 targetVelocity = moveDir.normalized * stats.returnToOrbitSpeed;
+
+        rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 5f * Time.fixedDeltaTime);
 
         FacePlayer();
 
-        // Рандомный момент для дэша
-        if (Random.value < 0.005f)
+        if (Random.value < stats.dashChance)
         {
             StartCoroutine(DashRoutine());
         }
@@ -199,9 +249,10 @@ public class EnemyController : MonoBehaviour
         isDashing = true;
 
         Vector2 dashDir = (player.position - transform.position).normalized;
-        rb.linearVelocity = dashDir * hoverSpeed * dashSpeedMultiplier;
 
-        yield return new WaitForSeconds(dashDuration);
+        rb.linearVelocity = dashDir * (stats.moveSpeed * stats.dashMultiplier);
+
+        yield return new WaitForSeconds(stats.dashDuration);
 
         isDashing = false;
     }

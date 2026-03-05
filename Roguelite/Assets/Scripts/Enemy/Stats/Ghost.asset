@@ -12,17 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bb42ca59b04b73b488f5619cd80bb3, type: 3}
   m_Name: Ghost
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
+  movementType: 1
   maxHealth: 3
-  moveSpeed: 5
-  detectionRadius: 10
+  detectionRadius: 8
+  moveSpeed: 10
+  flipRadius: 0.5
+  contactDamage: 1
   attackRange: 1.2
   attackCooldown: 1.5
   attackDamage: 1
   verticalAttackTolerance: 1
-  canPatrol: 1
-  stopIfPlayerAbove: 1
+  canPatrol: 0
   stopAboveHeight: 1.5
-  flipRadius: 0.5
-  movementType: 1
-  flyingDashMultiplier: 3
-  flyingHoverDistance: 2
+  aboveOffsetRange: 1.5
+  hoverRadius: 4
+  approachSpeed: 8
+  orbitSpeed: 4
+  dashMultiplier: 3
+  dashDuration: 0.35
+  dashChance: 0.003
+  orbitHeightVariation: 0.5
+  returnToOrbitSpeed: 8
