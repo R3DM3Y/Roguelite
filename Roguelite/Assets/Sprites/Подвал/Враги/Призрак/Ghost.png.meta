@@ -138,12 +138,12 @@ TextureImporter:
       name: Ghost_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 8
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 9
+        y: 9
+        width: 15
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -160,12 +160,12 @@ TextureImporter:
       name: Ghost_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 9
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 41
+        y: 10
+        width: 15
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -182,12 +182,12 @@ TextureImporter:
       name: Ghost_2
       rect:
         serializedVersion: 2
-        x: 72
-        y: 9
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 73
+        y: 10
+        width: 15
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -204,12 +204,12 @@ TextureImporter:
       name: Ghost_3
       rect:
         serializedVersion: 2
-        x: 104
-        y: 8
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 105
+        y: 9
+        width: 15
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -226,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fcd7da4edb7ab764193af4fc4fac2fad
     internalID: 0
     vertices: []
     indices: 
@@ -234,7 +234,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Ghost_0: -5899927303015767666
       Ghost_1: 6824852377700625651

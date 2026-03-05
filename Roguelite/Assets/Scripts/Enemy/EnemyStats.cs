@@ -25,4 +25,16 @@ public class EnemyStats : ScriptableObject
 
     [Header("Flip")]
     public float flipRadius = 0.5f;
+    
+    public enum MovementType
+    {
+        Ground,
+        Flying
+    }
+
+    [Header("Movement Type")]
+    public MovementType movementType = MovementType.Ground;
+    
+    public float flyingDashMultiplier = 3f;
+    public float flyingHoverDistance = 2f;
 }

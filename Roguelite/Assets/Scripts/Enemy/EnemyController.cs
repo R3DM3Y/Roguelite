@@ -10,6 +10,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private EnemyAttackHitbox attackHitbox;
+    
+    private float orbitAngle;
+    private bool isDashing;
+
+    [SerializeField] private float hoverRadius = 2f;
+    [SerializeField] private float hoverSpeed = 2f;
+    [SerializeField] private float dashSpeedMultiplier = 4f;
+    [SerializeField] private float dashDuration = 0.4f;
+    [SerializeField] private Vector2 minBounds;
+    [SerializeField] private Vector2 maxBounds;
 
     #endregion
 
@@ -52,6 +62,18 @@ public class EnemyController : MonoBehaviour
         if (isDead || player == null)
             return;
 
+        if (stats.movementType == EnemyStats.MovementType.Ground)
+        {
+            HandleGroundEnemy();
+        }
+        else if (stats.movementType == EnemyStats.MovementType.Flying)
+        {
+            HandleFlyingEnemy();
+        }
+    }
+    
+    private void HandleGroundEnemy()
+    {
         float distance = Vector2.Distance(transform.position, player.position);
         float distanceX = Mathf.Abs(player.position.x - transform.position.x);
         float distanceY = player.position.y - transform.position.y;
@@ -65,7 +87,6 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        // Если игрок слишком высоко и враг должен останавливаться
         if (stats.stopIfPlayerAbove &&
             distanceY > stats.stopAboveHeight &&
             distanceX < 0.5f)
@@ -87,6 +108,16 @@ public class EnemyController : MonoBehaviour
             {
                 StartCoroutine(AttackRoutine());
             }
+        }
+    }
+    
+    private void HandleFlyingEnemy()
+    {
+        if (player == null) return;
+
+        if (!isDashing)
+        {
+            OrbitAroundPlayer();
         }
     }
 
@@ -140,6 +171,52 @@ public class EnemyController : MonoBehaviour
 
         Vector2 pos = (Vector2)groundCheck.position + Vector2.right * (dir * 0.2f);
         return Physics2D.OverlapBox(pos, new Vector2(0.3f, 0.15f), 0f, groundLayer);
+    }
+    
+    private void OrbitAroundPlayer()
+    {
+        orbitAngle += hoverSpeed * Time.fixedDeltaTime;
+
+        float x = Mathf.Cos(orbitAngle) * hoverRadius;
+        float y = Mathf.Sin(orbitAngle) * hoverRadius;
+
+        Vector2 orbitPosition = (Vector2)player.position + new Vector2(x, y);
+
+        Vector2 moveDir = (orbitPosition - (Vector2)transform.position);
+        rb.linearVelocity = moveDir * 5f; // скорость возврата на орбиту
+
+        FacePlayer();
+
+        // Рандомный момент для дэша
+        if (Random.value < 0.005f)
+        {
+            StartCoroutine(DashRoutine());
+        }
+    }
+    
+    private IEnumerator DashRoutine()
+    {
+        isDashing = true;
+
+        Vector2 dashDir = (player.position - transform.position).normalized;
+        rb.linearVelocity = dashDir * hoverSpeed * dashSpeedMultiplier;
+
+        yield return new WaitForSeconds(dashDuration);
+
+        isDashing = false;
+    }
+
+    public void FacePlayer()
+    {
+        if (player == null) return;
+
+        float dir = player.position.x - transform.position.x;
+
+        if ((dir > 0 && !facingRight) ||
+            (dir < 0 && facingRight))
+        {
+            Flip();
+        }
     }
 
     #endregion
@@ -205,18 +282,6 @@ public class EnemyController : MonoBehaviour
     {
         if (attackHitbox != null)
             attackHitbox.Deactivate();
-    }
-
-    private void FacePlayer()
-    {
-        if (player == null)
-            return;
-
-        if ((player.position.x > transform.position.x && !facingRight) ||
-            (player.position.x < transform.position.x && facingRight))
-        {
-            Flip();
-        }
     }
 
     #endregion

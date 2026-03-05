@@ -44,5 +44,29 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2197739395
+    locked: 0
+  - name: EnvironmentBack
+    uniqueID: 2528928117
+    locked: 0
+  - name: Environment
+    uniqueID: 2167507925
+    locked: 0
+  - name: Player
+    uniqueID: 2689239925
+    locked: 0
+  - name: Enemies
+    uniqueID: 32409131
+    locked: 0
+  - name: Effects
+    uniqueID: 332683953
+    locked: 0
+  - name: Foreground
+    uniqueID: 2934879631
+    locked: 0
+  - name: UI
+    uniqueID: 3137749979
+    locked: 0
   m_RenderingLayers:
   - Default
