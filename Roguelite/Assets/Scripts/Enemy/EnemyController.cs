@@ -75,49 +75,51 @@ public class EnemyController : MonoBehaviour
 
     private void HandleGroundEnemy()
     {
+        float distance = Vector2.Distance(transform.position, player.position);
         float distanceX = Mathf.Abs(player.position.x - transform.position.x);
         float distanceY = player.position.y - transform.position.y;
+
         bool playerAbove = distanceY > stats.stopAboveHeight;
 
-        // Если игрок не в зоне обнаружения — патрулируем
-        if (Vector2.Distance(transform.position, player.position) > stats.detectionRadius)
+        // Игрок вне зоны
+        if (distance > stats.detectionRadius)
         {
             Patrol();
             return;
         }
 
+        // Игрок сверху
         if (playerAbove)
         {
-            // Игрок в воздухе — враг идёт под ним с плавным колебанием
-            float orbitOffset = Mathf.Sin(Time.time * 1.5f) * stats.aboveOffsetRange;
-            float patrolTargetX = player.position.x + orbitOffset;
+            float leftPoint = player.position.x - stats.aboveOffsetRange;
+            float rightPoint = player.position.x + stats.aboveOffsetRange;
 
-            float dir = Mathf.Sign(patrolTargetX - transform.position.x);
+            float dir = facingRight ? 1f : -1f;
 
-            // Двигаемся через velocity, чтобы физика работала корректно
             rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
+            animator.SetBool("IsMoving", true);
 
-            // Анимация движения
-            animator.SetBool("IsMoving", Mathf.Abs(rb.linearVelocity.x) > 0.01f);
-
-            // Поворот только если направление изменилось
-            if ((dir > 0 && !facingRight) || (dir < 0 && facingRight))
+            // Мгновенный разворот у края маршрута
+            if (transform.position.x >= rightPoint && facingRight)
                 Flip();
+
+            else if (transform.position.x <= leftPoint && !facingRight)
+                Flip();
+
+            return;
+        }
+
+        // Игрок на земле
+        if (distanceX > stats.attackRange)
+        {
+            MoveToPlayer();
         }
         else
         {
-            // Игрок на земле — стандартное поведение
-            if (distanceX > stats.attackRange)
-            {
-                MoveToPlayer();
-            }
-            else
-            {
-                StopMoving();
+            StopMoving();
 
-                if (canAttack && Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
-                    StartCoroutine(AttackRoutine());
-            }
+            if (canAttack && Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
+                StartCoroutine(AttackRoutine());
         }
     }
     
