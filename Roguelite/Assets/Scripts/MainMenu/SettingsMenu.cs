@@ -228,10 +228,12 @@ public class SettingsMenu : MonoBehaviour
         {
             case 0:
                 music = Mathf.Clamp(music + dir * 5, 0, 100);
+                AudioManager.Instance.SetMusicVolume(music / 100f);
                 break;
 
             case 1:
                 sfx = Mathf.Clamp(sfx + dir * 5, 0, 100);
+                AudioManager.Instance.SetSFXVolume(sfx / 100f);
                 break;
 
             case 2:
@@ -278,6 +280,9 @@ public class SettingsMenu : MonoBehaviour
         savedQuality = quality;
         savedFullscreen = fullscreen;
         savedLanguage = language;
+        
+        AudioManager.Instance.SetMusicVolume(music / 100f);
+        AudioManager.Instance.SetSFXVolume(sfx / 100f);
     }
 
     private void SaveSettings()
