@@ -58,6 +58,7 @@ public class SettingsMenu : MonoBehaviour
     private readonly string[] resolutions = { "1280x720", "1600x900", "1920x1080" };
     private readonly string[] qualities = { "Low", "Normal", "High" };
     private readonly string[] languages = { "English", "Русский" };
+    
 
     // ======================================================
     // START
@@ -238,20 +239,43 @@ public class SettingsMenu : MonoBehaviour
 
             case 2:
                 res = Wrap(res + dir, resolutions.Length);
+                ApplyResolution();
                 break;
 
             case 3:
                 quality = Wrap(quality + dir, qualities.Length);
+                QualitySettings.SetQualityLevel(quality);
+                Debug.Log("QUALITY → " + QualitySettings.names[quality]);
                 break;
 
             case 4:
                 fullscreen = !fullscreen;
+                Screen.fullScreen = fullscreen;
+                Debug.Log("FULLSCREEN → " + Screen.fullScreen);
                 break;
 
             case 6:
                 language = Wrap(language + dir, languages.Length);
                 break;
         }
+    }
+    
+    void ApplyResolution()
+    {
+        int width = 0;
+        int height = 0;
+
+        switch (res)
+        {
+            case 0: width = 1280; height = 720; break;
+            case 1: width = 1600; height = 900; break;
+            case 2: width = 1920; height = 1080; break;
+        }
+
+        Screen.SetResolution(width, height, fullscreen);
+
+        Debug.Log($"RESOLUTION SET → {width}x{height} | Fullscreen: {fullscreen}");
+        Debug.Log($"CURRENT → {Screen.width}x{Screen.height} | Fullscreen: {Screen.fullScreen}");
     }
 
     private int Wrap(int value, int max)
@@ -283,6 +307,9 @@ public class SettingsMenu : MonoBehaviour
         
         AudioManager.Instance.SetMusicVolume(music / 100f);
         AudioManager.Instance.SetSFXVolume(sfx / 100f);
+        ApplyResolution();
+        QualitySettings.SetQualityLevel(quality);
+        Screen.fullScreen = fullscreen;
     }
 
     private void SaveSettings()
