@@ -20,6 +20,13 @@ public class PlayerInputController : MonoBehaviour
         _gameInput.Gameplay.Attack.performed += ctx => _player.StartAttack();
         
         _gameInput.Gameplay.AirAttackDown.performed += ctx => _player.StartAirAttackDown();
+        
+        _gameInput.Gameplay.Shield.performed += ctx =>
+        {
+            if (!_player.stamina.IsEmpty)
+                _player.StartShield();
+        };
+        _gameInput.Gameplay.Shield.canceled += ctx => _player.StopShield();
 
     }
 

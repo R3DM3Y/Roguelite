@@ -14,6 +14,15 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpForce = 7f;
     
+    [Header("Shield")]
+    public float shieldMoveSpeedMultiplier = 0.4f;
+    public bool isShielding;
+    public float shieldDrainPerSecond = 20f;
+    public float shieldHitDrain = 15f;
+    public float damageReduction = 0.6f;
+
+    public PlayerStamina stamina;
+    
     [Header("Ground Check")]
     public Transform groundCheck;
     public Vector2 groundCheckSize = new Vector2(0.8f, 0.1f);
@@ -67,6 +76,9 @@ public class PlayerController : MonoBehaviour
     private bool isDropping = false;
     
     private bool airDownHitboxActivated = false;
+    
+    public int CurrentHealth => currentHealth;
+    public System.Action OnHealthChanged;
 
     private void Awake()
     {
@@ -74,13 +86,25 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
-        
+        stamina = GetComponent<PlayerStamina>();
     }
 
     private void Update()
     {
         if (IsDead) return;
         UpdateAnimations();
+        
+        if (isShielding)
+        {
+            if (stamina.IsEmpty)
+            {
+                StopShield();
+            }
+            else
+            {
+                stamina.Use(shieldDrainPerSecond * Time.deltaTime);
+            }
+        }
     }
 
     private void UpdateAnimations()
@@ -95,7 +119,20 @@ public class PlayerController : MonoBehaviour
     {
         if (IsDead || isInvulnerable) return;
 
+        if (isShielding)
+        {
+            stamina.Use(shieldHitDrain);
+
+            damage = Mathf.CeilToInt(damage * (1f - damageReduction));
+
+            if (stamina.IsEmpty)
+            {
+                StopShield();
+            }
+        }
+
         currentHealth -= damage;
+        OnHealthChanged?.Invoke();
         
         CancelAllAttacks();
 
@@ -197,7 +234,14 @@ public class PlayerController : MonoBehaviour
             
         } 
         
-        rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
+        float speed = moveSpeed;
+
+        if (isShielding)
+        {
+            speed *= shieldMoveSpeedMultiplier;
+        }
+
+        rb.linearVelocity = new Vector2(moveX * speed, rb.linearVelocity.y);
 
         if (moveX > 0 && !facingRight)
         {
@@ -358,5 +402,20 @@ public class PlayerController : MonoBehaviour
     public void EndAttackDown()
     {
         IsAttackingDown = false;
+    }
+    
+    public void StartShield()
+    {
+        if (IsDead) return;
+        if (stamina.IsEmpty) return;
+
+        isShielding = true;
+        animator.SetBool("Shield", true);
+    }
+
+    public void StopShield()
+    {
+        isShielding = false;
+        animator.SetBool("Shield", false);
     }
 }

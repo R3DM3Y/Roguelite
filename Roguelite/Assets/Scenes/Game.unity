@@ -613,8 +613,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -752.54736, y: 378.8634}
-  m_SizeDelta: {x: 113.985, y: 83.9211}
+  m_AnchoredPosition: {x: -781.07104, y: 407.83313}
+  m_SizeDelta: {x: 98.3127, y: 81.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &163066487
 MonoBehaviour:
@@ -1584,8 +1584,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 771, y: 341.62598}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: 791, y: 410}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &440446528
 MonoBehaviour:
@@ -1600,14 +1600,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.68235296}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4804446361586417100, guid: 1e0f21fd215199d44854c68a57d2c186, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: fd34e7fbcd67fee42a0d9cd833897ef3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1797,8 +1797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -724.37756, y: 389.44226}
-  m_SizeDelta: {x: 163.91089, y: 37.9158}
+  m_AnchoredPosition: {x: -756.7744, y: 420.25134}
+  m_SizeDelta: {x: 127.6245, y: 36.7421}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &448770991
 MonoBehaviour:
@@ -1872,8 +1872,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -724.37756, y: 389.44226}
-  m_SizeDelta: {x: 163.91089, y: 37.9158}
+  m_AnchoredPosition: {x: -756.7744, y: 418.08453}
+  m_SizeDelta: {x: 127.6245, y: 36.7421}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &468732263
 MonoBehaviour:
@@ -2067,8 +2067,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -887, y: 239}
-  m_SizeDelta: {x: 70, y: 70}
+  m_AnchoredPosition: {x: -896, y: 278}
+  m_SizeDelta: {x: 67.1876, y: 65.5482}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &532538920
 MonoBehaviour:
@@ -3417,8 +3417,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -752.54736, y: 378.8634}
-  m_SizeDelta: {x: 113.985, y: 83.9211}
+  m_AnchoredPosition: {x: -781.07104, y: 410}
+  m_SizeDelta: {x: 98.3127, y: 81.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117394953
 MonoBehaviour:
@@ -3467,6 +3467,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1180896215}
+  - component: {fileID: 1180896216}
   m_Layer: 5
   m_Name: Stamina_Bar
   m_TagString: Untagged
@@ -3495,6 +3496,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1180896216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180896214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca7148e578b414ca6cf193866415c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUIStamina
+  staminaImage: {fileID: 448770991}
+  stamina: {fileID: 2008132279}
 --- !u!1 &1276972563
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,8 +3974,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -863.2, y: 476}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -867.2177, y: 485.92773}
+  m_SizeDelta: {x: 191.9646, y: 46.8202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1356361308
 MonoBehaviour:
@@ -3991,8 +4006,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278224127
-  m_fontColor: {r: 1, g: 0.5184129, b: 0, a: 1}
+    rgba: 4278250493
+  m_fontColor: {r: 0.990566, g: 0.92302114, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4004,7 +4019,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 2192
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -4015,7 +4030,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4653,8 +4668,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -752, y: 236}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -766.4239, y: 275.1908}
+  m_SizeDelta: {x: 191.9646, y: 46.8202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1642532073
 MonoBehaviour:
@@ -4823,6 +4838,10 @@ PrefabInstance:
     - target: {fileID: 2726134798369023318, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056391480176551262, guid: f83bbdc02850be24a91f1d03336ac268, type: 3}
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5763,6 +5782,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1be70b6087894f44ae060aa4c88e758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!114 &2008132279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5149701596294789665, guid: 0bab39a5fbd48bc4bb88e79437564b67, type: 3}
+  m_PrefabInstance: {fileID: 2851362474169041194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03c24557e864b73abd10e4bb2fa5701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
 --- !u!1 &2011608303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5928,6 +5958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2092282734}
+  - component: {fileID: 2092282735}
   m_Layer: 5
   m_Name: HP_Bar
   m_TagString: Untagged
@@ -5956,6 +5987,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2092282735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092282733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853210a09c804569b98e8c9ee2e3c426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUIHealth
+  healthImage: {fileID: 468732263}
+  player: {fileID: 2008132270}
 --- !u!1 &2127133790
 GameObject:
   m_ObjectHideFlags: 0

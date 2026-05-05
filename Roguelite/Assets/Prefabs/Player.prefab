@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 7378554343634870213}
   - component: {fileID: 6973307758214642653}
   - component: {fileID: 8383421291340818375}
+  - component: {fileID: 5149701596294789665}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -432,6 +433,10 @@ MonoBehaviour:
   maxHealth: 10
   moveSpeed: 10
   jumpForce: 15
+  isShielding: 0
+  shieldDrainPerSecond: 20
+  shieldHitDrain: 15
+  damageReduction: 0.6
   groundCheck: {fileID: 3478609096669116314}
   groundCheckSize: {x: 0.97, y: 0.1}
   groundLayer:
@@ -500,6 +505,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5149701596294789665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114266540879575374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03c24557e864b73abd10e4bb2fa5701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
+  maxStamina: 100
+  currentStamina: 0
+  regenRate: 15
+  regenDelay: 1
 --- !u!1 &8782493817544125749
 GameObject:
   m_ObjectHideFlags: 0
