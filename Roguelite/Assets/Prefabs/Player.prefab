@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 0a8c2a90c70ff714ab22fffcc3001af9, type: 3}
+  m_Actions: {fileID: 0}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -392,6 +392,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: fb3b7575-07f1-4f24-ae0f-c7e33a570e99
     m_ActionName: 'Gameplay/AirAttackDown[/Keyboard/s,/Keyboard/space,/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0bc9bb08-4bd0-4a0d-918c-470bd637169e
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2774b1ac-76ec-462b-aa4a-d30b2c4e0b20
+    m_ActionName: 'UI/Cancel[/Keyboard/escape,/Keyboard/backspace]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
