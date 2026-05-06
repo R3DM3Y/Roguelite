@@ -4,22 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Stats")]
+    [SerializeField] private PlayerStats stats;
+    
     [Header("Health")]
-    public int maxHealth = 5;
     private int currentHealth;
-
-    [Header("Movement")]
-    public float moveSpeed = 5f;
-
-    [Header("Jump")]
-    public float jumpForce = 7f;
     
     [Header("Shield")]
-    public float shieldMoveSpeedMultiplier = 0.4f;
     public bool isShielding;
-    public float shieldDrainPerSecond = 20f;
-    public float shieldHitDrain = 15f;
-    public float damageReduction = 0.6f;
 
     public PlayerStamina stamina;
     
@@ -36,30 +28,21 @@ public class PlayerController : MonoBehaviour
     public float wallCheckDistance = 0.1f;
     public LayerMask wallLayer;
     
-    [Header("Knockback")]
-    public float knockbackSideForce = 6f;
-    public float knockbackUpForce = 8f;
-    
     [Header("Post-Hit Invulnerability")]
-    public float postHitInvulnerableTime = 1f; 
     public SpriteRenderer spriteRenderer;      
-    public float blinkInterval = 0.1f;         
 
     private bool isInvulnerable;
     [HideInInspector] public bool isHitLocked = false;          
 
     [Header("Attack")]
-    public int normalAttackDamage = 1;
     public PlayerAttackHitbox attackHitbox;
     [HideInInspector] public Animator animator;
     
     [HideInInspector] public bool sHeld;  
     
     [Header("Air Down Attack")]
-    public int airDownAttackDamage = 1;
     public PlayerAttackHitbox airDownHitbox; 
     [HideInInspector] public bool isAirAttackingDown;
-    public float airDownBounceForce = 6f;
     
     [HideInInspector] public bool IsAttackingNormal;
     [HideInInspector] public bool IsAttackingDown;
@@ -81,13 +64,17 @@ public class PlayerController : MonoBehaviour
     
     public int CurrentHealth => currentHealth;
     public System.Action OnHealthChanged;
+    
+    public int NormalAttackDamage => stats.normalAttackDamage;
+    public int AirDownAttackDamage => stats.airDownAttackDamage;
+    public int MaxHealth => stats.maxHealth;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
-        currentHealth = maxHealth;
+        currentHealth = stats.maxHealth;
         stamina = GetComponent<PlayerStamina>();
     }
 
@@ -104,7 +91,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                stamina.Use(shieldDrainPerSecond * Time.deltaTime);
+                stamina.Use(stats.shieldDrainPerSecond * Time.deltaTime);
             }
         }
     }
@@ -123,9 +110,9 @@ public class PlayerController : MonoBehaviour
 
         if (isShielding)
         {
-            stamina.Use(shieldHitDrain);
+            stamina.Use(stats.shieldHitDrain);
 
-            damage = Mathf.CeilToInt(damage * (1f - damageReduction));
+            damage = Mathf.CeilToInt(damage * (1f - stats.damageReduction));
 
             if (stamina.IsEmpty)
             {
@@ -145,7 +132,7 @@ public class PlayerController : MonoBehaviour
         isInvulnerable = true;
 
         rb.linearVelocity = Vector2.zero;
-        rb.AddForce(new Vector2(Mathf.Sign(hitDirection.x) * knockbackSideForce, 0), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(Mathf.Sign(hitDirection.x) * stats.knockbackSideForce, 0), ForceMode2D.Impulse);
 
         if (currentHealth <= 0)
         {
@@ -171,11 +158,11 @@ public class PlayerController : MonoBehaviour
             yield return null;
         
         float timer = 0f;
-        while (timer < postHitInvulnerableTime)
+        while (timer < stats.postHitInvulnerableTime)
         {
             spriteRenderer.enabled = !spriteRenderer.enabled;
-            yield return new WaitForSeconds(blinkInterval);
-            timer += blinkInterval;
+            yield return new WaitForSeconds(stats.blinkInterval);
+            timer += stats.blinkInterval;
         }
 
         spriteRenderer.enabled = true;
@@ -201,13 +188,13 @@ public class PlayerController : MonoBehaviour
         
         if (direction.y > 0.5f)
         {
-            rb.linearVelocity = new Vector2(0, knockbackUpForce);
+            rb.linearVelocity = new Vector2(0, stats.knockbackUpForce);
         }
         else
         {
             rb.linearVelocity = new Vector2(
-                Mathf.Sign(direction.x) * knockbackSideForce,
-                knockbackUpForce * 0.5f
+                Mathf.Sign(direction.x) * stats.knockbackUpForce,
+                stats.knockbackUpForce * 0.5f
             );
         }
     }
@@ -245,11 +232,11 @@ public class PlayerController : MonoBehaviour
             
         } 
         
-        float speed = moveSpeed;
+        float speed = stats.moveSpeed;
 
         if (isShielding)
         {
-            speed *= shieldMoveSpeedMultiplier;
+            speed *= stats.shieldMoveSpeedMultiplier;
         }
 
         rb.linearVelocity = new Vector2(moveX * speed, rb.linearVelocity.y);
@@ -303,7 +290,7 @@ public class PlayerController : MonoBehaviour
         
         if (IsGrounded())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
             animator.SetBool("InAir", true);
         }
     }
@@ -399,7 +386,7 @@ public class PlayerController : MonoBehaviour
     
     public void OnAirDownHitSuccess()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, airDownBounceForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.airDownBounceForce);
     }
     
     public void ActivateAirDownHitbox()

@@ -13,7 +13,7 @@ public class PlayerUIHealth : MonoBehaviour
 
     public void UpdateHealth()
     {
-        healthImage.fillAmount = (float)player.CurrentHealth / player.maxHealth;
+        healthImage.fillAmount = (float)player.CurrentHealth / player.MaxHealth;
     }
     
     private void OnEnable()

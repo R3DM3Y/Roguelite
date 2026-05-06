@@ -17,8 +17,8 @@ public class PlayerAttackHitbox : MonoBehaviour
 
     public int Damage =>
         player.IsAttackingDown
-            ? player.airDownAttackDamage
-            : player.normalAttackDamage;
+            ? player.AirDownAttackDamage
+            : player.NormalAttackDamage;
 
     private void Awake()
     {
@@ -65,13 +65,13 @@ public class PlayerAttackHitbox : MonoBehaviour
 
         if (player.IsAttackingDown && !airDownHitDone)
         {
-            enemy.TakeDamage(player.airDownAttackDamage);
+            enemy.TakeDamage(player.AirDownAttackDamage);
             player.OnAirDownHitSuccess();
             airDownHitDone = true; // чтобы воздушная атака срабатывала только один раз
         }
         else if (!player.IsAttackingDown)
         {
-            enemy.TakeDamage(player.normalAttackDamage);
+            enemy.TakeDamage(player.NormalAttackDamage);
         }
 
         hitEnemies.Add(collision);

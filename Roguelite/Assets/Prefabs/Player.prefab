@@ -431,14 +431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1be70b6087894f44ae060aa4c88e758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  maxHealth: 10
-  moveSpeed: 10
-  jumpForce: 15
-  shieldMoveSpeedMultiplier: 0.4
+  stats: {fileID: 11400000, guid: 9b9f245f9819c264dadc4ea21ce7ead3, type: 2}
   isShielding: 0
-  shieldDrainPerSecond: 20
-  shieldHitDrain: 15
-  damageReduction: 0.6
   stamina: {fileID: 5149701596294789665}
   groundCheck: {fileID: 3478609096669116314}
   groundCheckSize: {x: 0.97, y: 0.1}
@@ -451,20 +445,13 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 520
-  knockbackSideForce: 6
-  knockbackUpForce: 8
-  postHitInvulnerableTime: 1
   spriteRenderer: {fileID: 4532620332694948918}
-  blinkInterval: 0.1
   isHitLocked: 0
-  normalAttackDamage: 5
   attackHitbox: {fileID: 8341340081939741156}
   animator: {fileID: 0}
   sHeld: 0
-  airDownAttackDamage: 3
   airDownHitbox: {fileID: 7691611738518767651}
   isAirAttackingDown: 0
-  airDownBounceForce: 15
   IsAttackingNormal: 0
   IsAttackingDown: 0
   InputX: 0
