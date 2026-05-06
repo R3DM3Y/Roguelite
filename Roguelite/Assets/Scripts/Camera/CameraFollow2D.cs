@@ -19,21 +19,17 @@ public class CameraFollow2D : MonoBehaviour
         if (target == null)
             return;
 
-        // Желаемая позиция камеры
         Vector3 desiredPosition = new Vector3(
             target.position.x + offset.x,
-            target.position.y + offset.y,
-            transform.position.z // Z оставляем неизменным
+            transform.position.y,
+            transform.position.z
         );
 
-        // Ограничение позиции камеры, если нужно
         if (useClamp)
         {
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);
-            desiredPosition.y = Mathf.Clamp(desiredPosition.y, minPosition.y, maxPosition.y);
         }
 
-        // Плавное следование
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
         transform.position = smoothedPosition;
