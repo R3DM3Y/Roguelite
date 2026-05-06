@@ -6,7 +6,7 @@ public class CameraFollow2D : MonoBehaviour
     public Transform target;           // Игрок
 
     [Header("Camera Settings")]
-    public float smoothSpeed = 0.125f; // Чем меньше, тем плавнее движение
+    public float smoothSpeed = 0.3f; // Чем меньше, тем плавнее движение
     public Vector2 offset;             // Смещение камеры относительно игрока
 
     [Header("Clamp (optional)")]

@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 7114266540879575374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.76, y: -1.47, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -206,6 +206,7 @@ Transform:
   - {fileID: 2392427056188765024}
   - {fileID: 3489021306486712890}
   - {fileID: 922748315819244304}
+  - {fileID: 2236705324394330831}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4532620332694948918
@@ -253,9 +254,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1605727371
+  m_SortingLayer: 4
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 815424164945274260, guid: cbbb48028565be140b41e433ce82f86b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -433,10 +434,12 @@ MonoBehaviour:
   maxHealth: 10
   moveSpeed: 10
   jumpForce: 15
+  shieldMoveSpeedMultiplier: 0.4
   isShielding: 0
   shieldDrainPerSecond: 20
   shieldHitDrain: 15
   damageReduction: 0.6
+  stamina: {fileID: 5149701596294789665}
   groundCheck: {fileID: 3478609096669116314}
   groundCheckSize: {x: 0.97, y: 0.1}
   groundLayer:
@@ -470,6 +473,8 @@ MonoBehaviour:
   IsDropping: 0
   rb: {fileID: 0}
   IsDead: 0
+  damageTextPrefab: {fileID: 2154216569632756350, guid: 81123ce306259724f9a61745ae845fad, type: 3}
+  headPoint: {fileID: 2236705324394330831}
 --- !u!114 &6973307758214642653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,3 +626,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackHitbox
   player: {fileID: 0}
   activeTime: 0.2
+--- !u!1 &8885191981087852127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2236705324394330831}
+  m_Layer: 8
+  m_Name: HeadPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2236705324394330831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885191981087852127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.167, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7038979016366557137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

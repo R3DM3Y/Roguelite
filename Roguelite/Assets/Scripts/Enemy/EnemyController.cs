@@ -16,6 +16,9 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
+    [SerializeField] private DamagePopupSpawner popupSpawner;
+    [SerializeField] private Transform headPoint;
+    
 
     #endregion
 
@@ -348,6 +351,10 @@ public class EnemyController : MonoBehaviour
 
         currentHealth -= damage;
         animator.SetTrigger("Hit");
+
+        // 👉 СПАВН ТЕКСТА
+        if (popupSpawner != null)
+            popupSpawner.Spawn(damage, headPoint);
 
         if (currentHealth <= 0)
             Die();

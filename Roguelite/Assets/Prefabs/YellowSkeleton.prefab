@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bbc2f94aa345479539488d936e08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHitbox
-  damage: 1
 --- !u!1 &7109242209476661193
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +411,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackHitbox: {fileID: 7911115131134228565}
+  minBounds: {x: 0, y: 0}
+  maxBounds: {x: 0, y: 0}
 --- !u!95 &1610979385911682934
 Animator:
   serializedVersion: 7

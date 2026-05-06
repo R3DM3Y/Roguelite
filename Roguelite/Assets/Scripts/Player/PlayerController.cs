@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool IsDropping;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public bool IsDead;
+    public GameObject damageTextPrefab;
+    [SerializeField] private Transform headPoint;
 
     private Collider2D playerCollider;
     private bool isDropping = false;
@@ -152,6 +154,15 @@ public class PlayerController : MonoBehaviour
         }
 
         StartCoroutine(WaitForGroundAfterHit());
+        SpawnDamageText(damage);
+    }
+    
+    void SpawnDamageText(int damage)
+    {
+        Vector3 offset = Vector3.up * 0.2f;
+
+        GameObject obj = Instantiate(damageTextPrefab, headPoint.position + offset, Quaternion.identity);
+        obj.GetComponent<DamageText>().SetDamage(damage);
     }
     
     private IEnumerator WaitForGroundAfterHit()
