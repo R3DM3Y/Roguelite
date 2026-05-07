@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Vector2 maxBounds;
     [SerializeField] private DamagePopupSpawner popupSpawner;
     [SerializeField] private Transform headPoint;
+    private PlayerController playerController;
     
 
     #endregion
@@ -55,13 +56,23 @@ public class EnemyController : MonoBehaviour
 
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null)
+        {
             player = p.transform;
+            playerController = p.GetComponent<PlayerController>();
+        }
     }
 
     private void FixedUpdate()
     {
         if (isDead || player == null)
             return;
+
+        if (playerController != null && playerController.IsDead)
+        {
+            rb.linearVelocity = Vector2.zero;
+            animator.SetBool("IsMoving", false);
+            return; // 👉 ВАЖНО: стоп всей логики
+        }
 
         if (stats.movementType == EnemyStats.MovementType.Ground)
         {
@@ -178,26 +189,28 @@ public class EnemyController : MonoBehaviour
         Transform target = patrolPoints[currentPointIndex];
         Vector2 direction = (target.position - transform.position);
 
-        // Добавляем небольшую корректировку по Y, чтобы не застревать
-        float stepY = Mathf.Clamp(direction.y, -0.05f, 0.05f);
+        float distance = direction.magnitude;
 
-        // Нормализуем по горизонтали, чтобы движение было ровное
-        Vector2 moveDir = new Vector2(Mathf.Sign(direction.x), stepY);
+        // 👉 если дошли до точки — фиксируемся и переключаемся
+        if (distance < 0.2f)
+        {
+            rb.linearVelocity = Vector2.zero;
+            currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+            return;
+        }
 
-        // Плавное движение к цели
+        Vector2 moveDir = direction.normalized;
+
         Vector2 newPos = rb.position + moveDir * stats.moveSpeed * Time.fixedDeltaTime;
         rb.MovePosition(newPos);
 
-        // Анимация движения
-        animator.SetBool("IsMoving", Mathf.Abs(direction.x) > 0.05f);
+        animator.SetBool("IsMoving", true);
 
-        // Поворот только если направление изменилось
-        if ((moveDir.x > 0 && !facingRight) || (moveDir.x < 0 && facingRight))
+        // 👉 флип только по направлению движения, не по "почти нулю"
+        if (moveDir.x > 0 && !facingRight)
             Flip();
-
-        // Проверка, достигли ли точки
-        if (Vector2.Distance(transform.position, target.position) < 0.1f)
-            currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+        else if (moveDir.x < 0 && facingRight)
+            Flip();
     }
 
     private void StopMoving()
@@ -318,6 +331,13 @@ public class EnemyController : MonoBehaviour
 
         StopMoving();
         FacePlayer();
+
+        if (playerController != null && playerController.IsDead)
+        {
+            canAttack = true;
+            yield break; 
+        }
+
         animator.SetTrigger("Attack");
 
         yield return new WaitForSeconds(stats.attackCooldown);

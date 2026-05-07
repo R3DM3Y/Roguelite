@@ -21,13 +21,14 @@ public class CameraFollow2D : MonoBehaviour
 
         Vector3 desiredPosition = new Vector3(
             target.position.x + offset.x,
-            transform.position.y,
+            target.position.y + offset.y,
             transform.position.z
         );
 
         if (useClamp)
         {
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);
+            desiredPosition.y = Mathf.Clamp(desiredPosition.y, minPosition.y, maxPosition.y);
         }
 
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);

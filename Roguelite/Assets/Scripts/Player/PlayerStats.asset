@@ -22,7 +22,7 @@ MonoBehaviour:
   normalAttackDamage: 30
   airDownAttackDamage: 10
   airDownBounceForce: 15
-  knockbackSideForce: 14
+  knockbackSideForce: 8
   knockbackUpForce: 10
   postHitInvulnerableTime: 0.7
   blinkInterval: 0.1

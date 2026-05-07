@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 2799974080298270709}
   m_Layer: 6
   m_Name: WhiteSkeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
