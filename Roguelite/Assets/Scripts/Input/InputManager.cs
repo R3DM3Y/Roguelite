@@ -23,7 +23,6 @@ public class InputManager : MonoBehaviour
 
         SetMode(InputMode.Gameplay);
         
-        Debug.Log("INPUT MANAGER INIT");
     }
 
     public void SetMode(InputMode mode)
@@ -35,7 +34,5 @@ public class InputManager : MonoBehaviour
             input.Gameplay.Enable();
         else
             input.UI.Enable();
-        
-        Debug.Log("MODE: " + mode);
     }
 }

@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         PlayMusic(menuMusic);
+        ApplySettings();
     }
 
     public void PlayMusic(AudioClip clip)
@@ -48,5 +49,14 @@ public class AudioManager : MonoBehaviour
     public void SetSFXVolume(float value)
     {
         sfxSource.volume = Mathf.Clamp(value, 0.0001f, 1f);
+    }
+    
+    public void ApplySettings()
+    {
+        if (SettingsManager.Instance == null)
+            return;
+
+        SetMusicVolume(SettingsManager.Instance.music / 100f);
+        SetSFXVolume(SettingsManager.Instance.sfx / 100f);
     }
 }

@@ -7,12 +7,10 @@ public class PlayerAttackHitbox : MonoBehaviour
     private Collider2D hitbox;
     public PlayerController player;
 
-    // Чтобы не бить одного врага несколько раз за одну атаку
     private HashSet<Collider2D> hitEnemies = new HashSet<Collider2D>();
 
     public float activeTime = 0.2f;
 
-    // Флаг для воздушной атаки — чтобы срабатывала один раз
     private bool airDownHitDone;
 
     public int Damage =>
@@ -31,7 +29,7 @@ public class PlayerAttackHitbox : MonoBehaviour
     {
         StopAllCoroutines();
         hitEnemies.Clear();
-        airDownHitDone = false; // сбрасываем флаг для воздушной атаки
+        airDownHitDone = false; 
         StartCoroutine(HitboxRoutine());
     }
 
@@ -42,14 +40,13 @@ public class PlayerAttackHitbox : MonoBehaviour
 
         while (timer < activeTime)
         {
-            // Каждый кадр проверяем всех врагов, которые внутри хитбокса
             Collider2D[] overlaps = Physics2D.OverlapBoxAll(hitbox.bounds.center, hitbox.bounds.size, 0f);
             foreach (var col in overlaps)
             {
                 TryHit(col);
             }
 
-            timer += Time.fixedDeltaTime; // фиксированный шаг для стабильности
+            timer += Time.fixedDeltaTime; 
             yield return new WaitForFixedUpdate();
         }
 
@@ -67,7 +64,7 @@ public class PlayerAttackHitbox : MonoBehaviour
         {
             enemy.TakeDamage(player.AirDownAttackDamage);
             player.OnAirDownHitSuccess();
-            airDownHitDone = true; // чтобы воздушная атака срабатывала только один раз
+            airDownHitDone = true; 
         }
         else if (!player.IsAttackingDown)
         {

@@ -266,11 +266,10 @@ public class PlayerController : MonoBehaviour
             wallCheckDistance
         );
 
-        // Игнорируем платформы
         for (int i = 0; i < count; i++)
         {
             if (hits[i].collider.CompareTag("OneWayPlatform"))
-                count--; // не считаем платформу стеной
+                count--; 
         }
 
         return count > 0;

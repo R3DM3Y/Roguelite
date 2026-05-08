@@ -71,7 +71,7 @@ public class EnemyController : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
             animator.SetBool("IsMoving", false);
-            return; // 👉 ВАЖНО: стоп всей логики
+            return; 
         }
 
         if (stats.movementType == EnemyStats.MovementType.Ground)
@@ -143,7 +143,7 @@ public class EnemyController : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        // Игрок слишком далеко — призрак просто висит
+        // Игрок слишком далеко — просто висит
         if (distance > stats.detectionRadius)
         {
             rb.linearVelocity = Vector2.zero;
@@ -191,7 +191,6 @@ public class EnemyController : MonoBehaviour
 
         float distance = direction.magnitude;
 
-        // 👉 если дошли до точки — фиксируемся и переключаемся
         if (distance < 0.2f)
         {
             rb.linearVelocity = Vector2.zero;
@@ -201,12 +200,11 @@ public class EnemyController : MonoBehaviour
 
         Vector2 moveDir = direction.normalized;
 
-        Vector2 newPos = rb.position + moveDir * stats.moveSpeed * Time.fixedDeltaTime;
+        Vector2 newPos = rb.position + moveDir * (stats.moveSpeed * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
 
         animator.SetBool("IsMoving", true);
 
-        // 👉 флип только по направлению движения, не по "почти нулю"
         if (moveDir.x > 0 && !facingRight)
             Flip();
         else if (moveDir.x < 0 && facingRight)

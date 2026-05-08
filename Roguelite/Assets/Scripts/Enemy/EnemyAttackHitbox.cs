@@ -19,13 +19,11 @@ public class EnemyAttackHitbox : MonoBehaviour
     public void Activate()
     {
         hitbox.enabled = true;
-        Debug.Log("HITBOX ENABLED: " + hitbox.enabled);
     }
 
     public void Deactivate()
     {
         hitbox.enabled = false;
-        Debug.Log("HITBOX DISABLED");
     }
 
 

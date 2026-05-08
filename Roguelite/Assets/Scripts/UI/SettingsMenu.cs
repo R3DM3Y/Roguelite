@@ -11,19 +11,18 @@ public class SettingsRow
 
 public class SettingsMenu : MonoBehaviour
 {
-    [Header("Glow Effects")]
+    [Header("Optional")]
+    public GameObject mainMenu;
     public GameObject glowA;
     public GameObject glowB;
-    
+
     [Header("UI")]
-    public GameObject mainMenu;
     public GameObject settingsPanel;
     public GameObject confirmPopup;
 
     public RectTransform selector;
     public SettingsRow[] rows;
 
-    [Header("Move Selector")]
     public float rowHeight = 80f;
 
     private GameInput input;
@@ -35,11 +34,14 @@ public class SettingsMenu : MonoBehaviour
         Confirm
     }
 
-    private MenuState state = MenuState.Closed;
+    private MenuState state;
 
-    private int index = 0;
+    public bool IsOpen => state != MenuState.Closed;
 
-    // CURRENT VALUES
+    public System.Action OnClosed;
+
+    private int index;
+
     private int music;
     private int sfx;
     private int res;
@@ -47,7 +49,6 @@ public class SettingsMenu : MonoBehaviour
     private bool fullscreen;
     private int language;
 
-    // SAVED VALUES
     private int savedMusic;
     private int savedSfx;
     private int savedRes;
@@ -55,92 +56,118 @@ public class SettingsMenu : MonoBehaviour
     private bool savedFullscreen;
     private int savedLanguage;
 
-    private readonly string[] resolutions = { "1280x720", "1600x900", "1920x1080" };
-    private readonly string[] qualities = { "Low", "Normal", "High" };
-    private readonly string[] languages = { "English", "Русский" };
-    
+    private readonly string[] resolutions =
+    {
+        "1280x720",
+        "1600x900",
+        "1920x1080"
+    };
 
-    // ======================================================
-    // START
-    // ======================================================
+    private readonly string[] qualities =
+    {
+        "Low",
+        "Normal",
+        "High"
+    };
+
+    private readonly string[] languages =
+    {
+        "English",
+        "Русский"
+    };
 
     private void Awake()
     {
         input = InputManager.Instance.Input;
     }
-    
-    private void SetGlow(CanvasGroup g, bool active)
-    {
-        if (g == null) return;
-
-        g.alpha = active ? 1f : 0f;
-        g.interactable = active;
-        g.blocksRaycasts = active;
-    }
-
-    private bool subscribed = false;
 
     private void OnEnable()
     {
-        if (subscribed) return;
-
         input.UI.Enable();
+
         input.UI.Navigate.performed += OnNavigate;
         input.UI.Submit.performed += OnSubmit;
         input.UI.Cancel.performed += OnCancel;
-
-        subscribed = true;
     }
 
     private void OnDisable()
     {
-        if (!subscribed) return;
+        if (input == null) return;
 
+        input.UI.Disable();
+        input.Gameplay.Disable();
+        
         input.UI.Navigate.performed -= OnNavigate;
         input.UI.Submit.performed -= OnSubmit;
         input.UI.Cancel.performed -= OnCancel;
-
-        subscribed = false;
     }
-
-    // ======================================================
-    // OPEN / CLOSE
-    // ======================================================
 
     public void Open()
     {
         gameObject.SetActive(true);
 
-        mainMenu.SetActive(false);
+        if (mainMenu != null)
+            mainMenu.SetActive(false);
+
+        if (glowA != null)
+            glowA.SetActive(false);
+
+        if (glowB != null)
+            glowB.SetActive(false);
+
         settingsPanel.SetActive(true);
         confirmPopup.SetActive(false);
-        
-        glowA.SetActive(false);
-        glowB.SetActive(false);
 
         state = MenuState.Settings;
+
         index = 0;
 
-        LoadSettings();
+        LoadFromManager();
+
+        SaveSnapshot();
+
         RefreshUI();
     }
-    
 
     public void Close()
     {
         state = MenuState.Closed;
 
-        mainMenu.SetActive(true);
+        if (mainMenu != null)
+            mainMenu.SetActive(true);
 
-        glowA.SetActive(true);
-        glowB.SetActive(true);
+        if (glowA != null)
+            glowA.SetActive(true);
+
+        if (glowB != null)
+            glowB.SetActive(true);
 
         gameObject.SetActive(false);
+
+        OnClosed?.Invoke();
     }
 
-    // ======================================================
-    // INPUT
-    // ======================================================
+    private void LoadFromManager()
+    {
+        SettingsManager s = SettingsManager.Instance;
+
+        music = s.music;
+        sfx = s.sfx;
+        res = s.res;
+        quality = s.quality;
+        fullscreen = s.fullscreen;
+        language = s.language;
+    }
+
+    private void SaveSnapshot()
+    {
+        savedMusic = music;
+        savedSfx = sfx;
+        savedRes = res;
+        savedQuality = quality;
+        savedFullscreen = fullscreen;
+        savedLanguage = language;
+    }
 
     private void OnNavigate(InputAction.CallbackContext ctx)
     {
@@ -189,39 +216,23 @@ public class SettingsMenu : MonoBehaviour
         }
         else if (state == MenuState.Confirm)
         {
-            CloseConfirm();
+            confirmPopup.SetActive(false);
+            state = MenuState.Settings;
         }
     }
-
-    // ======================================================
-    // CONFIRM POPUP
-    // ======================================================
 
     private void OpenConfirm()
     {
         state = MenuState.Confirm;
+
         confirmPopup.SetActive(true);
     }
-
+    
     private void CloseConfirm()
     {
         state = MenuState.Settings;
         confirmPopup.SetActive(false);
     }
-
-    public void ConfirmYes()
-    {
-        SaveAndClose();
-    }
-
-    public void ConfirmNo()
-    {
-        DiscardAndClose();
-    }
-
-    // ======================================================
-    // SETTINGS LOGIC
-    // ======================================================
 
     private void ChangeValue(int dir)
     {
@@ -229,53 +240,28 @@ public class SettingsMenu : MonoBehaviour
         {
             case 0:
                 music = Mathf.Clamp(music + dir * 5, 0, 100);
-                AudioManager.Instance.SetMusicVolume(music / 100f);
                 break;
 
             case 1:
                 sfx = Mathf.Clamp(sfx + dir * 5, 0, 100);
-                AudioManager.Instance.SetSFXVolume(sfx / 100f);
                 break;
 
             case 2:
                 res = Wrap(res + dir, resolutions.Length);
-                ApplyResolution();
                 break;
 
             case 3:
                 quality = Wrap(quality + dir, qualities.Length);
-                QualitySettings.SetQualityLevel(quality);
-                Debug.Log("QUALITY → " + QualitySettings.names[quality]);
                 break;
 
             case 4:
                 fullscreen = !fullscreen;
-                Screen.fullScreen = fullscreen;
-                Debug.Log("FULLSCREEN → " + Screen.fullScreen);
                 break;
 
             case 6:
                 language = Wrap(language + dir, languages.Length);
                 break;
         }
-    }
-    
-    void ApplyResolution()
-    {
-        int width = 0;
-        int height = 0;
-
-        switch (res)
-        {
-            case 0: width = 1280; height = 720; break;
-            case 1: width = 1600; height = 900; break;
-            case 2: width = 1920; height = 1080; break;
-        }
-
-        Screen.SetResolution(width, height, fullscreen);
-
-        Debug.Log($"RESOLUTION SET → {width}x{height} | Fullscreen: {fullscreen}");
-        Debug.Log($"CURRENT → {Screen.width}x{Screen.height} | Fullscreen: {Screen.fullScreen}");
     }
 
     private int Wrap(int value, int max)
@@ -285,72 +271,42 @@ public class SettingsMenu : MonoBehaviour
         return value;
     }
 
-    // ======================================================
-    // SAVE / LOAD
-    // ======================================================
-
-    private void LoadSettings()
-    {
-        music = PlayerPrefs.GetInt("Music", 80);
-        sfx = PlayerPrefs.GetInt("SFX", 80);
-        res = PlayerPrefs.GetInt("Res", 2);
-        quality = PlayerPrefs.GetInt("Quality", 2);
-        fullscreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
-        language = PlayerPrefs.GetInt("Language", 0);
-
-        savedMusic = music;
-        savedSfx = sfx;
-        savedRes = res;
-        savedQuality = quality;
-        savedFullscreen = fullscreen;
-        savedLanguage = language;
-        
-        AudioManager.Instance.SetMusicVolume(music / 100f);
-        AudioManager.Instance.SetSFXVolume(sfx / 100f);
-        ApplyResolution();
-        QualitySettings.SetQualityLevel(quality);
-        Screen.fullScreen = fullscreen;
-    }
-
-    private void SaveSettings()
-    {
-        PlayerPrefs.SetInt("Music", music);
-        PlayerPrefs.SetInt("SFX", sfx);
-        PlayerPrefs.SetInt("Res", res);
-        PlayerPrefs.SetInt("Quality", quality);
-        PlayerPrefs.SetInt("Fullscreen", fullscreen ? 1 : 0);
-        PlayerPrefs.SetInt("Language", language);
-
-        PlayerPrefs.Save();
-    }
-
     public void SaveAndClose()
     {
-        SaveSettings();
+        SettingsManager s = SettingsManager.Instance;
+
+        s.music = music;
+        s.sfx = sfx;
+        s.res = res;
+        s.quality = quality;
+        s.fullscreen = fullscreen;
+        s.language = language;
+
+        s.ApplyAll();
+        s.Save();
+
         confirmPopup.SetActive(false);
+
         Close();
     }
 
     public void DiscardAndClose()
     {
-        LoadSettings();
         confirmPopup.SetActive(false);
+
         Close();
     }
 
     private bool HasChanges()
     {
-        return music != savedMusic ||
-               sfx != savedSfx ||
-               res != savedRes ||
-               quality != savedQuality ||
-               fullscreen != savedFullscreen ||
-               language != savedLanguage;
+        return
+            music != savedMusic ||
+            sfx != savedSfx ||
+            res != savedRes ||
+            quality != savedQuality ||
+            fullscreen != savedFullscreen ||
+            language != savedLanguage;
     }
-
-    // ======================================================
-    // UI
-    // ======================================================
 
     private void RefreshUI()
     {

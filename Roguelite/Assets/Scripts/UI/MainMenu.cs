@@ -44,8 +44,6 @@ public class MainMenu : MonoBehaviour
 
     public void OnContinue()
     {
-        Debug.Log("LOAD GAME");
-
         SceneManager.LoadScene("Game");
         // TODO: загрузка сцены
     }
@@ -110,8 +108,6 @@ public class MainMenu : MonoBehaviour
 
     void StartNewGame()
     {
-        Debug.Log("NEW GAME STARTED");
-
         PlayerPrefs.SetInt("SaveExists", 1);
         PlayerPrefs.Save();
 
