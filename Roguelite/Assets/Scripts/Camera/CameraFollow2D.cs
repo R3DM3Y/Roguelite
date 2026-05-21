@@ -2,37 +2,97 @@ using UnityEngine;
 
 public class CameraFollow2D : MonoBehaviour
 {
-    [Header("Target to follow")]
-    public Transform target;           // Игрок
+    [Header("Target")]
+    public Transform target;
 
-    [Header("Camera Settings")]
-    public float smoothSpeed = 0.3f; // Чем меньше, тем плавнее движение
-    public Vector2 offset;             // Смещение камеры относительно игрока
+    [Header("Follow")]
+    public float smoothSpeed = 8f;
 
-    [Header("Clamp (optional)")]
-    public Vector2 minPosition;        // Минимальные X и Y камеры
-    public Vector2 maxPosition;        // Максимальные X и Y камеры
-    public bool useClamp = false;      // Включить/выключить ограничение движения камеры
+    [Header("Offset")]
+    public Vector3 offset;
+
+    private float minX;
+    private float maxX;
+
+    private float minY;
+    private float maxY;
+
+    private float camHalfWidth;
+    private float camHalfHeight;
+
+    private bool instantMove;
+
+    private Camera cam;
 
     private void LateUpdate()
     {
         if (target == null)
             return;
 
-        Vector3 desiredPosition = new Vector3(
-            target.position.x + offset.x,
-            target.position.y + offset.y,
-            transform.position.z
-        );
+        Vector3 targetPos =
+            target.position + offset;
 
-        if (useClamp)
+        targetPos.z = transform.position.z;
+
+        targetPos.x =
+            Mathf.Clamp(
+                targetPos.x,
+                minX,
+                maxX
+            );
+
+        targetPos.y =
+            Mathf.Clamp(
+                targetPos.y,
+                minY,
+                maxY
+            );
+
+        if (instantMove)
         {
-            desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);
-            desiredPosition.y = Mathf.Clamp(desiredPosition.y, minPosition.y, maxPosition.y);
+            transform.position = targetPos;
+            instantMove = false;
+            return;
         }
 
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position =
+            Vector3.Lerp(
+                transform.position,
+                targetPos,
+                smoothSpeed * Time.deltaTime
+            );
+    }
 
-        transform.position = smoothedPosition;
+    public void SetBounds(BoxCollider2D bounds)
+    {
+        if (cam == null)
+        {
+            cam = Camera.main;
+        }
+
+        camHalfHeight =
+            cam.orthographicSize;
+
+        camHalfWidth =
+            cam.aspect * camHalfHeight;
+
+        Bounds b = bounds.bounds;
+
+        minX =
+            b.min.x + camHalfWidth;
+
+        maxX =
+            b.max.x - camHalfWidth;
+
+        minY =
+            b.min.y + camHalfHeight;
+
+        maxY =
+            b.max.y - camHalfHeight;
+    }
+
+    public void InstantSnap()
+    {
+        instantMove = true;
     }
 }

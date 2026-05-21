@@ -20,7 +20,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform headPoint;
     private PlayerController playerController;
     
-
+    [Header("Save")]
+    public string enemyID;
+    
+    private Vector3 startPosition;
+    
     #endregion
 
     #region === PRIVATE FIELDS ===
@@ -52,7 +56,15 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        if (RoomManager.Instance.IsEnemyKilled(enemyID))
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         currentHealth = stats.maxHealth;
+        
+        startPosition = transform.position;
 
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null)
@@ -285,6 +297,25 @@ public class EnemyController : MonoBehaviour
             Flip();
         }
     }
+    
+    public void ResetEnemy()
+    {
+        if (isDead)
+            return;
+
+        currentHealth = stats.maxHealth;
+
+        transform.position = startPosition;
+
+        rb.linearVelocity = Vector2.zero;
+
+        canAttack = true;
+
+        animator.Rebind();
+        animator.Update(0f);
+
+        gameObject.SetActive(true);
+    }
 
     #endregion
 
@@ -381,6 +412,8 @@ public class EnemyController : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        
+        RoomManager.Instance.MarkEnemyKilled(enemyID);
 
         StopMoving();
         rb.simulated = false;
