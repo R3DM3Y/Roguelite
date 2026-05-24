@@ -8,6 +8,7 @@ public class EnemyStats : ScriptableObject
         Ground,
         Flying
     }
+    
 
     [Header("=== GENERAL ===")]
 
@@ -40,6 +41,12 @@ public class EnemyStats : ScriptableObject
     public float stopAboveHeight = 1.5f;
     
     public float aboveOffsetRange = 1.5f;
+
+    public float patrolSpeed = 2f;
+    
+    public float maxUpVision = 3f;
+
+    public float maxDownVision = 2f;
 
     [Header("=== FLYING ENEMY ===")]
 

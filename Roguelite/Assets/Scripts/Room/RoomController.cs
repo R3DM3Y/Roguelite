@@ -4,6 +4,12 @@ public class RoomController : MonoBehaviour
 {
     [Header("ID")]
     public string roomID;
+    
+    [Header("Available Exits")]
+    public bool hasLeft;
+    public bool hasRight;
+    public bool hasUp;
+    public bool hasDown;
 
     [Header("Spawn Points")]
     public Transform spawnLeft;

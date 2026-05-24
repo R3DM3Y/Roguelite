@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
     [Header("Save")]
     public string enemyID;
     
+    private float difficultyMultiplier = 1f;
+    
     private Vector3 startPosition;
     
     #endregion
@@ -42,6 +44,7 @@ public class EnemyController : MonoBehaviour
     private Transform player;
     
     public EnemyStats Stats => stats;
+    
 
     #endregion
 
@@ -63,6 +66,15 @@ public class EnemyController : MonoBehaviour
         }
         
         currentHealth = stats.maxHealth;
+        
+        difficultyMultiplier =
+            RoomManager.Instance.difficultyMultiplier;
+
+        currentHealth =
+            Mathf.RoundToInt(
+                stats.maxHealth *
+                difficultyMultiplier
+            );
         
         startPosition = transform.position;
 
@@ -104,6 +116,17 @@ public class EnemyController : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.position);
         float distanceX = Mathf.Abs(player.position.x - transform.position.x);
         float distanceY = player.position.y - transform.position.y;
+        
+        // Игрок слишком высоко
+        bool cantSeeVertical =
+            distanceY > stats.maxUpVision ||
+            distanceY < -stats.maxDownVision;
+
+        if (cantSeeVertical)
+        {
+            Patrol();
+            return;
+        }
 
         bool playerAbove = distanceY > stats.stopAboveHeight;
 
@@ -185,12 +208,29 @@ public class EnemyController : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        float dir = Mathf.Sign(player.position.x - transform.position.x);
+        float dir =
+            Mathf.Sign(
+                player.position.x -
+                transform.position.x
+            );
+        
+        FacePlayer();
 
-        rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
+        // ПРОПАСТЬ ВПЕРЕДИ
+        if (!IsGroundAhead(dir))
+        {
+            StopMoving();
+            return;
+        }
+
+        rb.linearVelocity =
+            new Vector2(
+                dir * stats.moveSpeed,
+                rb.linearVelocity.y
+            );
+
         animator.SetBool("IsMoving", true);
 
-        HandleFlipToPlayer();
     }
 
     private void Patrol()
@@ -212,7 +252,7 @@ public class EnemyController : MonoBehaviour
 
         Vector2 moveDir = direction.normalized;
 
-        Vector2 newPos = rb.position + moveDir * (stats.moveSpeed * Time.fixedDeltaTime);
+        Vector2 newPos = rb.position + moveDir * (stats.patrolSpeed * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
 
         animator.SetBool("IsMoving", true);
@@ -232,10 +272,21 @@ public class EnemyController : MonoBehaviour
     private bool IsGroundAhead(float dir)
     {
         if (groundCheck == null)
-            return false;
+            return true;
 
-        Vector2 pos = (Vector2)groundCheck.position + Vector2.right * (dir * 0.2f);
-        return Physics2D.OverlapBox(pos, new Vector2(0.3f, 0.15f), 0f, groundLayer);
+        Vector2 checkPos =
+            (Vector2)groundCheck.position +
+            Vector2.right * dir * 0.05f;
+
+        RaycastHit2D hit =
+            Physics2D.Raycast(
+                checkPos,
+                Vector2.down,
+                1f,
+                groundLayer
+            );
+
+        return hit.collider != null;
     }
     
     private void OrbitAroundPlayer()
@@ -378,7 +429,13 @@ public class EnemyController : MonoBehaviour
     {
         if (attackHitbox != null)
         {
-            attackHitbox.SetDamage(stats.attackDamage);
+            int damage =
+                Mathf.RoundToInt(
+                    stats.attackDamage *
+                    difficultyMultiplier
+                );
+
+            attackHitbox.SetDamage(damage);
             attackHitbox.Activate();
         }
     }

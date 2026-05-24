@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 1015640332149815308}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28, y: -0.09, z: 0}
+  m_LocalPosition: {x: 0.11, y: -0.008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -485,6 +485,7 @@ MonoBehaviour:
   maxBounds: {x: 0, y: 0}
   popupSpawner: {fileID: 3048312491433903580}
   headPoint: {fileID: 5013924749542962582}
+  enemyID: 
 --- !u!1 &6097371295678049636
 GameObject:
   m_ObjectHideFlags: 0

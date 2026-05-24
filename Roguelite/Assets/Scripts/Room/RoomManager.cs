@@ -12,12 +12,20 @@ public class RoomManager : MonoBehaviour
 
     [Header("Player")]
     public Transform player;
+    
+    [Header("Difficulty")]
+    public int roomsPassed;
+
+    public float difficultyMultiplier = 1f;
 
     private RoomController currentRoom;
     
     private CameraFollow2D cameraFollow;
 
     private HashSet<string> killedEnemies =
+        new HashSet<string>();
+    
+    private HashSet<string> visitedRooms =
         new HashSet<string>();
 
     // связь комнат
@@ -67,10 +75,7 @@ public class RoomManager : MonoBehaviour
         }
         else
         {
-            nextRoom =
-                possibleRooms[
-                    Random.Range(0, possibleRooms.Length)
-                ];
+            nextRoom = GetRandomRoom(direction);
 
             roomConnections.Add(key, nextRoom);
 
@@ -94,6 +99,19 @@ public class RoomManager : MonoBehaviour
         nextRoom.ResetRoom();
 
         currentRoom = nextRoom;
+        
+        if (!visitedRooms.Contains(nextRoom.roomID))
+        {
+            visitedRooms.Add(nextRoom.roomID);
+
+            roomsPassed++;
+
+            difficultyMultiplier =
+                1f + roomsPassed * 0.05f;
+        }
+
+        difficultyMultiplier =
+            1f + roomsPassed * 0.05f;
         
         Transform spawnPoint = GetSpawnPoint(
             nextRoom,
@@ -122,22 +140,39 @@ public class RoomManager : MonoBehaviour
         RoomController room,
         ExitDirection enterDirection)
     {
+        Transform point = null;
+
         switch (enterDirection)
         {
             case ExitDirection.Left:
-                return room.spawnRight;
+                point = room.spawnRight;
+                break;
 
             case ExitDirection.Right:
-                return room.spawnLeft;
+                point = room.spawnLeft;
+                break;
 
             case ExitDirection.Up:
-                return room.spawnDown;
+                point = room.spawnDown;
+                break;
 
             case ExitDirection.Down:
-                return room.spawnUp;
+                point = room.spawnUp;
+                break;
         }
 
-        return room.spawnLeft;
+        // ЗАЩИТА ОТ NULL
+        if (point == null)
+        {
+            Debug.LogError(
+                "В комнате " + room.roomID +
+                " нет нужного spawn point!"
+            );
+
+            return room.transform;
+        }
+
+        return point;
     }
 
     private ExitDirection GetOppositeDirection(
@@ -169,5 +204,45 @@ public class RoomManager : MonoBehaviour
     public bool IsEnemyKilled(string enemyID)
     {
         return killedEnemies.Contains(enemyID);
+    }
+    
+    private RoomController GetRandomRoom(
+        ExitDirection enterDirection)
+    {
+        List<RoomController> validRooms =
+            new List<RoomController>();
+
+        foreach (var room in possibleRooms)
+        {
+            bool valid = false;
+
+            switch (enterDirection)
+            {
+                case ExitDirection.Left:
+                    valid = room.hasRight;
+                    break;
+
+                case ExitDirection.Right:
+                    valid = room.hasLeft;
+                    break;
+
+                case ExitDirection.Up:
+                    valid = room.hasDown;
+                    break;
+
+                case ExitDirection.Down:
+                    valid = room.hasUp;
+                    break;
+            }
+
+            if (valid)
+            {
+                validRooms.Add(room);
+            }
+        }
+
+        return validRooms[
+            Random.Range(0, validRooms.Count)
+        ];
     }
 }
