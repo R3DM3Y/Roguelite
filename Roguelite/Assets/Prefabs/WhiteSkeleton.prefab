@@ -486,6 +486,8 @@ MonoBehaviour:
   popupSpawner: {fileID: 3048312491433903580}
   headPoint: {fileID: 5013924749542962582}
   enemyID: 
+  coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
+  coinDropChance: 1
 --- !u!1 &6097371295678049636
 GameObject:
   m_ObjectHideFlags: 0

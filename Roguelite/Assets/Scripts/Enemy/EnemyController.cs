@@ -45,6 +45,13 @@ public class EnemyController : MonoBehaviour
     
     public EnemyStats Stats => stats;
     
+    [Header("Drop")]
+    [SerializeField] private GameObject coinPrefab;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float coinDropChance = 1f;
+    
 
     #endregion
 
@@ -468,6 +475,8 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
+        TryDropCoin();
+        
         isDead = true;
         
         RoomManager.Instance.MarkEnemyKilled(enemyID);
@@ -486,6 +495,21 @@ public class EnemyController : MonoBehaviour
                     Destroy(point.gameObject);
             }
         }
+    }
+    
+    private void TryDropCoin()
+    {
+        if (coinPrefab == null)
+            return;
+
+        if (Random.value > coinDropChance)
+            return;
+
+        Instantiate(
+            coinPrefab,
+            transform.position,
+            Quaternion.identity
+        );
     }
 
     public void OnDeathAnimationFinished()
