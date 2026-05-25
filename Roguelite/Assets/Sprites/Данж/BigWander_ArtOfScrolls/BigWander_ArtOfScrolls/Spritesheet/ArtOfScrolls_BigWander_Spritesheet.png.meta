@@ -1,0 +1,2210 @@
+fileFormatVersion: 2
+guid: 7e6ffb92b0f2fb04b93f1750845b55be
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4150426699908537715
+    second: ArtOfScrolls_BigWander_Spritesheet_0
+  - first:
+      213: -4316442446188409756
+    second: ArtOfScrolls_BigWander_Spritesheet_1
+  - first:
+      213: -8802163861321283083
+    second: ArtOfScrolls_BigWander_Spritesheet_2
+  - first:
+      213: -5183574461476952452
+    second: ArtOfScrolls_BigWander_Spritesheet_3
+  - first:
+      213: -4589364871898673894
+    second: ArtOfScrolls_BigWander_Spritesheet_4
+  - first:
+      213: -4314723335525571105
+    second: ArtOfScrolls_BigWander_Spritesheet_5
+  - first:
+      213: 5823444072185505608
+    second: ArtOfScrolls_BigWander_Spritesheet_6
+  - first:
+      213: -6568196211122652863
+    second: ArtOfScrolls_BigWander_Spritesheet_7
+  - first:
+      213: 5524091141746626965
+    second: ArtOfScrolls_BigWander_Spritesheet_8
+  - first:
+      213: 5851457379838505545
+    second: ArtOfScrolls_BigWander_Spritesheet_9
+  - first:
+      213: -3931872768987325333
+    second: ArtOfScrolls_BigWander_Spritesheet_10
+  - first:
+      213: 8573259365258365007
+    second: ArtOfScrolls_BigWander_Spritesheet_11
+  - first:
+      213: -2837649887014929101
+    second: ArtOfScrolls_BigWander_Spritesheet_12
+  - first:
+      213: -2224711662364242450
+    second: ArtOfScrolls_BigWander_Spritesheet_13
+  - first:
+      213: -4714002988929232895
+    second: ArtOfScrolls_BigWander_Spritesheet_14
+  - first:
+      213: -653340895577528063
+    second: ArtOfScrolls_BigWander_Spritesheet_15
+  - first:
+      213: -5547673194677267786
+    second: ArtOfScrolls_BigWander_Spritesheet_16
+  - first:
+      213: -5279470239448206298
+    second: ArtOfScrolls_BigWander_Spritesheet_17
+  - first:
+      213: -1010037163750036936
+    second: ArtOfScrolls_BigWander_Spritesheet_18
+  - first:
+      213: -8394720446382915564
+    second: ArtOfScrolls_BigWander_Spritesheet_19
+  - first:
+      213: -1052390820774720746
+    second: ArtOfScrolls_BigWander_Spritesheet_20
+  - first:
+      213: 6159717716011927014
+    second: ArtOfScrolls_BigWander_Spritesheet_21
+  - first:
+      213: -3560395395028796874
+    second: ArtOfScrolls_BigWander_Spritesheet_22
+  - first:
+      213: -307276459834800198
+    second: ArtOfScrolls_BigWander_Spritesheet_23
+  - first:
+      213: 577016803965217381
+    second: ArtOfScrolls_BigWander_Spritesheet_24
+  - first:
+      213: 6157459233607992589
+    second: ArtOfScrolls_BigWander_Spritesheet_25
+  - first:
+      213: -1498875780376919475
+    second: ArtOfScrolls_BigWander_Spritesheet_26
+  - first:
+      213: -1091554350601615430
+    second: ArtOfScrolls_BigWander_Spritesheet_27
+  - first:
+      213: 8586183203930900765
+    second: ArtOfScrolls_BigWander_Spritesheet_28
+  - first:
+      213: 9214734112682900361
+    second: ArtOfScrolls_BigWander_Spritesheet_29
+  - first:
+      213: -1301774590033772734
+    second: ArtOfScrolls_BigWander_Spritesheet_30
+  - first:
+      213: -5502504917176192540
+    second: ArtOfScrolls_BigWander_Spritesheet_31
+  - first:
+      213: 6911150969717192501
+    second: ArtOfScrolls_BigWander_Spritesheet_32
+  - first:
+      213: 9175394650636977070
+    second: ArtOfScrolls_BigWander_Spritesheet_33
+  - first:
+      213: -4460818304778317694
+    second: ArtOfScrolls_BigWander_Spritesheet_34
+  - first:
+      213: 433238685744766530
+    second: ArtOfScrolls_BigWander_Spritesheet_35
+  - first:
+      213: -8939109262443901129
+    second: ArtOfScrolls_BigWander_Spritesheet_36
+  - first:
+      213: -5419191976118481025
+    second: ArtOfScrolls_BigWander_Spritesheet_37
+  - first:
+      213: 193858003072909828
+    second: ArtOfScrolls_BigWander_Spritesheet_38
+  - first:
+      213: -6558422400360618015
+    second: ArtOfScrolls_BigWander_Spritesheet_39
+  - first:
+      213: -6318541236979677087
+    second: ArtOfScrolls_BigWander_Spritesheet_40
+  - first:
+      213: -3321738080221836253
+    second: ArtOfScrolls_BigWander_Spritesheet_41
+  - first:
+      213: 4670974850712823921
+    second: ArtOfScrolls_BigWander_Spritesheet_42
+  - first:
+      213: 1693022713427626750
+    second: ArtOfScrolls_BigWander_Spritesheet_43
+  - first:
+      213: 3088170457962140669
+    second: ArtOfScrolls_BigWander_Spritesheet_44
+  - first:
+      213: -114535653970170304
+    second: ArtOfScrolls_BigWander_Spritesheet_45
+  - first:
+      213: -2181904428935533206
+    second: ArtOfScrolls_BigWander_Spritesheet_46
+  - first:
+      213: -1101272378626726398
+    second: ArtOfScrolls_BigWander_Spritesheet_47
+  - first:
+      213: -855171204192436872
+    second: ArtOfScrolls_BigWander_Spritesheet_48
+  - first:
+      213: -302831612822764976
+    second: ArtOfScrolls_BigWander_Spritesheet_49
+  - first:
+      213: 4842224954365201610
+    second: ArtOfScrolls_BigWander_Spritesheet_50
+  - first:
+      213: 7179166509042584101
+    second: ArtOfScrolls_BigWander_Spritesheet_51
+  - first:
+      213: -1030288268902541313
+    second: ArtOfScrolls_BigWander_Spritesheet_52
+  - first:
+      213: -8662907601877631312
+    second: ArtOfScrolls_BigWander_Spritesheet_53
+  - first:
+      213: -4182884012639928349
+    second: ArtOfScrolls_BigWander_Spritesheet_54
+  - first:
+      213: 3258965242556931518
+    second: ArtOfScrolls_BigWander_Spritesheet_55
+  - first:
+      213: -1738454873481664060
+    second: ArtOfScrolls_BigWander_Spritesheet_56
+  - first:
+      213: 4249915452972554652
+    second: ArtOfScrolls_BigWander_Spritesheet_57
+  - first:
+      213: 3985308323668948773
+    second: ArtOfScrolls_BigWander_Spritesheet_58
+  - first:
+      213: -959933558318529558
+    second: ArtOfScrolls_BigWander_Spritesheet_59
+  - first:
+      213: -624143685333511348
+    second: ArtOfScrolls_BigWander_Spritesheet_60
+  - first:
+      213: 869446776612008365
+    second: ArtOfScrolls_BigWander_Spritesheet_61
+  - first:
+      213: 4689269965910452153
+    second: ArtOfScrolls_BigWander_Spritesheet_62
+  - first:
+      213: -3923034754147890060
+    second: ArtOfScrolls_BigWander_Spritesheet_63
+  - first:
+      213: -3044570772155121883
+    second: ArtOfScrolls_BigWander_Spritesheet_64
+  - first:
+      213: -4430082152979341373
+    second: ArtOfScrolls_BigWander_Spritesheet_65
+  - first:
+      213: 1878324284925253482
+    second: ArtOfScrolls_BigWander_Spritesheet_66
+  - first:
+      213: 1064984735663288298
+    second: ArtOfScrolls_BigWander_Spritesheet_67
+  - first:
+      213: 7560627581719347238
+    second: ArtOfScrolls_BigWander_Spritesheet_68
+  - first:
+      213: 6937395398473844901
+    second: ArtOfScrolls_BigWander_Spritesheet_69
+  - first:
+      213: -2287873959398667161
+    second: ArtOfScrolls_BigWander_Spritesheet_70
+  - first:
+      213: 3166613641087832236
+    second: ArtOfScrolls_BigWander_Spritesheet_71
+  - first:
+      213: -8908812144457248035
+    second: ArtOfScrolls_BigWander_Spritesheet_72
+  - first:
+      213: 3154989929935482592
+    second: ArtOfScrolls_BigWander_Spritesheet_73
+  - first:
+      213: 1754033090181886218
+    second: ArtOfScrolls_BigWander_Spritesheet_74
+  - first:
+      213: -1435772238120359593
+    second: ArtOfScrolls_BigWander_Spritesheet_75
+  - first:
+      213: -8570142106323182153
+    second: ArtOfScrolls_BigWander_Spritesheet_76
+  - first:
+      213: 8681478614831670049
+    second: ArtOfScrolls_BigWander_Spritesheet_77
+  - first:
+      213: -3034297951073291233
+    second: ArtOfScrolls_BigWander_Spritesheet_78
+  - first:
+      213: -1186283507933549228
+    second: ArtOfScrolls_BigWander_Spritesheet_79
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37d585af717499930800000000000000
+      internalID: 4150426699908537715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46c8585f67ae814c0800000000000000
+      internalID: -4316442446188409756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f90a2f9a9e68d580800000000000000
+      internalID: -8802163861321283083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7621e4bd7e3018b0800000000000000
+      internalID: -5183574461476952452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1dc2d9e6fc4f40c0800000000000000
+      internalID: -4589364871898673894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5e8e99cf50f14c0800000000000000
+      internalID: -4314723335525571105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 847a8fb978701d050800000000000000
+      internalID: 5823444072185505608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 149b7f4885419d4a0800000000000000
+      internalID: -6568196211122652863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59190b220a389ac40800000000000000
+      internalID: 5524091141746626965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 114
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 942bc9f0c7d843150800000000000000
+      internalID: 5851457379838505545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c9a7e6c8e2f69c0800000000000000
+      internalID: -3931872768987325333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f48048938f55af670800000000000000
+      internalID: 8573259365258365007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33d3c875674ae98d0800000000000000
+      internalID: -2837649887014929101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eed4c15b78c3021e0800000000000000
+      internalID: -2224711662364242450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1005eb6e14f749eb0800000000000000
+      internalID: -4714002988929232895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109add1caeddee6f0800000000000000
+      internalID: -653340895577528063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b21e4d4f94b203b0800000000000000
+      internalID: -5547673194677267786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 624717ff9cd8bb6b0800000000000000
+      internalID: -5279470239448206298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83a6cbc0d80abf1f0800000000000000
+      internalID: -1010037163750036936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41043ac2b36ff7b80800000000000000
+      internalID: -8394720446382915564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b47d2df182561f0800000000000000
+      internalID: -1052390820774720746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e5429b80a6bb7550800000000000000
+      internalID: 6159717716011927014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63a3f53804fe69ec0800000000000000
+      internalID: -3560395395028796874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab705b310b55cbbf0800000000000000
+      internalID: -307276459834800198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56a27cdd9b9f10800800000000000000
+      internalID: 577016803965217381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d054722ac80b37550800000000000000
+      internalID: 6157459233607992589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42823c4b6ce23be0800000000000000
+      internalID: -1498875780376919475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab7cb57f9150ad0f0800000000000000
+      internalID: -1091554350601615430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d190ab6e120482770800000000000000
+      internalID: 8586183203930900765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b732e8adf41ef70800000000000000
+      internalID: 9214734112682900361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f386f48ea2fede0800000000000000
+      internalID: -1301774590033772734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e17fdc6eec23a3b0800000000000000
+      internalID: -5502504917176192540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 537f61ba03759ef50800000000000000
+      internalID: 6911150969717192501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea38c3942dc855f70800000000000000
+      internalID: 9175394650636977070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 280d020e26df712c0800000000000000
+      internalID: -4460818304778317694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 65
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24e16ce0a4c230600800000000000000
+      internalID: 433238685744766530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 65
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73f80abbc77e1f380800000000000000
+      internalID: -8939109262443901129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 65
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7f8fcd1c992bc4b0800000000000000
+      internalID: -5419191976118481025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 65
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4020702a3d8b0b200800000000000000
+      internalID: 193858003072909828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 65
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e76a8b239dcbf4a0800000000000000
+      internalID: -6558422400360618015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1684b27d8380058a0800000000000000
+      internalID: -6318541236979677087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c4d7bb0d0d6e1d0800000000000000
+      internalID: -3321738080221836253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_42
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 178658bf0e2a2d040800000000000000
+      internalID: 4670974850712823921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_43
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efa85861033de7710800000000000000
+      internalID: 1693022713427626750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_44
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df350b07ba26bda20800000000000000
+      internalID: 3088170457962140669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_45
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04eadf6fd66196ef0800000000000000
+      internalID: -114535653970170304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_46
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6d227b6b7158b1e0800000000000000
+      internalID: -2181904428935533206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_47
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 206210f3b9e77b0f0800000000000000
+      internalID: -1101272378626726398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_48
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87d77f71252d124f0800000000000000
+      internalID: -855171204192436872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_49
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 052c0faa0402ccbf0800000000000000
+      internalID: -302831612822764976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_50
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 48
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acc4877d0f9033340800000000000000
+      internalID: 4842224954365201610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_51
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 48
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a4dd237e581a360800000000000000
+      internalID: 7179166509042584101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_52
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 48
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff7dfc3374ea3b1f0800000000000000
+      internalID: -1030288268902541313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_53
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 33
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0be7d042f6b27c780800000000000000
+      internalID: -8662907601877631312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_54
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 48
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3efbfe1072963f5c0800000000000000
+      internalID: -4182884012639928349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_55
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 33
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd53f11f9b2a3d20800000000000000
+      internalID: 3258965242556931518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_56
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 48
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c92418d084cfd7e0800000000000000
+      internalID: -1738454873481664060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_57
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 33
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c995fd3669bbafa30800000000000000
+      internalID: 4249915452972554652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_58
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 32
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 527f1b82ec8ae4730800000000000000
+      internalID: 3985308323668948773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_59
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 33
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae38270c381ada2f0800000000000000
+      internalID: -959933558318529558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_60
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4394e200a89657f0800000000000000
+      internalID: -624143685333511348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_61
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da1311f9c35e01c00800000000000000
+      internalID: 869446776612008365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_62
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b7200e6032a31140800000000000000
+      internalID: 4689269965910452153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_63
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47cc08d1da49e89c0800000000000000
+      internalID: -3923034754147890060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_64
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52f382873038fb5d0800000000000000
+      internalID: -3044570772155121883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_65
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cf5ed1e0cf2582c0800000000000000
+      internalID: -4430082152979341373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_66
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6795ff3cf5211a10800000000000000
+      internalID: 1878324284925253482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_67
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aef6c6c79f597ce00800000000000000
+      internalID: 1064984735663288298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_68
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62007674abebce860800000000000000
+      internalID: 7560627581719347238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_69
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a88678eb54964060800000000000000
+      internalID: 6937395398473844901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_70
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 16
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c0d2f61c6df30e0800000000000000
+      internalID: -2287873959398667161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_71
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 4
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca052f1445212fb20800000000000000
+      internalID: 3166613641087832236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_72
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 3
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd290f63e8a8d5480800000000000000
+      internalID: -8908812144457248035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_73
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 4
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ee2dbb10a6c8cb20800000000000000
+      internalID: 3154989929935482592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_74
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 4
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0172906dc3975810800000000000000
+      internalID: 1754033090181886218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_75
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 4
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 759e778a1cc131ce0800000000000000
+      internalID: -1435772238120359593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_76
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 1
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd1dfd292db01980800000000000000
+      internalID: -8570142106323182153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_77
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 1
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1232132cdceca7870800000000000000
+      internalID: 8681478614831670049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_78
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f14b493071204e5d0800000000000000
+      internalID: -3034297951073291233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArtOfScrolls_BigWander_Spritesheet_79
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 1
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d67ba4f69798fe0800000000000000
+      internalID: -1186283507933549228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ArtOfScrolls_BigWander_Spritesheet_0: 4150426699908537715
+      ArtOfScrolls_BigWander_Spritesheet_1: -4316442446188409756
+      ArtOfScrolls_BigWander_Spritesheet_10: -3931872768987325333
+      ArtOfScrolls_BigWander_Spritesheet_11: 8573259365258365007
+      ArtOfScrolls_BigWander_Spritesheet_12: -2837649887014929101
+      ArtOfScrolls_BigWander_Spritesheet_13: -2224711662364242450
+      ArtOfScrolls_BigWander_Spritesheet_14: -4714002988929232895
+      ArtOfScrolls_BigWander_Spritesheet_15: -653340895577528063
+      ArtOfScrolls_BigWander_Spritesheet_16: -5547673194677267786
+      ArtOfScrolls_BigWander_Spritesheet_17: -5279470239448206298
+      ArtOfScrolls_BigWander_Spritesheet_18: -1010037163750036936
+      ArtOfScrolls_BigWander_Spritesheet_19: -8394720446382915564
+      ArtOfScrolls_BigWander_Spritesheet_2: -8802163861321283083
+      ArtOfScrolls_BigWander_Spritesheet_20: -1052390820774720746
+      ArtOfScrolls_BigWander_Spritesheet_21: 6159717716011927014
+      ArtOfScrolls_BigWander_Spritesheet_22: -3560395395028796874
+      ArtOfScrolls_BigWander_Spritesheet_23: -307276459834800198
+      ArtOfScrolls_BigWander_Spritesheet_24: 577016803965217381
+      ArtOfScrolls_BigWander_Spritesheet_25: 6157459233607992589
+      ArtOfScrolls_BigWander_Spritesheet_26: -1498875780376919475
+      ArtOfScrolls_BigWander_Spritesheet_27: -1091554350601615430
+      ArtOfScrolls_BigWander_Spritesheet_28: 8586183203930900765
+      ArtOfScrolls_BigWander_Spritesheet_29: 9214734112682900361
+      ArtOfScrolls_BigWander_Spritesheet_3: -5183574461476952452
+      ArtOfScrolls_BigWander_Spritesheet_30: -1301774590033772734
+      ArtOfScrolls_BigWander_Spritesheet_31: -5502504917176192540
+      ArtOfScrolls_BigWander_Spritesheet_32: 6911150969717192501
+      ArtOfScrolls_BigWander_Spritesheet_33: 9175394650636977070
+      ArtOfScrolls_BigWander_Spritesheet_34: -4460818304778317694
+      ArtOfScrolls_BigWander_Spritesheet_35: 433238685744766530
+      ArtOfScrolls_BigWander_Spritesheet_36: -8939109262443901129
+      ArtOfScrolls_BigWander_Spritesheet_37: -5419191976118481025
+      ArtOfScrolls_BigWander_Spritesheet_38: 193858003072909828
+      ArtOfScrolls_BigWander_Spritesheet_39: -6558422400360618015
+      ArtOfScrolls_BigWander_Spritesheet_4: -4589364871898673894
+      ArtOfScrolls_BigWander_Spritesheet_40: -6318541236979677087
+      ArtOfScrolls_BigWander_Spritesheet_41: -3321738080221836253
+      ArtOfScrolls_BigWander_Spritesheet_42: 4670974850712823921
+      ArtOfScrolls_BigWander_Spritesheet_43: 1693022713427626750
+      ArtOfScrolls_BigWander_Spritesheet_44: 3088170457962140669
+      ArtOfScrolls_BigWander_Spritesheet_45: -114535653970170304
+      ArtOfScrolls_BigWander_Spritesheet_46: -2181904428935533206
+      ArtOfScrolls_BigWander_Spritesheet_47: -1101272378626726398
+      ArtOfScrolls_BigWander_Spritesheet_48: -855171204192436872
+      ArtOfScrolls_BigWander_Spritesheet_49: -302831612822764976
+      ArtOfScrolls_BigWander_Spritesheet_5: -4314723335525571105
+      ArtOfScrolls_BigWander_Spritesheet_50: 4842224954365201610
+      ArtOfScrolls_BigWander_Spritesheet_51: 7179166509042584101
+      ArtOfScrolls_BigWander_Spritesheet_52: -1030288268902541313
+      ArtOfScrolls_BigWander_Spritesheet_53: -8662907601877631312
+      ArtOfScrolls_BigWander_Spritesheet_54: -4182884012639928349
+      ArtOfScrolls_BigWander_Spritesheet_55: 3258965242556931518
+      ArtOfScrolls_BigWander_Spritesheet_56: -1738454873481664060
+      ArtOfScrolls_BigWander_Spritesheet_57: 4249915452972554652
+      ArtOfScrolls_BigWander_Spritesheet_58: 3985308323668948773
+      ArtOfScrolls_BigWander_Spritesheet_59: -959933558318529558
+      ArtOfScrolls_BigWander_Spritesheet_6: 5823444072185505608
+      ArtOfScrolls_BigWander_Spritesheet_60: -624143685333511348
+      ArtOfScrolls_BigWander_Spritesheet_61: 869446776612008365
+      ArtOfScrolls_BigWander_Spritesheet_62: 4689269965910452153
+      ArtOfScrolls_BigWander_Spritesheet_63: -3923034754147890060
+      ArtOfScrolls_BigWander_Spritesheet_64: -3044570772155121883
+      ArtOfScrolls_BigWander_Spritesheet_65: -4430082152979341373
+      ArtOfScrolls_BigWander_Spritesheet_66: 1878324284925253482
+      ArtOfScrolls_BigWander_Spritesheet_67: 1064984735663288298
+      ArtOfScrolls_BigWander_Spritesheet_68: 7560627581719347238
+      ArtOfScrolls_BigWander_Spritesheet_69: 6937395398473844901
+      ArtOfScrolls_BigWander_Spritesheet_7: -6568196211122652863
+      ArtOfScrolls_BigWander_Spritesheet_70: -2287873959398667161
+      ArtOfScrolls_BigWander_Spritesheet_71: 3166613641087832236
+      ArtOfScrolls_BigWander_Spritesheet_72: -8908812144457248035
+      ArtOfScrolls_BigWander_Spritesheet_73: 3154989929935482592
+      ArtOfScrolls_BigWander_Spritesheet_74: 1754033090181886218
+      ArtOfScrolls_BigWander_Spritesheet_75: -1435772238120359593
+      ArtOfScrolls_BigWander_Spritesheet_76: -8570142106323182153
+      ArtOfScrolls_BigWander_Spritesheet_77: 8681478614831670049
+      ArtOfScrolls_BigWander_Spritesheet_78: -3034297951073291233
+      ArtOfScrolls_BigWander_Spritesheet_79: -1186283507933549228
+      ArtOfScrolls_BigWander_Spritesheet_8: 5524091141746626965
+      ArtOfScrolls_BigWander_Spritesheet_9: 5851457379838505545
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

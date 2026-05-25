@@ -10,6 +10,19 @@ public class PlayerController : MonoBehaviour
     [Header("Health")]
     private int currentHealth;
     
+    [Header("Runtime Upgrades")]
+    public int bonusDamage;
+    public int bonusHealth;
+    public float bonusSpeed;
+    public float bonusShieldReduction;
+    public float bonusShieldDrainReduction;
+    public int extraJumps;
+    public bool canDash;
+    private int jumpsLeft;
+    public int bonusAirDamage;
+    public float attackSpeedMultiplier;
+    public float bonusBounceForce;
+    
     [Header("Shield")]
     public bool isShielding;
 
@@ -19,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public Vector2 groundCheckSize = new Vector2(0.8f, 0.1f);
     public LayerMask groundLayer;
+    private bool wasGrounded;
 
     [Header("DropDown")]
     public float dropDownTime = 0.2f;
@@ -47,6 +61,18 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool IsAttackingNormal;
     [HideInInspector] public bool IsAttackingDown;
     
+    [Header("Dash")]
+
+    public float dashForce = 15f;
+
+    public float dashTime = 0.2f;
+
+    public float dashCooldown = 1f;
+
+    private bool isDashing;
+
+    private bool canUseDash = true;
+    
     private bool facingRight = true;
     [HideInInspector] public float InputX;
     [HideInInspector] public float InputY;
@@ -65,16 +91,23 @@ public class PlayerController : MonoBehaviour
     public int CurrentHealth => currentHealth;
     public System.Action OnHealthChanged;
     
-    public int NormalAttackDamage => stats.normalAttackDamage;
-    public int AirDownAttackDamage => stats.airDownAttackDamage;
-    public int MaxHealth => stats.maxHealth;
+    public int NormalAttackDamage =>
+        stats.normalAttackDamage + bonusDamage;
+
+    public int AirDownAttackDamage =>
+        stats.airDownAttackDamage +
+        bonusDamage +
+        bonusAirDamage;
+
+    public int MaxHealth =>
+        stats.maxHealth + bonusHealth;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
-        currentHealth = stats.maxHealth;
+        currentHealth = MaxHealth;
         stamina = GetComponent<PlayerStamina>();
     }
 
@@ -94,6 +127,15 @@ public class PlayerController : MonoBehaviour
                 stamina.Use(stats.shieldDrainPerSecond * Time.deltaTime);
             }
         }
+        
+        bool grounded = IsGrounded();
+
+        if (grounded && !wasGrounded)
+        {
+            jumpsLeft = 1 + extraJumps;
+        }
+
+        wasGrounded = grounded;
     }
 
     private void UpdateAnimations()
@@ -110,10 +152,19 @@ public class PlayerController : MonoBehaviour
 
         if (isShielding)
         {
-            stamina.Use(stats.shieldHitDrain);
+            float drain =
+                stats.shieldHitDrain - bonusShieldDrainReduction;
 
-            damage = Mathf.CeilToInt(damage * (1f - stats.damageReduction));
+            drain = Mathf.Max(1f, drain);
 
+            stamina.Use(drain);
+
+            float totalReduction =
+                stats.damageReduction + bonusShieldReduction;
+
+            totalReduction = Mathf.Clamp(totalReduction, 0f, 0.9f);
+
+            damage = Mathf.CeilToInt(damage * (1f - totalReduction));
             if (stamina.IsEmpty)
             {
                 StopShield();
@@ -223,6 +274,9 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float x)
     {
+        if (isDashing)
+            return;
+        
         if (IsDead || isHitLocked) return; 
         float moveX = x;
         
@@ -232,7 +286,7 @@ public class PlayerController : MonoBehaviour
             
         } 
         
-        float speed = stats.moveSpeed;
+        float speed = stats.moveSpeed + bonusSpeed;
 
         if (isShielding)
         {
@@ -251,7 +305,49 @@ public class PlayerController : MonoBehaviour
         } 
         
     }
+    
+    public void Dash()
+    {
+        if (!canDash)
+            return;
 
+        if (!canUseDash)
+            return;
+
+        if (isDashing)
+            return;
+
+        StartCoroutine(DashRoutine());
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        isDashing = true;
+        canUseDash = false;
+
+        float originalGravity = rb.gravityScale;
+
+        rb.gravityScale = 0f;
+
+        float dir = facingRight ? 1f : -1f;
+
+        rb.linearVelocity =
+            new Vector2(
+                dir * dashForce,
+                0f
+            );
+
+        yield return new WaitForSeconds(dashTime);
+
+        rb.gravityScale = originalGravity;
+
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+
+        canUseDash = true;
+    }
+    
     public bool IsTouchingWall(float direction)
     {
         RaycastHit2D[] hits = new RaycastHit2D[2];
@@ -285,13 +381,21 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (IsDead || isHitLocked) return;
-        
-        if (IsGrounded())
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
-            animator.SetBool("InAir", true);
-        }
+        if (IsDead || isHitLocked)
+            return;
+
+        if (jumpsLeft <= 0)
+            return;
+
+        jumpsLeft--;
+
+        rb.linearVelocity =
+            new Vector2(
+                rb.linearVelocity.x,
+                stats.jumpForce
+            );
+
+        animator.SetBool("InAir", true);
     }
 
     public bool IsGrounded()
@@ -385,7 +489,11 @@ public class PlayerController : MonoBehaviour
     
     public void OnAirDownHitSuccess()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.airDownBounceForce);
+        rb.linearVelocity =
+            new Vector2(
+                rb.linearVelocity.x,
+                stats.airDownBounceForce + bonusBounceForce
+            );
     }
     
     public void ActivateAirDownHitbox()
@@ -414,5 +522,18 @@ public class PlayerController : MonoBehaviour
     {
         isShielding = false;
         animator.SetBool("Shield", false);
+    }
+    
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+
+        currentHealth = Mathf.Clamp(
+            currentHealth,
+            0,
+            MaxHealth
+        );
+
+        OnHealthChanged?.Invoke();
     }
 }

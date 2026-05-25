@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUIStamina : MonoBehaviour
 {
+    public TextMeshProUGUI StaminaText;
     public Image staminaImage;
     public PlayerStamina stamina;
 
@@ -13,7 +15,9 @@ public class PlayerUIStamina : MonoBehaviour
 
     public void UpdateStamina()
     {
-        staminaImage.fillAmount = stamina.currentStamina / stamina.maxStamina;
+        StaminaText.text = ((int)stamina.currentStamina).ToString();
+
+        staminaImage.fillAmount = (float)stamina.currentStamina / stamina.maxStamina;
     }
 
     private void OnEnable()

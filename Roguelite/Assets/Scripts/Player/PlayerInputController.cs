@@ -27,6 +27,9 @@ public class PlayerInputController : MonoBehaviour
                 _player.StartShield();
         };
         _gameInput.Gameplay.Shield.canceled += ctx => _player.StopShield();
+        
+        _gameInput.Gameplay.Dash.performed +=
+            ctx => _player.Dash();
 
     }
 

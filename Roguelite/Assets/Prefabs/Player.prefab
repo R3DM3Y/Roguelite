@@ -127,7 +127,7 @@ Transform:
   m_GameObject: {fileID: 1843372110512389334}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0591, y: -0.022, z: 0}
+  m_LocalPosition: {x: -0.003, y: -0.022, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -432,6 +432,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   stats: {fileID: 11400000, guid: 9b9f245f9819c264dadc4ea21ce7ead3, type: 2}
+  bonusDamage: 0
+  bonusHealth: 0
+  bonusSpeed: 0
+  bonusShieldReduction: 0
+  bonusShieldDrainReduction: 0
+  extraJumps: 0
+  canDash: 0
   isShielding: 0
   stamina: {fileID: 5149701596294789665}
   groundCheck: {fileID: 3478609096669116314}

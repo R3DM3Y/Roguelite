@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUIHealth : MonoBehaviour
 {
+    public TextMeshProUGUI hpText;
     public Image healthImage;
     public PlayerController player;
 
@@ -14,6 +16,8 @@ public class PlayerUIHealth : MonoBehaviour
     public void UpdateHealth()
     {
         healthImage.fillAmount = (float)player.CurrentHealth / player.MaxHealth;
+
+        hpText.text = player.CurrentHealth.ToString();
     }
     
     private void OnEnable()
