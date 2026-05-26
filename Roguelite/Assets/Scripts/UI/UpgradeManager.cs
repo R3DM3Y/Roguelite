@@ -65,7 +65,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        player = FindFirstObjectByType<PlayerController>();
+        player = FindAnyObjectByType<PlayerController>();
     }
 
     // ---------------- RARITY ----------------

@@ -52,6 +52,8 @@ public class EnemyController : MonoBehaviour
     [Range(0f, 1f)]
     private float coinDropChance = 1f;
     
+    public float DifficultyMultiplier => difficultyMultiplier;
+    
 
     #endregion
 
@@ -73,9 +75,9 @@ public class EnemyController : MonoBehaviour
         }
         
         currentHealth = stats.maxHealth;
-        
+
         difficultyMultiplier =
-            RoomManager.Instance.difficultyMultiplier;
+            RoomManager.Instance.DifficultyMultiplier;
 
         currentHealth =
             Mathf.RoundToInt(
@@ -116,7 +118,6 @@ public class EnemyController : MonoBehaviour
     }
     
     private float patrolTargetX;
-    private bool movingRight = true;
 
     private void HandleGroundEnemy()
     {

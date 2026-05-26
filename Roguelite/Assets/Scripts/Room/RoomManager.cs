@@ -5,32 +5,19 @@ public class RoomManager : MonoBehaviour
 {
     public static RoomManager Instance;
 
-    [Header("Rooms")]
     public RoomController startRoom;
-
     public RoomController[] possibleRooms;
-
-    [Header("Player")]
     public Transform player;
-    
-    [Header("Difficulty")]
-    public int roomsPassed;
 
-    public float difficultyMultiplier = 1f;
-
-    private RoomController currentRoom;
-    
     private CameraFollow2D cameraFollow;
+    private RoomNode currentNode;
 
-    private HashSet<string> killedEnemies =
-        new HashSet<string>();
-    
-    private HashSet<string> visitedRooms =
-        new HashSet<string>();
+    private Dictionary<Vector2Int, RoomNode> generated =
+        new Dictionary<Vector2Int, RoomNode>();
 
-    // связь комнат
-    private Dictionary<string, RoomController> roomConnections =
-        new Dictionary<string, RoomController>();
+    [SerializeField] private float difficultyMultiplier = 1f;
+
+    public float DifficultyMultiplier => difficultyMultiplier;
 
     private void Awake()
     {
@@ -39,162 +26,120 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        cameraFollow =
-            Camera.main.GetComponent<CameraFollow2D>();
+        cameraFollow = Camera.main.GetComponent<CameraFollow2D>();
 
-        // выключаем все комнаты
-        foreach (var room in possibleRooms)
-        {
-            room.gameObject.SetActive(false);
-        }
+        foreach (var r in possibleRooms)
+            r.gameObject.SetActive(false);
 
-        // включаем стартовую
         startRoom.gameObject.SetActive(true);
 
-        currentRoom = startRoom;
+        RoomNode startNode = new RoomNode
+        {
+            uniqueID = System.Guid.NewGuid().ToString(),
+            prefab = startRoom,
+            gridPosition = Vector2Int.zero
+        };
 
-        // ВАЖНО
-        cameraFollow.SetBounds(
-            currentRoom.cameraBounds
-        );
+        generated.Add(startNode.gridPosition, startNode);
+        currentNode = startNode;
 
+        MinimapManager.Instance.CreateRoom(startNode.gridPosition);
+        MinimapManager.Instance.SetCurrent(startNode.gridPosition);
+
+        cameraFollow.SetBounds(startRoom.cameraBounds);
         cameraFollow.InstantSnap();
     }
 
-    public void ChangeRoom(ExitDirection direction)
+    public void ChangeRoom(ExitDirection dir)
     {
-        string key =
-            currentRoom.roomID + "_" + direction;
+        Vector2Int target = currentNode.gridPosition + GetOffset(dir);
 
-        RoomController nextRoom;
+        RoomNode nextNode;
 
-        // если связь уже есть
-        if (roomConnections.ContainsKey(key))
+        if (generated.ContainsKey(target))
         {
-            nextRoom = roomConnections[key];
+            nextNode = generated[target];
         }
         else
         {
-            nextRoom = GetRandomRoom(direction);
+            RoomController prefab = GetRandomRoom(dir);
+            prefab.gameObject.SetActive(false);
 
-            roomConnections.Add(key, nextRoom);
-
-            // СОЗДАЕМ ОБРАТНУЮ СВЯЗЬ
-            ExitDirection opposite =
-                GetOppositeDirection(direction);
-
-            string backKey =
-                nextRoom.roomID + "_" + opposite;
-
-            if (!roomConnections.ContainsKey(backKey))
+            nextNode = new RoomNode
             {
-                roomConnections.Add(backKey, currentRoom);
-            }
+                uniqueID = System.Guid.NewGuid().ToString(),
+                prefab = prefab,
+                gridPosition = target
+            };
+
+            generated.Add(target, nextNode);
+            MinimapManager.Instance.CreateRoom(target);
         }
 
-        currentRoom.gameObject.SetActive(false);
+        // связь + линия
+        MinimapManager.Instance.DrawConnection(currentNode.gridPosition, target);
 
-        nextRoom.gameObject.SetActive(true);
-        
-        nextRoom.ResetRoom();
+        currentNode.prefab.gameObject.SetActive(false);
 
-        currentRoom = nextRoom;
-        
-        if (!visitedRooms.Contains(nextRoom.roomID))
-        {
-            visitedRooms.Add(nextRoom.roomID);
+        nextNode.prefab.gameObject.SetActive(true);
+        nextNode.prefab.ResetRoom();
 
-            roomsPassed++;
+        currentNode = nextNode;
 
-            difficultyMultiplier =
-                1f + roomsPassed * 0.05f;
-        }
+        MinimapManager.Instance.SetCurrent(currentNode.gridPosition);
 
-        difficultyMultiplier =
-            1f + roomsPassed * 0.05f;
-        
-        Transform spawnPoint = GetSpawnPoint(
-            nextRoom,
-            direction
-        );
+        Transform spawn = GetSpawnPoint(currentNode.prefab, dir);
+        player.position = spawn.position;
 
-        player.position = spawnPoint.position;
-
-        cameraFollow.SetBounds(
-            nextRoom.cameraBounds
-        );
-
+        cameraFollow.SetBounds(currentNode.prefab.cameraBounds);
         cameraFollow.InstantSnap();
-
-        // отключаем триггер на секунду
-        RoomExit exit =
-            spawnPoint.GetComponentInChildren<RoomExit>();
-
-        if (exit != null)
-        {
-            exit.DisableTemporarily();
-        }
     }
 
-    private Transform GetSpawnPoint(
-        RoomController room,
-        ExitDirection enterDirection)
+    private Vector2Int GetOffset(ExitDirection dir)
     {
-        Transform point = null;
-
-        switch (enterDirection)
+        return dir switch
         {
-            case ExitDirection.Left:
-                point = room.spawnRight;
-                break;
-
-            case ExitDirection.Right:
-                point = room.spawnLeft;
-                break;
-
-            case ExitDirection.Up:
-                point = room.spawnDown;
-                break;
-
-            case ExitDirection.Down:
-                point = room.spawnUp;
-                break;
-        }
-
-        // ЗАЩИТА ОТ NULL
-        if (point == null)
-        {
-            Debug.LogError(
-                "В комнате " + room.roomID +
-                " нет нужного spawn point!"
-            );
-
-            return room.transform;
-        }
-
-        return point;
+            ExitDirection.Left => Vector2Int.left,
+            ExitDirection.Right => Vector2Int.right,
+            ExitDirection.Up => Vector2Int.up,
+            ExitDirection.Down => Vector2Int.down,
+            _ => Vector2Int.zero
+        };
     }
 
-    private ExitDirection GetOppositeDirection(
-        ExitDirection dir)
+    private Transform GetSpawnPoint(RoomController room, ExitDirection dir)
     {
-        switch (dir)
+        return dir switch
         {
-            case ExitDirection.Left:
-                return ExitDirection.Right;
+            ExitDirection.Left => room.spawnRight,
+            ExitDirection.Right => room.spawnLeft,
+            ExitDirection.Up => room.spawnDown,
+            ExitDirection.Down => room.spawnUp,
+            _ => room.transform
+        };
+    }
 
-            case ExitDirection.Right:
-                return ExitDirection.Left;
+    private RoomController GetRandomRoom(ExitDirection dir)
+    {
+        List<RoomController> valid = new();
 
-            case ExitDirection.Up:
-                return ExitDirection.Down;
-
-            case ExitDirection.Down:
-                return ExitDirection.Up;
+        foreach (var r in possibleRooms)
+        {
+            if (dir == ExitDirection.Left && r.hasRight) valid.Add(r);
+            if (dir == ExitDirection.Right && r.hasLeft) valid.Add(r);
+            if (dir == ExitDirection.Up && r.hasDown) valid.Add(r);
+            if (dir == ExitDirection.Down && r.hasUp) valid.Add(r);
         }
 
-        return ExitDirection.Left;
+        return valid[Random.Range(0, valid.Count)];
     }
+
+    public bool IsRoomGenerated(Vector2Int pos)
+    {
+        return generated.ContainsKey(pos);
+    }
+    
+    private HashSet<string> killedEnemies = new HashSet<string>();
 
     public void MarkEnemyKilled(string enemyID)
     {
@@ -204,45 +149,5 @@ public class RoomManager : MonoBehaviour
     public bool IsEnemyKilled(string enemyID)
     {
         return killedEnemies.Contains(enemyID);
-    }
-    
-    private RoomController GetRandomRoom(
-        ExitDirection enterDirection)
-    {
-        List<RoomController> validRooms =
-            new List<RoomController>();
-
-        foreach (var room in possibleRooms)
-        {
-            bool valid = false;
-
-            switch (enterDirection)
-            {
-                case ExitDirection.Left:
-                    valid = room.hasRight;
-                    break;
-
-                case ExitDirection.Right:
-                    valid = room.hasLeft;
-                    break;
-
-                case ExitDirection.Up:
-                    valid = room.hasDown;
-                    break;
-
-                case ExitDirection.Down:
-                    valid = room.hasUp;
-                    break;
-            }
-
-            if (valid)
-            {
-                validRooms.Add(room);
-            }
-        }
-
-        return validRooms[
-            Random.Range(0, validRooms.Count)
-        ];
     }
 }
