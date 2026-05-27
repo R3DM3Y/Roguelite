@@ -76,9 +76,7 @@ public class RoomManager : MonoBehaviour
             }
             
             // ВАЖНО: временно активируем, чтобы получить размеры
-            prefab.gameObject.SetActive(true);
             Vector2 roomDimensions = GetRoomDimensions(prefab);
-            prefab.gameObject.SetActive(false);
             
             Debug.Log($"Creating new room at {target} with size {roomDimensions}");
 

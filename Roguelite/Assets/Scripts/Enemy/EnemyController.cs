@@ -54,26 +54,49 @@ public class EnemyController : MonoBehaviour
     
     public float DifficultyMultiplier => difficultyMultiplier;
     
+    
+    
 
     #endregion
 
     #region === UNITY ===
+    
+    private void OnValidate()
+    {
+        if (string.IsNullOrEmpty(enemyID))
+        {
+            enemyID = System.Guid.NewGuid().ToString();
+        }
+    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
+        startPosition = transform.position;
+        
+        Debug.Log($"Enemy awake: {name} pos={startPosition}");
     }
 
     private void Start()
     {
-        if (RoomManager.Instance.IsEnemyKilled(enemyID))
+        if (string.IsNullOrEmpty(enemyID))
+        {
+            enemyID = System.Guid.NewGuid().ToString();
+
+            Debug.LogWarning($"Generated runtime ID for {name}");
+        }
+
+        if (RoomManager.Instance != null &&
+            RoomManager.Instance.IsEnemyKilled(enemyID))
         {
             Destroy(gameObject);
             return;
         }
-        
+
+        Debug.Log($"Enemy loaded: {name} | {enemyID}");
+
         currentHealth = stats.maxHealth;
 
         difficultyMultiplier =
@@ -84,15 +107,19 @@ public class EnemyController : MonoBehaviour
                 stats.maxHealth *
                 difficultyMultiplier
             );
-        
-        startPosition = transform.position;
 
         GameObject p = GameObject.FindGameObjectWithTag("Player");
+
         if (p != null)
         {
             player = p.transform;
             playerController = p.GetComponent<PlayerController>();
         }
+        
+        Debug.Log($"Enemy position: {transform.position}");
+        Debug.Log($"Enemy scale: {transform.localScale}");
+        Debug.Log($"Enemy active: {gameObject.activeSelf}");
+        
     }
 
     private void FixedUpdate()
