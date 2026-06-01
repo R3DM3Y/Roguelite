@@ -2143,8 +2143,9 @@ MonoBehaviour:
   playerController: {fileID: 2008132270}
   startRoom: {fileID: 1908747557}
   possibleRooms:
-  - {fileID: 8664342342646823176}
   - {fileID: 562995960}
+  - {fileID: 8664342342646823176}
+  - {fileID: 8951779186572538475}
   player: {fileID: 2008132267}
   difficultyMultiplier: 1
 --- !u!1001 &1103028709
@@ -4213,7 +4214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow2D
   target: {fileID: 2008132267}
   smoothSpeed: 10
-  offset: {x: 1, y: 2, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1001 &2040029021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4825,6 +4826,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddafb083d2be53744bfb04543b79a75d, type: 3}
+--- !u!1001 &4271158208215993312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 26.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548399301769713105, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890043349589331649, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_Name
+      value: Room_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890043349589331649, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464624966649949502, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
 --- !u!1001 &4297604882340030655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5031,6 +5097,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673177467c57e2d4d99204175729ee2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomController
+--- !u!114 &8951779186572538475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7179469450425895262, guid: 2418e9e3c97181748912eac39a0228a3, type: 3}
+  m_PrefabInstance: {fileID: 4271158208215993312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673177467c57e2d4d99204175729ee2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5044,6 +5121,7 @@ SceneRoots:
   - {fileID: 6587948607321376207}
   - {fileID: 4297604882340030655}
   - {fileID: 2917562364525863461}
+  - {fileID: 4271158208215993312}
   - {fileID: 1077286601}
   - {fileID: 1238988591}
   - {fileID: 1034880941}

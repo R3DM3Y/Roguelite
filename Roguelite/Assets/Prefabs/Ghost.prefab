@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3535695659140407383}
   - component: {fileID: 640729573377478610}
   - component: {fileID: 4749488302353589440}
+  - component: {fileID: 4371935729043886071}
   m_Layer: 6
   m_Name: Ghost
   m_TagString: Untagged
@@ -33,6 +34,7 @@ Transform:
   m_LocalScale: {x: 2.08, y: 2.08, z: 2.08}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 5423538742012370377}
   - {fileID: 3454486529300095656}
   - {fileID: 7552557650767335903}
   m_Father: {fileID: 0}
@@ -82,9 +84,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 32409131
+  m_SortingLayer: 5
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5899927303015767666, guid: 8c76be30575595f4990865a800923681, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -144,6 +146,11 @@ MonoBehaviour:
   attackHitbox: {fileID: 0}
   minBounds: {x: -10, y: -5}
   maxBounds: {x: 16, y: 10}
+  popupSpawner: {fileID: 4371935729043886071}
+  headPoint: {fileID: 5423538742012370377}
+  enemyID: 
+  coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
+  coinDropChance: 0.2
 --- !u!95 &4749488302353589440
 Animator:
   serializedVersion: 7
@@ -166,6 +173,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4371935729043886071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643881013118105533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1b77ec9439f9b4c9daa1d73726787b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagePopupSpawner
+  prefab: {fileID: 2154216569632756350, guid: 81123ce306259724f9a61745ae845fad, type: 3}
 --- !u!1 &5120451103119919705
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +277,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2020a485aa5b1546b6d4b280e1d24a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHurtbox
+--- !u!1 &6536520341979247179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5423538742012370377}
+  m_Layer: 8
+  m_Name: HeadPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5423538742012370377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6536520341979247179}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.553, z: 0}
+  m_LocalScale: {x: 0.72115386, y: 0.72115386, z: 0.48076922}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5684674982923419243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6685465380351615234
 GameObject:
   m_ObjectHideFlags: 0

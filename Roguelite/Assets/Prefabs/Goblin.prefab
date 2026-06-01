@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7451335989951801043}
   - component: {fileID: 2910146005707900170}
   - component: {fileID: 451955772072139460}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,6 +98,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackHitbox
   damage: 1
+--- !u!1 &1441777114798783005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6720292445780239188}
+  m_Layer: 6
+  m_Name: HeadPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6720292445780239188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441777114798783005}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.055, y: 1.168, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 0.8}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 832120505365001418}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4741285700723775045
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +140,7 @@ GameObject:
   - component: {fileID: 1523073672314584277}
   - component: {fileID: 6309659536406554850}
   - component: {fileID: 1503675453145681729}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BodyDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7756199252320241426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 5634833110737530816}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.367, y: -0.092, z: 0}
+  m_LocalPosition: {x: 0.008, y: -0.014, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -233,8 +264,9 @@ GameObject:
   - component: {fileID: 7862859303000369837}
   - component: {fileID: 3626646468845492210}
   - component: {fileID: 4256542392338358285}
-  - component: {fileID: 7169871837785035191}
-  m_Layer: 0
+  - component: {fileID: 1589560769608820358}
+  - component: {fileID: 1824752614502685102}
+  m_Layer: 6
   m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,6 +290,7 @@ Transform:
   - {fileID: 7756199252320241426}
   - {fileID: 7850330884633012867}
   - {fileID: 7451335989951801043}
+  - {fileID: 6720292445780239188}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2354539230374551711
@@ -305,9 +338,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 32409131
+  m_SortingLayer: 5
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 51fd5d6fb5dbe9a429755940856a273b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -356,7 +389,7 @@ BoxCollider2D:
   m_Offset: {x: 0.024461567, y: 0.5595594}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.557029, y: 0}
     oldSize: {x: 1.03125, y: 1.125}
     newSize: {x: 1.09375, y: 1.1875}
     adaptiveTilingThreshold: 0.5
@@ -414,7 +447,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7169871837785035191
+--- !u!114 &1589560769608820358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,6 +468,24 @@ MonoBehaviour:
   attackHitbox: {fileID: 451955772072139460}
   minBounds: {x: 0, y: 0}
   maxBounds: {x: 0, y: 0}
+  popupSpawner: {fileID: 1824752614502685102}
+  headPoint: {fileID: 6720292445780239188}
+  enemyID: 
+  coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
+  coinDropChance: 0.2
+--- !u!114 &1824752614502685102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914282762887645105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1b77ec9439f9b4c9daa1d73726787b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagePopupSpawner
+  prefab: {fileID: 2154216569632756350, guid: 81123ce306259724f9a61745ae845fad, type: 3}
 --- !u!1 &6975925095673144732
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +497,7 @@ GameObject:
   - component: {fileID: 7850330884633012867}
   - component: {fileID: 6356668377820388074}
   - component: {fileID: 374185068762230081}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +513,7 @@ Transform:
   m_GameObject: {fileID: 6975925095673144732}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.073, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

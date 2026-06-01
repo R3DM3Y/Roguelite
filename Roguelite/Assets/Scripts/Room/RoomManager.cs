@@ -164,16 +164,30 @@ public class RoomManager : MonoBehaviour
 
         foreach (var r in possibleRooms)
         {
-            if (dir == ExitDirection.Left && r.hasRight) valid.Add(r);
-            if (dir == ExitDirection.Right && r.hasLeft) valid.Add(r);
-            if (dir == ExitDirection.Up && r.hasDown) valid.Add(r);
-            if (dir == ExitDirection.Down && r.hasUp) valid.Add(r);
+            bool fitsDirection = false;
+            if (dir == ExitDirection.Left && r.hasRight) fitsDirection = true;
+            if (dir == ExitDirection.Right && r.hasLeft) fitsDirection = true;
+            if (dir == ExitDirection.Up && r.hasDown) fitsDirection = true;
+            if (dir == ExitDirection.Down && r.hasUp) fitsDirection = true;
+        
+            if (!fitsDirection) continue;
+
+            bool alreadyGenerated = false;
+            foreach (var room in generated)
+            {
+                if (room.Value.prefab == r)
+                {
+                    alreadyGenerated = true;
+                    break;
+                }
+            }
+        
+            if (!alreadyGenerated)
+                valid.Add(r);
         }
 
         if (valid.Count == 0)
-        {
             return null;
-        }
 
         return valid[Random.Range(0, valid.Count)];
     }

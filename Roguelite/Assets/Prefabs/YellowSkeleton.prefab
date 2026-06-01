@@ -196,7 +196,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.1432543, y: 0.7248106}
+  m_Offset: {x: -0.025993347, y: 0.7248106}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -206,7 +206,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7916298, y: 1.442654}
+  m_Size: {x: 0.68359375, y: 1.4426541}
   m_EdgeRadius: 0
 --- !u!114 &4864447857267487330
 MonoBehaviour:
@@ -382,17 +382,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.1432543, y: 0.7248106}
+  m_Offset: {x: -0.030996323, y: 0.7248106}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.32947865, y: 0}
     oldSize: {x: 1.0625, y: 1.4375}
     newSize: {x: 1.0625, y: 1.4375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7916298, y: 1.442654}
+  m_Size: {x: 0.69573593, y: 1.4426541}
   m_EdgeRadius: 0
 --- !u!114 &4695782146859626044
 MonoBehaviour:
@@ -419,7 +419,7 @@ MonoBehaviour:
   headPoint: {fileID: 5945355239565433798}
   enemyID: a07776e7-d96a-40be-8c21-193f8562c866
   coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
-  coinDropChance: 1
+  coinDropChance: 0.2
 --- !u!95 &1610979385911682934
 Animator:
   serializedVersion: 7
@@ -522,7 +522,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.1432543, y: 0.7248106}
+  m_Offset: {x: -0.024808884, y: 0.7248106}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -532,7 +532,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7916298, y: 1.442654}
+  m_Size: {x: 0.6695976, y: 1.4426541}
   m_EdgeRadius: 0
 --- !u!114 &8559686573089244670
 MonoBehaviour:

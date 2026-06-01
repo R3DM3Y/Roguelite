@@ -15,17 +15,17 @@ MonoBehaviour:
   movementType: 0
   maxHealth: 150
   detectionRadius: 10
-  moveSpeed: 5
+  moveSpeed: 3
   flipRadius: 0.5
-  contactDamage: 60
+  contactDamage: 30
   attackRange: 1.2
   attackCooldown: 1.5
-  attackDamage: 1
+  attackDamage: 50
   verticalAttackTolerance: 1
   canPatrol: 1
   stopAboveHeight: 1.5
   aboveOffsetRange: 1.5
-  patrolSpeed: 2
+  patrolSpeed: 1
   maxUpVision: 3
   maxDownVision: 2
   hoverRadius: 2.5

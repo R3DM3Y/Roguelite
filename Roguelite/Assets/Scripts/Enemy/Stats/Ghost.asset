@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Ghost
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   movementType: 1
-  maxHealth: 3
+  maxHealth: 40
   detectionRadius: 8
   moveSpeed: 10
   flipRadius: 0.5
-  contactDamage: 1
+  contactDamage: 15
   attackRange: 1.2
   attackCooldown: 1.5
   attackDamage: 1
@@ -25,6 +25,9 @@ MonoBehaviour:
   canPatrol: 0
   stopAboveHeight: 1.5
   aboveOffsetRange: 1.5
+  patrolSpeed: 2
+  maxUpVision: 3
+  maxDownVision: 2
   hoverRadius: 4
   approachSpeed: 8
   orbitSpeed: 4

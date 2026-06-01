@@ -130,72 +130,80 @@ public class EnemyController : MonoBehaviour
     private float patrolTargetX;
 
     private void HandleGroundEnemy()
+{
+    float distance = Vector2.Distance(transform.position, player.position);
+    float distanceX = Mathf.Abs(player.position.x - transform.position.x);
+    float distanceY = player.position.y - transform.position.y;
+
+    bool cantSeeVertical = distanceY > stats.maxUpVision || distanceY < -stats.maxDownVision;
+
+    // Игрок снизу — патрулируем
+    if (distanceY < -stats.stopAboveHeight)
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        float distanceX = Mathf.Abs(player.position.x - transform.position.x);
-        float distanceY = player.position.y - transform.position.y;
+        Patrol();
+        return;
+    }
 
-        bool cantSeeVertical = distanceY > stats.maxUpVision || distanceY < -stats.maxDownVision;
+    // Игрок вне зоны — патрулируем
+    if (distance > stats.detectionRadius || cantSeeVertical)
+    {
+        Patrol();
+        return;
+    }
 
-        // Игрок снизу — патрулируем
-        if (distanceY < -stats.stopAboveHeight)
+    // Игрок над нами — ходим под ним
+    if (distanceY > stats.stopAboveHeight)
+    {
+        float leftPoint = player.position.x - stats.aboveOffsetRange;
+        float rightPoint = player.position.x + stats.aboveOffsetRange;
+
+        // Если уже под игроком — стоим
+        if (transform.position.x >= leftPoint && transform.position.x <= rightPoint)
         {
-            Patrol();
+            StopMoving();
             return;
         }
 
-        // Игрок вне зоны — патрулируем
-        if (distance > stats.detectionRadius || cantSeeVertical)
+        // Идём к игроку
+        float dir = transform.position.x < player.position.x ? 1f : -1f;
+        FacePlayer();
+
+        if (!IsGroundAhead(dir))
         {
-            Patrol();
+            StopMoving();
             return;
         }
 
-        // Игрок над нами — ходим под ним
-        if (distanceY > stats.stopAboveHeight)
+        rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
+        animator.SetBool("IsMoving", true);
+
+        return;
+    }
+
+    // Игрок на одном уровне — преследуем или атакуем
+    if (distanceX > stats.attackRange)
+    {
+        float dir = Mathf.Sign(player.position.x - transform.position.x);
+        FacePlayer();
+
+        if (IsGroundAhead(dir))
         {
-            float leftPoint = player.position.x - stats.aboveOffsetRange;
-            float rightPoint = player.position.x + stats.aboveOffsetRange;
-            float dir = facingRight ? 1f : -1f;
-
-            if (!IsGroundAhead(dir))
-                Flip();
-
             rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
             animator.SetBool("IsMoving", true);
-
-            if (transform.position.x >= rightPoint && facingRight)
-                Flip();
-            else if (transform.position.x <= leftPoint && !facingRight)
-                Flip();
-
-            return;
-        }
-
-        // Игрок на одном уровне — преследуем или атакуем
-        if (distanceX > stats.attackRange)
-        {
-            float dir = Mathf.Sign(player.position.x - transform.position.x);
-            FacePlayer();
-
-            if (IsGroundAhead(dir))
-            {
-                rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
-                animator.SetBool("IsMoving", true);
-            }
-            else
-            {
-                StopMoving();
-            }
         }
         else
         {
             StopMoving();
-
-            if (canAttack && Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
-                StartCoroutine(AttackRoutine());
         }
     }
+    else
+    {
+        StopMoving();
+
+        if (canAttack && Mathf.Abs(distanceY) <= stats.verticalAttackTolerance)
+            StartCoroutine(AttackRoutine());
+    }
+}
     
     private void HandleFlyingEnemy()
     {
