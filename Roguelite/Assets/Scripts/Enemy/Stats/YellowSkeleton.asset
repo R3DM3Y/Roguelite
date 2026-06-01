@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   movementType: 0
   maxHealth: 150
-  detectionRadius: 5
-  moveSpeed: 2
+  detectionRadius: 10
+  moveSpeed: 5
   flipRadius: 0.5
   contactDamage: 60
   attackRange: 1.2

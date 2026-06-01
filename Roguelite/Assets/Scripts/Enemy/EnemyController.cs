@@ -60,14 +60,6 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region === UNITY ===
-    
-    private void OnValidate()
-    {
-        if (string.IsNullOrEmpty(enemyID))
-        {
-            enemyID = System.Guid.NewGuid().ToString();
-        }
-    }
 
     private void Awake()
     {
@@ -75,6 +67,8 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
         startPosition = transform.position;
+        
+        enemyID = System.Guid.NewGuid().ToString();
     }
 
     private void Start()
@@ -140,52 +134,59 @@ public class EnemyController : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.position);
         float distanceX = Mathf.Abs(player.position.x - transform.position.x);
         float distanceY = player.position.y - transform.position.y;
-        
-        // Игрок слишком высоко
-        bool cantSeeVertical =
-            distanceY > stats.maxUpVision ||
-            distanceY < -stats.maxDownVision;
 
-        if (cantSeeVertical)
+        bool cantSeeVertical = distanceY > stats.maxUpVision || distanceY < -stats.maxDownVision;
+
+        // Игрок снизу — патрулируем
+        if (distanceY < -stats.stopAboveHeight)
         {
             Patrol();
             return;
         }
 
-        bool playerAbove = distanceY > stats.stopAboveHeight;
-
-        // Игрок вне зоны
-        if (distance > stats.detectionRadius)
+        // Игрок вне зоны — патрулируем
+        if (distance > stats.detectionRadius || cantSeeVertical)
         {
             Patrol();
             return;
         }
 
-        // Игрок сверху
-        if (playerAbove)
+        // Игрок над нами — ходим под ним
+        if (distanceY > stats.stopAboveHeight)
         {
             float leftPoint = player.position.x - stats.aboveOffsetRange;
             float rightPoint = player.position.x + stats.aboveOffsetRange;
-
             float dir = facingRight ? 1f : -1f;
+
+            if (!IsGroundAhead(dir))
+                Flip();
 
             rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
             animator.SetBool("IsMoving", true);
 
-            // Мгновенный разворот у края маршрута
             if (transform.position.x >= rightPoint && facingRight)
                 Flip();
-
             else if (transform.position.x <= leftPoint && !facingRight)
                 Flip();
 
             return;
         }
 
-        // Игрок на земле
+        // Игрок на одном уровне — преследуем или атакуем
         if (distanceX > stats.attackRange)
         {
-            MoveToPlayer();
+            float dir = Mathf.Sign(player.position.x - transform.position.x);
+            FacePlayer();
+
+            if (IsGroundAhead(dir))
+            {
+                rb.linearVelocity = new Vector2(dir * stats.moveSpeed, rb.linearVelocity.y);
+                animator.SetBool("IsMoving", true);
+            }
+            else
+            {
+                StopMoving();
+            }
         }
         else
         {
@@ -230,33 +231,6 @@ public class EnemyController : MonoBehaviour
 
     #region === MOVEMENT ===
 
-    private void MoveToPlayer()
-    {
-        float dir =
-            Mathf.Sign(
-                player.position.x -
-                transform.position.x
-            );
-        
-        FacePlayer();
-
-        // ПРОПАСТЬ ВПЕРЕДИ
-        if (!IsGroundAhead(dir))
-        {
-            StopMoving();
-            return;
-        }
-
-        rb.linearVelocity =
-            new Vector2(
-                dir * stats.moveSpeed,
-                rb.linearVelocity.y
-            );
-
-        animator.SetBool("IsMoving", true);
-
-    }
-
     private void Patrol()
     {
         if (patrolPoints == null || patrolPoints.Length == 0)
@@ -298,19 +272,13 @@ public class EnemyController : MonoBehaviour
         if (groundCheck == null)
             return true;
 
-        Vector2 checkPos =
-            (Vector2)groundCheck.position +
-            Vector2.right * (dir * 0.05f);
-
-        RaycastHit2D hit =
-            Physics2D.Raycast(
-                checkPos,
-                Vector2.down,
-                1f,
-                groundLayer
-            );
-
-        return hit.collider != null;
+        // ТОЧНО ТАК ЖЕ как у игрока — OverlapBox с groundCheckSize
+        Vector2 boxCenter = (Vector2)groundCheck.position + Vector2.right * (dir * 0.3f);
+    
+        // Используй ТЕ ЖЕ параметры что у игрока
+        Collider2D hit = Physics2D.OverlapBox(boxCenter, new Vector2(0.8f, 0.1f), 0f, groundLayer);
+    
+        return hit != null;
     }
     
     private void OrbitAroundPlayer()
