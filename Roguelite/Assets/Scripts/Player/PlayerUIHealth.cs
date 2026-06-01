@@ -15,9 +15,11 @@ public class PlayerUIHealth : MonoBehaviour
 
     public void UpdateHealth()
     {
-        healthImage.fillAmount = (float)player.CurrentHealth / player.MaxHealth;
+        float fill = (float)player.CurrentHealth / player.MaxHealth;
+        healthImage.fillAmount = Mathf.Clamp01(fill);
 
-        hpText.text = player.CurrentHealth.ToString();
+        int displayHP = Mathf.Max(0, player.CurrentHealth);
+        hpText.text = displayHP.ToString();
     }
     
     private void OnEnable()

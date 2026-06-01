@@ -37,16 +37,16 @@ public class DeathScreen : MonoBehaviour
     public IEnumerator FadeIn()
     {
         blackOverlay.gameObject.SetActive(true);
-        
+    
         float t = 0f;
         while (t < 1f)
         {
             t += Time.unscaledDeltaTime / fadeDuration;
-            blackOverlay.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 0.85f, t));
+            blackOverlay.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 1f, t));
             yield return null;
         }
-        
-        blackOverlay.color = new Color(0f, 0f, 0f, 0.85f);
+    
+        blackOverlay.color = Color.black; // полностью чёрный
     }
     
     public IEnumerator ShowText()
