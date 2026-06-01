@@ -237,6 +237,21 @@ public class RoomManager : MonoBehaviour
             data.roomPrefabs.Add(prefabIndex.ToString());
         }
 
+        if (UpgradeManager.Instance != null)
+        {
+            // Получаем значения через рефлексию или делаем публичные геттеры
+            // Но проще сохранять напрямую из PlayerController
+            data.upgrades.swordDamageLevel = playerController.bonusDamage;
+            data.upgrades.airDamageLevel = playerController.bonusAirDamage;
+            data.upgrades.airBounceLevel = Mathf.RoundToInt(playerController.bonusBounceForce);
+            data.upgrades.hpLevel = playerController.bonusHealth;
+            data.upgrades.speedLevel = Mathf.RoundToInt(playerController.bonusSpeed * 10); // speedBase=0.1
+            data.upgrades.shieldLevel = Mathf.RoundToInt(playerController.bonusShieldReduction * 50); // 0.02*50=1
+            data.upgrades.shieldEfficiencyLevel = Mathf.RoundToInt(playerController.bonusShieldDrainReduction * 2); // 0.5*2=1
+            data.upgrades.jumpLevel = playerController.extraJumps;
+            data.upgrades.dashUnlocked = playerController.canDash;
+        }
+        
         SaveSystem.Save(data);
     }
     
@@ -353,6 +368,22 @@ public class RoomManager : MonoBehaviour
 
         // 5. Позиция игрока — ИЗ СОХРАНЕНИЯ
         player.position = new Vector3(data.playerX, data.playerY, 0);
+        
+        // Восстанавливаем улучшения
+        if (data.upgrades != null)
+        {
+            playerController.bonusDamage = data.upgrades.swordDamageLevel;
+            playerController.bonusAirDamage = data.upgrades.airDamageLevel;
+            playerController.bonusBounceForce = data.upgrades.airBounceLevel;
+            playerController.bonusHealth = data.upgrades.hpLevel;
+            playerController.bonusSpeed = data.upgrades.speedLevel / 10f;
+            playerController.bonusShieldReduction = data.upgrades.shieldLevel / 50f;
+            playerController.bonusShieldDrainReduction = data.upgrades.shieldEfficiencyLevel / 2f;
+            playerController.extraJumps = data.upgrades.jumpLevel;
+            playerController.canDash = data.upgrades.dashUnlocked;
+    
+            Debug.Log($"Loaded upgrades: HP+{data.upgrades.hpLevel}, DMG+{data.upgrades.swordDamageLevel}, Dash={data.upgrades.dashUnlocked}");
+        }
         
         // 6. HP игрока
         if (playerController != null)

@@ -386,6 +386,9 @@ public class PlayerController : MonoBehaviour
         if (IsDead || isHitLocked)
             return;
 
+        if (rb == null)
+            return;
+
         if (jumpsLeft <= 0)
             return;
 
