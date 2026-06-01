@@ -4,7 +4,6 @@ namespace UI
     {
         SwordDamage,
         AirAttackDamage,
-        AttackSpeed,
         AirBounce,
         MaxHealth,
         Speed,

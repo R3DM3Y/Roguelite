@@ -42,7 +42,6 @@ public class MinimapManager : MonoBehaviour
     {
         if (rooms.ContainsKey(gridPos))
         {
-            Debug.LogWarning($"Room at {gridPos} already exists!");
             return;
         }
 
@@ -52,8 +51,6 @@ public class MinimapManager : MonoBehaviour
         // Вычисляем позицию с учётом реальных размеров соседей
         Vector2 mapPosition = CalculateRoomPosition(gridPos, mapSize);
         
-        Debug.Log($"Creating minimap room at grid={gridPos}, world={worldSize}, map={mapSize}, pos={mapPosition}");
-
         GameObject obj = Instantiate(roomPrefab, mapRoot);
         RectTransform rt = obj.GetComponent<RectTransform>();
 
@@ -314,7 +311,6 @@ public class MinimapManager : MonoBehaviour
     {
         if (!rooms.ContainsKey(pos))
         {
-            Debug.LogError($"Cannot set current room: {pos} doesn't exist");
             return;
         }
 

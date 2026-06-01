@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     [Header("Popups")]
     public GameObject confirmPopup;
     public TextMeshProUGUI confirmText;
+    
 
     private enum ActionType
     {
@@ -37,15 +38,18 @@ public class MainMenu : MonoBehaviour
 
     void UpdateContinueButton()
     {
-        bool hasSave = PlayerPrefs.HasKey("SaveExists");
+        SaveData save = SaveSystem.Load();
 
-        continueButton.interactable = hasSave;
+        continueButton.interactable =
+            save != null &&
+            save.hasRun;
     }
 
     public void OnContinue()
     {
+        GameBootstrap.LoadSave = true;
+
         SceneManager.LoadScene("Game");
-        // TODO: загрузка сцены
     }
 
     // ======================================================
@@ -108,18 +112,15 @@ public class MainMenu : MonoBehaviour
 
     void StartNewGame()
     {
-        PlayerPrefs.SetInt("SaveExists", 1);
-        PlayerPrefs.Save();
+        SaveSystem.DeleteRun();
+
+        GameBootstrap.LoadSave = false;
 
         SceneManager.LoadScene("Game");
-
-        // TODO: загрузка сцены
     }
 
     void QuitGame()
     {
-        Debug.Log("QUIT");
-
         Application.Quit();
     }
 }

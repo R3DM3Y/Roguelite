@@ -1489,6 +1489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c268e7beba42a764283c1bb2b69f0c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
+  playerController: {fileID: 2008132270}
   startRoom: {fileID: 1908747557}
   possibleRooms:
   - {fileID: 8664342342646823176}

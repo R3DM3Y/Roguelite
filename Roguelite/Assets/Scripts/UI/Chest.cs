@@ -9,10 +9,26 @@ public class Chest : MonoBehaviour
     private bool opened;
 
     private Animator animator;
+    
+    [Header("Save")]
+    public string chestID;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+    
+    private void Start()
+    {
+        if (RoomManager.Instance.IsChestOpened(chestID))
+        {
+            opened = true;
+
+            if (animator != null)
+                animator.Play("Opened");
+
+            return;
+        }
     }
 
     private void Update()
@@ -32,6 +48,10 @@ public class Chest : MonoBehaviour
     private void OpenChest()
     {
         opened = true;
+        
+        RoomManager.Instance.MarkChestOpened(chestID);
+
+        RoomManager.Instance.SaveGame();
 
         if (animator != null)
         {
@@ -79,5 +99,11 @@ public class Chest : MonoBehaviour
             return;
 
         playerInside = false;
+    }
+    
+    private void OnValidate()
+    {
+        if (string.IsNullOrEmpty(chestID))
+            chestID = System.Guid.NewGuid().ToString();
     }
 }

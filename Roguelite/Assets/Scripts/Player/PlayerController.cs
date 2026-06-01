@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerStats stats;
     
     [Header("Health")]
-    private int currentHealth;
+    [SerializeField] private int currentHealth = 100; // ЯВНО задай 100
+
+    public int CurrentHealth => currentHealth;
     
     [Header("Runtime Upgrades")]
     public int bonusDamage;
@@ -88,7 +90,6 @@ public class PlayerController : MonoBehaviour
     
     private bool airDownHitboxActivated = false;
     
-    public int CurrentHealth => currentHealth;
     public System.Action OnHealthChanged;
     
     public int NormalAttackDamage =>
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
-        currentHealth = MaxHealth;
+        currentHealth = stats != null ? stats.maxHealth + bonusHealth : 100;
         stamina = GetComponent<PlayerStamina>();
     }
 
@@ -149,7 +150,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage, Vector2 hitDirection)
     {
         if (IsDead || isInvulnerable) return;
-
+        
         if (isShielding)
         {
             float drain =
@@ -172,6 +173,7 @@ public class PlayerController : MonoBehaviour
         }
 
         currentHealth -= damage;
+        
         OnHealthChanged?.Invoke();
         
         CancelAllAttacks();
@@ -527,13 +529,13 @@ public class PlayerController : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth += amount;
-
-        currentHealth = Mathf.Clamp(
-            currentHealth,
-            0,
-            MaxHealth
-        );
-
+        currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
+        OnHealthChanged?.Invoke();
+    }
+    
+    public void SetHealth(int hp)
+    {
+        currentHealth = Mathf.Clamp(hp, 0, MaxHealth);
         OnHealthChanged?.Invoke();
     }
 }

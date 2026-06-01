@@ -1,9 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
     public static RoomManager Instance;
+    
+    public PlayerController playerController;
 
     public RoomController startRoom;
     public RoomController[] possibleRooms;
@@ -11,9 +14,13 @@ public class RoomManager : MonoBehaviour
 
     private CameraFollow2D cameraFollow;
     private RoomNode currentNode;
+    private bool loadedFromSave;
 
     private Dictionary<Vector2Int, RoomNode> generated =
         new Dictionary<Vector2Int, RoomNode>();
+    
+    private HashSet<string> openedChests =
+        new HashSet<string>();
 
     [SerializeField] private float difficultyMultiplier = 1f;
 
@@ -45,40 +52,34 @@ public class RoomManager : MonoBehaviour
 
         // Получаем размеры АКТИВНОЙ стартовой комнаты
         Vector2 startRoomSize = GetRoomDimensions(startRoom);
-        Debug.Log($"Start room size: {startRoomSize}");
         
         MinimapManager.Instance.CreateRoom(startNode.gridPosition, startRoomSize);
         MinimapManager.Instance.SetCurrent(startNode.gridPosition);
 
         cameraFollow.SetBounds(startRoom.cameraBounds);
         cameraFollow.InstantSnap();
+        
+        if (!loadedFromSave)
+        {
+            currentNode.prefab.ResetRoom();
+        }
+        
+        if (GameBootstrap.LoadSave)
+        {
+            LoadGame();
+        }
+        
     }
 
     public void ChangeRoom(ExitDirection dir)
     {
         Vector2Int target = currentNode.gridPosition + GetOffset(dir);
-        Debug.Log($"Moving from {currentNode.gridPosition} to {target}");
-        
+
         RoomNode nextNode;
 
-        if (generated.ContainsKey(target))
-        {
-            nextNode = generated[target];
-            Debug.Log($"Room {target} already exists, reusing");
-        }
-        else
+        if (!generated.TryGetValue(target, out nextNode))
         {
             RoomController prefab = GetRandomRoom(dir);
-            if (prefab == null)
-            {
-                Debug.LogError($"No valid room for direction {dir}");
-                return;
-            }
-            
-            // ВАЖНО: временно активируем, чтобы получить размеры
-            Vector2 roomDimensions = GetRoomDimensions(prefab);
-            
-            Debug.Log($"Creating new room at {target} with size {roomDimensions}");
 
             nextNode = new RoomNode
             {
@@ -88,10 +89,10 @@ public class RoomManager : MonoBehaviour
             };
 
             generated.Add(target, nextNode);
-            MinimapManager.Instance.CreateRoom(target, roomDimensions);
+
+            MinimapManager.Instance.CreateRoom(target, GetRoomDimensions(prefab));
         }
 
-        // Рисуем соединение
         MinimapManager.Instance.DrawConnection(currentNode.gridPosition, target);
 
         currentNode.prefab.gameObject.SetActive(false);
@@ -101,13 +102,21 @@ public class RoomManager : MonoBehaviour
 
         currentNode = nextNode;
 
-        MinimapManager.Instance.SetCurrent(currentNode.gridPosition);
+        MinimapManager.Instance.SetCurrent(target);
 
         Transform spawn = GetSpawnPoint(currentNode.prefab, dir);
         player.position = spawn.position;
 
         cameraFollow.SetBounds(currentNode.prefab.cameraBounds);
         cameraFollow.InstantSnap();
+        
+        StartCoroutine(SaveAfterFrame(dir));
+    }
+    
+    private IEnumerator SaveAfterFrame(ExitDirection dir)
+    {
+        yield return new WaitForEndOfFrame();
+        SaveGame();
     }
     
     private Vector2 GetRoomDimensions(RoomController room)
@@ -120,13 +129,11 @@ public class RoomManager : MonoBehaviour
         
             if (size.x > 0.01f && size.y > 0.01f)
             {
-                Debug.Log($"Room {room.name} size from cameraBounds: {size}");
                 return size;
             }
         }
     
         // Запасной вариант — фиксированный размер
-        Debug.LogWarning($"Room {room.name}: using default size 20x15");
         return new Vector2(20f, 15f);
     }
 
@@ -168,7 +175,6 @@ public class RoomManager : MonoBehaviour
 
         if (valid.Count == 0)
         {
-            Debug.LogError($"No valid rooms for direction: {dir}");
             return null;
         }
 
@@ -190,5 +196,194 @@ public class RoomManager : MonoBehaviour
     public bool IsEnemyKilled(string enemyID)
     {
         return killedEnemies.Contains(enemyID);
+    }
+    
+    public void SaveGame()
+    {
+        SaveData data = new SaveData();
+
+        data.hasRun = true;
+
+        // coins
+        data.coins = CoinManager.Instance.Coins;
+    
+        // chest
+        data.openedChests = new List<string>(openedChests);
+
+        // room
+        data.currentRoomX = currentNode.gridPosition.x;
+        data.currentRoomY = currentNode.gridPosition.y;
+
+        
+        // player HP
+        data.playerHP = playerController != null ? playerController.CurrentHealth : 0;
+
+        // player position
+        data.playerX = player.position.x;
+        data.playerY = player.position.y;
+
+        // enemies
+        data.killedEnemies = new List<string>(killedEnemies);
+
+        // rooms
+        data.generatedRooms.Clear();
+        data.roomPrefabs.Clear();
+
+        foreach (var room in generated)
+        {
+            data.generatedRooms.Add($"{room.Key.x};{room.Key.y}");
+
+            int prefabIndex = System.Array.IndexOf(possibleRooms, room.Value.prefab);
+            data.roomPrefabs.Add(prefabIndex.ToString());
+        }
+
+        SaveSystem.Save(data);
+    }
+    
+    public void LoadGame()
+    {
+        SaveData data = SaveSystem.Load();
+    
+        if (data == null)
+        {
+            return;
+        }
+
+        if (!data.hasRun)
+        {
+            return;
+        }
+
+
+        loadedFromSave = true;
+
+        CoinManager.Instance.SetCoins(data.coins);
+        killedEnemies = new HashSet<string>(data.killedEnemies);
+        openedChests = new HashSet<string>(data.openedChests);
+
+        // Координаты текущей комнаты из сохранения
+        Vector2Int roomPos = new Vector2Int(data.currentRoomX, data.currentRoomY);
+
+        // 1. Восстановить комнаты
+        for (int i = 0; i < data.generatedRooms.Count; i++)
+        {
+            string[] split = data.generatedRooms[i].Split(';');
+
+            Vector2Int pos = new Vector2Int(
+                int.Parse(split[0]),
+                int.Parse(split[1])
+            );
+
+            if (generated.ContainsKey(pos))
+                continue;
+
+            int prefabIndex = int.Parse(data.roomPrefabs[i]);
+        
+            RoomController prefab;
+            if (prefabIndex == -1)
+            {
+                prefab = startRoom;
+            }
+            else if (prefabIndex >= 0 && prefabIndex < possibleRooms.Length)
+            {
+                prefab = possibleRooms[prefabIndex];
+            }
+            else
+            {
+                continue;
+            }
+
+            RoomNode node = new RoomNode
+            {
+                uniqueID = System.Guid.NewGuid().ToString(),
+                prefab = prefab,
+                gridPosition = pos
+            };
+
+            generated.Add(pos, node);
+            MinimapManager.Instance.CreateRoom(pos, GetRoomDimensions(prefab));
+        }
+
+        // 2. Установить текущую комнату
+        if (!generated.TryGetValue(roomPos, out currentNode))
+        {
+            roomPos = Vector2Int.zero;
+            if (!generated.TryGetValue(roomPos, out currentNode))
+            {   
+                return;
+            }
+        }
+
+        // 3. Выключить все комнаты кроме стартовой
+        foreach (var r in generated)
+        {
+            if (r.Value.gridPosition != Vector2Int.zero) 
+                r.Value.prefab.gameObject.SetActive(false);
+        }
+
+        // 4. Включить текущую комнату
+        if (currentNode.prefab != startRoom)
+        {
+            startRoom.gameObject.SetActive(false);
+            currentNode.prefab.gameObject.SetActive(true);
+        }
+    
+        currentNode.prefab.ResetRoom();
+
+        cameraFollow.SetBounds(currentNode.prefab.cameraBounds);
+        cameraFollow.InstantSnap();
+
+        MinimapManager.Instance.SetCurrent(roomPos);
+    
+        // Отрисовка соединений
+        foreach (var room in generated)
+        {
+            Vector2Int pos = room.Key;
+            Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+
+            foreach (var dir in dirs)
+            {
+                Vector2Int neighbour = pos + dir;
+                if (generated.ContainsKey(neighbour))
+                {
+                    MinimapManager.Instance.DrawConnection(pos, neighbour);
+                }
+            }
+        }
+
+        // 5. Позиция игрока — ИЗ СОХРАНЕНИЯ
+        player.position = new Vector3(data.playerX, data.playerY, 0);
+        
+        // 6. HP игрока
+        if (playerController != null)
+        {
+            playerController.SetHealth(data.playerHP);
+        }
+        else
+        {
+            Debug.LogError("playerController is null!");
+        }
+    }
+    
+    public void OnPlayerDeath()
+    {
+        SaveData data = new SaveData();
+
+        data.coins =
+            CoinManager.Instance.Coins;
+
+        data.hasRun = false;
+
+        SaveSystem.Save(data);
+    }
+    
+    public void MarkChestOpened(string id)
+    {
+        openedChests.Add(id);
+    }
+
+    public bool IsChestOpened(string id)
+    {
+        return openedChests.Contains(id);
     }
 }

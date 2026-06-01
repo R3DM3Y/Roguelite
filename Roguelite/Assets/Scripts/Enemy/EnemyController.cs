@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -53,10 +54,9 @@ public class EnemyController : MonoBehaviour
     private float coinDropChance = 1f;
     
     public float DifficultyMultiplier => difficultyMultiplier;
+    private HashSet<string> killedEnemies =
+        new();
     
-    
-    
-
     #endregion
 
     #region === UNITY ===
@@ -75,8 +75,6 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
         startPosition = transform.position;
-        
-        Debug.Log($"Enemy awake: {name} pos={startPosition}");
     }
 
     private void Start()
@@ -84,8 +82,6 @@ public class EnemyController : MonoBehaviour
         if (string.IsNullOrEmpty(enemyID))
         {
             enemyID = System.Guid.NewGuid().ToString();
-
-            Debug.LogWarning($"Generated runtime ID for {name}");
         }
 
         if (RoomManager.Instance != null &&
@@ -94,8 +90,6 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        Debug.Log($"Enemy loaded: {name} | {enemyID}");
 
         currentHealth = stats.maxHealth;
 
@@ -115,11 +109,6 @@ public class EnemyController : MonoBehaviour
             player = p.transform;
             playerController = p.GetComponent<PlayerController>();
         }
-        
-        Debug.Log($"Enemy position: {transform.position}");
-        Debug.Log($"Enemy scale: {transform.localScale}");
-        Debug.Log($"Enemy active: {gameObject.activeSelf}");
-        
     }
 
     private void FixedUpdate()
@@ -311,7 +300,7 @@ public class EnemyController : MonoBehaviour
 
         Vector2 checkPos =
             (Vector2)groundCheck.position +
-            Vector2.right * dir * 0.05f;
+            Vector2.right * (dir * 0.05f);
 
         RaycastHit2D hit =
             Physics2D.Raycast(
@@ -507,11 +496,11 @@ public class EnemyController : MonoBehaviour
         
         isDead = true;
         
-        RoomManager.Instance.MarkEnemyKilled(enemyID);
-
         StopMoving();
         rb.simulated = false;
         col.enabled = false;
+        
+        RoomManager.Instance.MarkEnemyKilled(enemyID);
 
         animator.SetTrigger("Die");
 
@@ -543,6 +532,11 @@ public class EnemyController : MonoBehaviour
     public void OnDeathAnimationFinished()
     {
         Destroy(gameObject);
+    }
+    
+    public void MarkEnemyKilled(string id)
+    {
+        killedEnemies.Add(id);
     }
 
     #endregion

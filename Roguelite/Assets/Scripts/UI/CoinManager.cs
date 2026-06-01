@@ -8,6 +8,13 @@ public class CoinManager : MonoBehaviour
     public int coins;
     [SerializeField]
     private TextMeshProUGUI coinsText;
+    public int Coins => coins;
+
+    public void SetCoins(int amount)
+    {
+        coins = amount;
+        UpdateUI();
+    }
 
     private void Awake()
     {
@@ -22,6 +29,8 @@ public class CoinManager : MonoBehaviour
     public void AddCoins(int amount)
     {
         coins += amount;
+
+        Debug.Log("Coins now = " + coins);
 
         UpdateUI();
     }
