@@ -40,14 +40,24 @@ public class MainMenu : MonoBehaviour
     {
         SaveData save = SaveSystem.Load();
 
-        continueButton.interactable =
-            save != null &&
-            save.hasRun;
+        // Continue доступен всегда, если есть любой save
+        continueButton.interactable = save != null && save.hasRun;
     }
 
     public void OnContinue()
     {
-        GameBootstrap.LoadSave = true;
+        SaveData save = SaveSystem.Load();
+    
+        if (save != null && save.playerIsDead)
+        {
+            // Игрок умер — новый забег, но с мета-монетами
+            GameBootstrap.LoadSave = false;
+        }
+        else
+        {
+            // Игрок вышел живым — продолжаем старый забег
+            GameBootstrap.LoadSave = true;
+        }
 
         SceneManager.LoadScene("Game");
     }
@@ -58,7 +68,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnStart()
     {
-        OpenPopup("Start new game?");
+        OpenPopup("Start new game? All progress will be lost.");
         pendingAction = ActionType.NewGame;    
     }
 
@@ -112,10 +122,11 @@ public class MainMenu : MonoBehaviour
 
     void StartNewGame()
     {
+        // Полный сброс
         SaveSystem.DeleteRun();
-
+        PlayerPrefs.DeleteAll(); // Удаляет все мета-монеты и улучшения
+    
         GameBootstrap.LoadSave = false;
-
         SceneManager.LoadScene("Game");
     }
 

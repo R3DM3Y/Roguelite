@@ -6,6 +6,7 @@ using Save;
 public class SaveData
 {
     public bool hasRun;
+    public bool playerIsDead;
 
     // игрок
     public int coins;

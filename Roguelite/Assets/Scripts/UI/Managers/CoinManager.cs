@@ -18,7 +18,17 @@ public class CoinManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    
         Instance = this;
+    
+        // Загружаем мета-монеты один раз при старте сцены
+        coins = SaveManager.GetCoins();
+        Debug.Log($"[CoinManager] Awake - loaded coins: {coins}");
     }
     
     private void Start()
@@ -29,9 +39,7 @@ public class CoinManager : MonoBehaviour
     public void AddCoins(int amount)
     {
         coins += amount;
-
         Debug.Log("Coins now = " + coins);
-
         UpdateUI();
     }
     

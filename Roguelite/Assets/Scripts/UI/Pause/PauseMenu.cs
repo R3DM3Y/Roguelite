@@ -18,8 +18,13 @@ public class PauseMenu : MonoBehaviour
         if (!Keyboard.current.escapeKey.wasPressedThisFrame)
             return;
 
+        // Если игрок мёртв — не открываем паузу
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        if (player != null && player.IsDead)
+            return;
+
         // SETTINGS OPEN
-        if (settingsMenu.IsOpen)
+        if (settingsMenu != null && settingsMenu.IsOpen)
         {
             settingsMenu.Close();
             pauseUI.SetActive(true);

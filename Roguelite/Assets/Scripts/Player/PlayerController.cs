@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
     private bool airDownHitboxActivated = false;
     
     public System.Action OnHealthChanged;
+    [SerializeField] private DeathScreen deathScreen;
     
     public int NormalAttackDamage =>
         stats.normalAttackDamage + bonusDamage;
@@ -108,6 +109,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
+        
+        IsDead = false;
+        isHitLocked = false;
+        isInvulnerable = false;
+        
         currentHealth = stats != null ? stats.maxHealth + bonusHealth : 100;
         stamina = GetComponent<PlayerStamina>();
     }
@@ -255,11 +261,9 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         if (IsDead) return;
-
         IsDead = true;
         isHitLocked = true;
         isInvulnerable = true;
-
         CancelAllAttacks();
 
         rb.linearVelocity = Vector2.zero;
@@ -267,11 +271,24 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         animator.SetTrigger("Die");
-    }
     
+        // Сохраняем монеты и помечаем run как мёртвый
+        RoomManager.Instance.OnPlayerDeath();
+    }
+
     public void OnDeathAnimationFinished()
     {
-        Destroy(gameObject);
+        StartCoroutine(ShowDeathScreenRoutine());
+    }
+
+    private IEnumerator ShowDeathScreenRoutine()
+    {
+        DeathScreen deathScreen = FindAnyObjectByType<DeathScreen>();
+        if (deathScreen == null) yield break;
+    
+        yield return deathScreen.FadeIn();
+        yield return deathScreen.ShowText();
+        deathScreen.WaitForInput();
     }
 
     public void Move(float x)

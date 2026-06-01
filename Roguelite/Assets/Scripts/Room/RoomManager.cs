@@ -50,25 +50,22 @@ public class RoomManager : MonoBehaviour
         generated.Add(startNode.gridPosition, startNode);
         currentNode = startNode;
 
-        // Получаем размеры АКТИВНОЙ стартовой комнаты
         Vector2 startRoomSize = GetRoomDimensions(startRoom);
-        
         MinimapManager.Instance.CreateRoom(startNode.gridPosition, startRoomSize);
         MinimapManager.Instance.SetCurrent(startNode.gridPosition);
 
         cameraFollow.SetBounds(startRoom.cameraBounds);
         cameraFollow.InstantSnap();
-        
+    
         if (!loadedFromSave)
         {
             currentNode.prefab.ResetRoom();
         }
-        
+    
         if (GameBootstrap.LoadSave)
         {
             LoadGame();
         }
-        
     }
 
     public void ChangeRoom(ExitDirection dir)
@@ -398,13 +395,17 @@ public class RoomManager : MonoBehaviour
     
     public void OnPlayerDeath()
     {
+        Debug.Log($"[OnPlayerDeath] Saving coins: {CoinManager.Instance.Coins}");
+        // Сохраняем монеты в мета-прогрессию
+        SaveManager.SaveCoins(CoinManager.Instance.Coins);
+    
+        // Сохраняем run с пометкой "мёртв", чтобы Continue был доступен
         SaveData data = new SaveData();
-
-        data.coins =
-            CoinManager.Instance.Coins;
-
-        data.hasRun = false;
-
+        data.hasRun = true;
+        data.playerIsDead = true;
+        data.coins = CoinManager.Instance.Coins;
+        // Остальные поля не важны — всё равно новый забег
+    
         SaveSystem.Save(data);
     }
     

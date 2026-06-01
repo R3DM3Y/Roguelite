@@ -12,14 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bb42ca59b04b73b488f5619cd80bb3, type: 3}
   m_Name: YellowSkeleton
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  maxHealth: 3
-  moveSpeed: 2
+  movementType: 0
+  maxHealth: 150
   detectionRadius: 5
+  moveSpeed: 2
+  flipRadius: 0.5
+  contactDamage: 60
   attackRange: 1.2
   attackCooldown: 1.5
   attackDamage: 1
   verticalAttackTolerance: 1
   canPatrol: 1
-  stopIfPlayerAbove: 1
   stopAboveHeight: 1.5
-  flipRadius: 0.5
+  aboveOffsetRange: 1.5
+  patrolSpeed: 2
+  maxUpVision: 3
+  maxDownVision: 2
+  hoverRadius: 2.5
+  approachSpeed: 4
+  orbitSpeed: 2
+  dashMultiplier: 3
+  dashDuration: 0.35
+  dashChance: 0.003
+  orbitHeightVariation: 0.5
+  returnToOrbitSpeed: 5

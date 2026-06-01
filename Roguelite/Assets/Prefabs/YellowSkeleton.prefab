@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 5971301034250750656}
   - component: {fileID: 4695782146859626044}
   - component: {fileID: 1610979385911682934}
+  - component: {fileID: -4038929007359727111}
   m_Layer: 6
   m_Name: YellowSkeleton
   m_TagString: Untagged
@@ -250,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 7109242209476661193}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.430107, y: -0.32258064, z: 0}
+  m_LocalPosition: {x: -40.737213, y: 4.5391903, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -258,6 +259,7 @@ Transform:
   - {fileID: 7736015705346876384}
   - {fileID: 3361368945055947048}
   - {fileID: 8587804889192607141}
+  - {fileID: 5945355239565433798}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3630702851053135619
@@ -305,9 +307,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 32409131
+  m_SortingLayer: 5
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7446206344923327547, guid: 97eddc22dab37d544b5aba8244848248, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -413,6 +415,11 @@ MonoBehaviour:
   attackHitbox: {fileID: 7911115131134228565}
   minBounds: {x: 0, y: 0}
   maxBounds: {x: 0, y: 0}
+  popupSpawner: {fileID: -4038929007359727111}
+  headPoint: {fileID: 5945355239565433798}
+  enemyID: a07776e7-d96a-40be-8c21-193f8562c866
+  coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
+  coinDropChance: 1
 --- !u!95 &1610979385911682934
 Animator:
   serializedVersion: 7
@@ -435,6 +442,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4038929007359727111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7109242209476661193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1b77ec9439f9b4c9daa1d73726787b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagePopupSpawner
+  prefab: {fileID: 2154216569632756350, guid: 81123ce306259724f9a61745ae845fad, type: 3}
 --- !u!1 &7899568045432109205
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,3 +546,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2020a485aa5b1546b6d4b280e1d24a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHurtbox
+--- !u!1 &9164309710375671502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5945355239565433798}
+  m_Layer: 6
+  m_Name: HeadPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5945355239565433798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164309710375671502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.155, y: 1.452, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 358963647502959082}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
