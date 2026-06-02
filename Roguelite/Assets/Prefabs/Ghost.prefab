@@ -149,6 +149,7 @@ MonoBehaviour:
   popupSpawner: {fileID: 4371935729043886071}
   headPoint: {fileID: 5423538742012370377}
   enemyID: 
+  destroyOnDeath: 1
   coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
   coinDropChance: 0.2
 --- !u!95 &4749488302353589440

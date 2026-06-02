@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
@@ -11,6 +14,20 @@ public class MainMenu : MonoBehaviour
     [Header("Popups")]
     public GameObject confirmPopup;
     public TextMeshProUGUI confirmText;
+    
+    [Header("Credits")]
+    public GameObject creditsPanel;
+    public CreditsData creditsData;
+    public float creditsFadeDuration = 1.5f;
+    
+    [Header("Glow")]
+    public GameObject glowA;
+    public GameObject glowB;
+    
+    [Header("Credits Text")]
+    public TextMeshProUGUI creditsTitleText;
+    public TextMeshProUGUI creditsAuthorText;
+    public TextMeshProUGUI creditsHintText;
     
 
     private enum ActionType
@@ -133,5 +150,58 @@ public class MainMenu : MonoBehaviour
     void QuitGame()
     {
         Application.Quit();
+    }
+    
+    public void OnCredits()
+    {
+        if (glowA != null) glowA.SetActive(false);
+        if (glowB != null) glowB.SetActive(false);
+    
+        StartCoroutine(ShowCredits());
+    }
+
+    private IEnumerator ShowCredits()
+    {
+        int lang = SettingsManager.Instance != null ? SettingsManager.Instance.language : 0;
+
+        creditsPanel.SetActive(true);
+        CanvasGroup cg = creditsPanel.GetComponent<CanvasGroup>();
+
+        creditsTitleText.text = creditsData.GetTitle(lang);
+        creditsAuthorText.text = creditsData.GetText(lang);
+        creditsHintText.text = creditsData.GetHint(lang);
+
+        cg.alpha = 0f;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / creditsFadeDuration;
+            cg.alpha = Mathf.Lerp(0f, 1f, t);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        while (true)
+        {
+            if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+                break;
+            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                break;
+            yield return null;
+        }
+
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / creditsFadeDuration;
+            cg.alpha = Mathf.Lerp(1f, 0f, t);
+            yield return null;
+        }
+
+        creditsPanel.SetActive(false);
+
+        if (glowA != null) glowA.SetActive(true);
+        if (glowB != null) glowB.SetActive(true);
     }
 }

@@ -27,6 +27,8 @@ public class EnemyController : MonoBehaviour
     private float difficultyMultiplier = 1f;
     
     private Vector3 startPosition;
+    [Header("Death Settings")]
+    [SerializeField] private bool destroyOnDeath = false;
     
     #endregion
 
@@ -468,14 +470,20 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
+        if (destroyOnDeath)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    
         TryDropCoin();
-        
+    
         isDead = true;
-        
+    
         StopMoving();
         rb.simulated = false;
         col.enabled = false;
-        
+    
         RoomManager.Instance.MarkEnemyKilled(enemyID);
 
         animator.SetTrigger("Die");
