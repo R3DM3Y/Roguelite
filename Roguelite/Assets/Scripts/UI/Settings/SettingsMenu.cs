@@ -258,7 +258,7 @@ public class SettingsMenu : MonoBehaviour
                 fullscreen = !fullscreen;
                 break;
 
-            case 6:
+            case 5:
                 language = Wrap(language + dir, languages.Length);
                 break;
         }
@@ -325,11 +325,8 @@ public class SettingsMenu : MonoBehaviour
         rows[4].label.text = "Fullscreen";
         rows[4].value.text = fullscreen ? "ON" : "OFF";
 
-        rows[5].label.text = "Controls";
-        rows[5].value.text = "";
-
-        rows[6].label.text = "Language";
-        rows[6].value.text = languages[language];
+        rows[5].label.text = "Language";
+        rows[5].value.text = languages[language];
 
         selector.anchoredPosition = new Vector2(
             selector.anchoredPosition.x,
