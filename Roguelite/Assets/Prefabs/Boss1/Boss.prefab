@@ -603,12 +603,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62ac3f61fa2c4140af1aff6af1aeb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
-  maxHealth: 450
+  maxHealth: 600
   currentHealth: 0
   moveSpeed: 3
   aggroRange: 14
-  attackRange: 4
-  tooCloseRange: 2
+  attackRange: 5
+  tooCloseRange: 4
   attackCooldown: 2.5
   counterChance: 0.4
   counterCooldown: 5
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossBodyDamage
   boss: {fileID: 3257729807552857465}
-  damage: 1
+  damage: 50
 --- !u!1 &5144090581214415997
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

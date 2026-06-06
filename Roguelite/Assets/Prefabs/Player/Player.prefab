@@ -256,7 +256,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1605727371
   m_SortingLayer: 4
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_MaskInteraction: 0
   m_Sprite: {fileID: 815424164945274260, guid: cbbb48028565be140b41e433ce82f86b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   stats: {fileID: 11400000, guid: 9b9f245f9819c264dadc4ea21ce7ead3, type: 2}
+  currentHealth: 100
   bonusDamage: 0
   bonusHealth: 0
   bonusSpeed: 0
@@ -439,6 +440,9 @@ MonoBehaviour:
   bonusShieldDrainReduction: 0
   extraJumps: 0
   canDash: 0
+  bonusAirDamage: 0
+  attackSpeedMultiplier: 0
+  bonusBounceForce: 0
   isShielding: 0
   stamina: {fileID: 5149701596294789665}
   groundCheck: {fileID: 3478609096669116314}
@@ -461,6 +465,9 @@ MonoBehaviour:
   isAirAttackingDown: 0
   IsAttackingNormal: 0
   IsAttackingDown: 0
+  dashForce: 15
+  dashTime: 0.2
+  dashCooldown: 1
   InputX: 0
   InputY: 0
   JumpPressed: 0
@@ -469,6 +476,7 @@ MonoBehaviour:
   IsDead: 0
   damageTextPrefab: {fileID: 2154216569632756350, guid: 81123ce306259724f9a61745ae845fad, type: 3}
   headPoint: {fileID: 2236705324394330831}
+  deathScreen: {fileID: 0}
 --- !u!114 &6973307758214642653
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -174,4 +174,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06dd70b79d080a249bc3df685b9c8dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpikeHazard
-  damage: 0
+  damage: 70
