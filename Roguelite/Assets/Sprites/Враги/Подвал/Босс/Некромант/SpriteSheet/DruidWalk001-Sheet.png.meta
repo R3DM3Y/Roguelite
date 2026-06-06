@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,7 +96,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -150,12 +150,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 47
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 50
+        y: 48
+        width: 31
+        height: 46
+      alignment: 9
+      pivot: {x: 0.4934946, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -172,12 +172,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_1
       rect:
         serializedVersion: 2
-        x: 178
-        y: 47
-        width: 31
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 179
+        y: 48
+        width: 29
+        height: 45
+      alignment: 9
+      pivot: {x: 0.5023178, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -194,12 +194,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_2
       rect:
         serializedVersion: 2
-        x: 306
-        y: 47
-        width: 29
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 307
+        y: 48
+        width: 27
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5248967, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -216,12 +216,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_3
       rect:
         serializedVersion: 2
-        x: 434
-        y: 47
-        width: 28
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 435
+        y: 48
+        width: 26
+        height: 46
+      alignment: 9
+      pivot: {x: 0.56205046, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -238,12 +238,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_4
       rect:
         serializedVersion: 2
-        x: 562
-        y: 47
-        width: 28
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 563
+        y: 48
+        width: 26
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5361962, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -260,12 +260,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_5
       rect:
         serializedVersion: 2
-        x: 690
-        y: 47
-        width: 29
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 691
+        y: 48
+        width: 27
+        height: 45
+      alignment: 9
+      pivot: {x: 0.52987784, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -282,12 +282,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_6
       rect:
         serializedVersion: 2
-        x: 818
-        y: 47
-        width: 31
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 819
+        y: 48
+        width: 29
+        height: 46
+      alignment: 9
+      pivot: {x: 0.48146215, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -304,12 +304,12 @@ TextureImporter:
       name: DruidWalk001-Sheet_7
       rect:
         serializedVersion: 2
-        x: 945
-        y: 47
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 946
+        y: 48
+        width: 31
+        height: 46
+      alignment: 9
+      pivot: {x: 0.4934968, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -326,7 +326,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6c13194f55cce364ca5ad697993f118b
     internalID: 0
     vertices: []
     indices: 

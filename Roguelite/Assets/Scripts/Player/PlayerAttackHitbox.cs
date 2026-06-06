@@ -55,20 +55,44 @@ public class PlayerAttackHitbox : MonoBehaviour
 
     private void TryHit(Collider2D collision)
     {
-        if (hitEnemies.Contains(collision)) return;
+        if (hitEnemies.Contains(collision))
+            return;
 
-        EnemyController enemy = collision.GetComponent<EnemyController>();
-        if (enemy == null) return;
+        EnemyController enemy =
+            collision.GetComponent<EnemyController>();
 
-        if (player.IsAttackingDown && !airDownHitDone)
+        BossController boss =
+            collision.GetComponent<BossController>();
+
+        if (enemy == null && boss == null)
+            return;
+
+        if (enemy != null)
         {
-            enemy.TakeDamage(player.AirDownAttackDamage);
-            player.OnAirDownHitSuccess();
-            airDownHitDone = true; 
+            if (player.IsAttackingDown && !airDownHitDone)
+            {
+                enemy.TakeDamage(player.AirDownAttackDamage);
+                player.OnAirDownHitSuccess();
+                airDownHitDone = true;
+            }
+            else if (!player.IsAttackingDown)
+            {
+                enemy.TakeDamage(player.NormalAttackDamage);
+            }
         }
-        else if (!player.IsAttackingDown)
+
+        if (boss != null)
         {
-            enemy.TakeDamage(player.NormalAttackDamage);
+            if (player.IsAttackingDown && !airDownHitDone)
+            {
+                boss.TakeDamage(player.AirDownAttackDamage);
+                player.OnAirDownHitSuccess();
+                airDownHitDone = true;
+            }
+            else if (!player.IsAttackingDown)
+            {
+                boss.TakeDamage(player.NormalAttackDamage);
+            }
         }
 
         hitEnemies.Add(collision);

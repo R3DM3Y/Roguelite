@@ -55,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,7 +93,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -147,12 +147,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 47
-        width: 22
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 54
+        y: 48
+        width: 20
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_1
       rect:
         serializedVersion: 2
-        x: 181
-        y: 47
-        width: 24
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 182
+        y: 48
+        width: 22
+        height: 26
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_2
       rect:
         serializedVersion: 2
-        x: 305
-        y: 47
-        width: 30
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 306
+        y: 48
+        width: 28
+        height: 32
+      alignment: 9
+      pivot: {x: 0.51144844, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -213,12 +213,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_3
       rect:
         serializedVersion: 2
-        x: 433
-        y: 47
-        width: 30
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 434
+        y: 48
+        width: 28
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -235,12 +235,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_4
       rect:
         serializedVersion: 2
-        x: 561
-        y: 47
-        width: 30
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 562
+        y: 48
+        width: 28
+        height: 32
+      alignment: 9
+      pivot: {x: 0.50457984, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -257,12 +257,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_5
       rect:
         serializedVersion: 2
-        x: 689
-        y: 47
-        width: 42
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 690
+        y: 48
+        width: 40
+        height: 19
+      alignment: 9
+      pivot: {x: 0.32369536, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -279,12 +279,12 @@ TextureImporter:
       name: DruidEarthVFX001-Sheet_6
       rect:
         serializedVersion: 2
-        x: 817
-        y: 47
-        width: 55
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 818
+        y: 48
+        width: 53
+        height: 10
+      alignment: 9
+      pivot: {x: 0.44556585, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -301,7 +301,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 94f5f997dc98a1d43bc90f3f443811c3
     internalID: 0
     vertices: []
     indices: 

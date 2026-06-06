@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: YellowSkeleton
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   movementType: 0
-  maxHealth: 150
+  maxHealth: 100
   detectionRadius: 10
   moveSpeed: 3
   flipRadius: 0.5
-  contactDamage: 30
+  contactDamage: 15
   attackRange: 1.2
   attackCooldown: 1.5
-  attackDamage: 50
+  attackDamage: 35
   verticalAttackTolerance: 1
   canPatrol: 1
   stopAboveHeight: 1.5

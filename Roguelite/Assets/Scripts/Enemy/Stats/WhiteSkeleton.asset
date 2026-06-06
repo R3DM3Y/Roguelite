@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: WhiteSkeleton
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   movementType: 0
-  maxHealth: 100
+  maxHealth: 50
   detectionRadius: 10
   moveSpeed: 4
   flipRadius: 0.5
-  contactDamage: 15
+  contactDamage: 10
   attackRange: 1.3
   attackCooldown: 1.2
-  attackDamage: 30
+  attackDamage: 20
   verticalAttackTolerance: 1
   canPatrol: 1
   stopAboveHeight: 1.5
