@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   scrollPrefab: {fileID: 5325012724662010114, guid: 15147ed5b900ecc419f038f982a06f0d, type: 3}
+  chestID: 4eea486f-f832-47ca-9817-91bbbc979b07
 --- !u!95 &4884136269456800758
 Animator:
   serializedVersion: 7

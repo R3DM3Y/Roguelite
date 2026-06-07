@@ -26,6 +26,8 @@ public class MinimapManager : MonoBehaviour
     private Vector2 targetPos;
     private List<RectTransform> lines = new();
     private HashSet<(Vector2Int, Vector2Int)> drawnConnections = new();
+    
+    private HashSet<Vector2Int> revealedRooms = new();
 
     private void Awake()
     {
@@ -74,6 +76,42 @@ public class MinimapManager : MonoBehaviour
         if (rooms.Count == 1)
         {
             SetCurrent(gridPos);
+        }
+        
+        rt.gameObject.SetActive(false);
+    }
+    
+    public void RevealRoom(Vector2Int pos)
+    {
+        if (!rooms.ContainsKey(pos)) return;
+    
+        revealedRooms.Add(pos);
+        rooms[pos].gameObject.SetActive(true);
+    
+        // Также показываем соединения с уже открытыми комнатами
+        RedrawVisibleConnections();
+    }
+    
+    private void RedrawVisibleConnections()
+    {
+        // Показываем линии только между открытыми комнатами
+        foreach (var line in lines)
+        {
+            if (line != null)
+                line.gameObject.SetActive(false);
+        }
+    
+        foreach (var a in revealedRooms)
+        {
+            Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+            foreach (var dir in dirs)
+            {
+                Vector2Int b = a + dir;
+                if (revealedRooms.Contains(b))
+                {
+                    DrawConnectionLine(a, b);
+                }
+            }
         }
     }
 
@@ -170,37 +208,20 @@ public class MinimapManager : MonoBehaviour
     // Перерисовывает все соединения
     private void RedrawAllConnections()
     {
-        // Удаляем старые линии
         foreach (var line in lines)
-        {
-            if (line != null)
-                Destroy(line.gameObject);
-        }
+            if (line != null) Destroy(line.gameObject);
         lines.Clear();
-        drawnConnections.Clear();
-        
-        // Рисуем заново все соединения
-        var connections = new HashSet<(Vector2Int, Vector2Int)>();
-        
-        foreach (var roomA in rooms.Keys)
+
+        foreach (var a in rooms.Keys)
         {
-            foreach (var roomB in rooms.Keys)
+            Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+            foreach (var dir in dirs)
             {
-                if (roomA == roomB) continue;
-                
-                // Проверяем, являются ли комнаты соседями по сетке
-                Vector2Int diff = roomB - roomA;
-                if (Mathf.Abs(diff.x) + Mathf.Abs(diff.y) == 1) // Манхэттенское расстояние = 1
-                {
-                    var conn1 = (roomA, roomB);
-                    var conn2 = (roomB, roomA);
-                    
-                    if (!connections.Contains(conn1) && !connections.Contains(conn2))
-                    {
-                        connections.Add(conn1);
-                        DrawConnectionLine(roomA, roomB);
-                    }
-                }
+                Vector2Int b = a + dir;
+                if (!rooms.ContainsKey(b)) continue;
+
+                // Проверяем что в RoomManager есть соединение
+                DrawConnectionLine(a, b);
             }
         }
     }

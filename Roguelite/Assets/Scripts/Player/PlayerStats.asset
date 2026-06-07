@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51c452408634a02be4aed14d25388b8, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 1000
+  maxHealth: 100
   moveSpeed: 15
-  jumpForce: 18
+  jumpForce: 20
   shieldMoveSpeedMultiplier: 0.4
   shieldDrainPerSecond: 20
   shieldHitDrain: 15
   damageReduction: 0.6
-  normalAttackDamage: 100
+  normalAttackDamage: 30
   airDownAttackDamage: 10
   airDownBounceForce: 15
   knockbackSideForce: 8

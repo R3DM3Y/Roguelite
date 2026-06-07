@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    [Header("Rooms")]
+    [SerializeField] private RoomController startRoomPrefab;
+    [SerializeField] private RoomController[] possibleRoomPrefabs;
+    [SerializeField] private RoomController preBossRoomPrefab;
+    [SerializeField] private RoomController bossRoomPrefab;
+    [SerializeField] private int minRoomsBeforeBoss = 7;
+    [SerializeField] private int maxRooms = 12;
+    
+    private Vector2Int bossRoomPos = new Vector2Int(-999, -999);
+
+    private bool bossRoomPlaced;
+    private List<RoomController> activeRooms = new();
+    
     public static RoomManager Instance;
     
     public PlayerController playerController;
@@ -35,10 +48,9 @@ public class RoomManager : MonoBehaviour
     {
         cameraFollow = Camera.main.GetComponent<CameraFollow2D>();
 
-        foreach (var r in possibleRooms)
-            r.gameObject.SetActive(false);
-
-        startRoom.gameObject.SetActive(true);
+        // Создаём стартовую комнату
+        RoomController startRoom = Instantiate(startRoomPrefab);
+        activeRooms.Add(startRoom);
 
         RoomNode startNode = new RoomNode
         {
@@ -52,53 +64,56 @@ public class RoomManager : MonoBehaviour
 
         Vector2 startRoomSize = GetRoomDimensions(startRoom);
         MinimapManager.Instance.CreateRoom(startNode.gridPosition, startRoomSize);
+        MinimapManager.Instance.RevealRoom(Vector2Int.zero);
         MinimapManager.Instance.SetCurrent(startNode.gridPosition);
 
         cameraFollow.SetBounds(startRoom.cameraBounds);
         cameraFollow.InstantSnap();
-    
+
         if (!loadedFromSave)
-        {
             currentNode.prefab.ResetRoom();
-        }
-    
+
         if (GameBootstrap.LoadSave)
-        {
             LoadGame();
-        }
     }
 
     public void ChangeRoom(ExitDirection dir)
     {
         Vector2Int target = currentNode.gridPosition + GetOffset(dir);
-
         RoomNode nextNode;
 
         if (!generated.TryGetValue(target, out nextNode))
         {
-            RoomController prefab = GetRandomRoom(dir);
+            RoomController prefab = GetRandomRoomPrefab(dir, target);
+            if (prefab == null) return;
+
+            RoomController newRoom = Instantiate(prefab);
+            activeRooms.Add(newRoom);
 
             nextNode = new RoomNode
             {
                 uniqueID = System.Guid.NewGuid().ToString(),
-                prefab = prefab,
+                prefab = newRoom,
                 gridPosition = target
             };
 
             generated.Add(target, nextNode);
-
-            MinimapManager.Instance.CreateRoom(target, GetRoomDimensions(prefab));
+            MinimapManager.Instance.CreateRoom(target, GetRoomDimensions(newRoom));
+            GenerateNeighbors(nextNode);
         }
 
         MinimapManager.Instance.DrawConnection(currentNode.gridPosition, target);
 
+        // Выключаем старую комнату
         currentNode.prefab.gameObject.SetActive(false);
 
+        // Включаем новую
         nextNode.prefab.gameObject.SetActive(true);
         nextNode.prefab.ResetRoom();
 
         currentNode = nextNode;
-
+        currentNode.visited = true;
+        MinimapManager.Instance.RevealRoom(target);
         MinimapManager.Instance.SetCurrent(target);
 
         Transform spawn = GetSpawnPoint(currentNode.prefab, dir);
@@ -106,8 +121,57 @@ public class RoomManager : MonoBehaviour
 
         cameraFollow.SetBounds(currentNode.prefab.cameraBounds);
         cameraFollow.InstantSnap();
-        
+
         StartCoroutine(SaveAfterFrame(dir));
+    }
+    
+    private void GenerateNeighbors(RoomNode node)
+    {
+        if (generated.Count >= maxRooms) return;
+
+        Vector2Int[] directions = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+        ExitDirection[] exitDirs = { ExitDirection.Left, ExitDirection.Right, ExitDirection.Up, ExitDirection.Down };
+        bool[] hasExit = { node.prefab.hasLeft, node.prefab.hasRight, node.prefab.hasUp, node.prefab.hasDown };
+    
+        ExitDirection[] oppositeDirs = { ExitDirection.Right, ExitDirection.Left, ExitDirection.Down, ExitDirection.Up };
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!hasExit[i]) continue;
+
+            Vector2Int neighborPos = node.gridPosition + directions[i];
+            if (generated.ContainsKey(neighborPos)) continue;
+            if (generated.Count >= maxRooms) return;
+
+            RoomController prefab = GetRandomRoomPrefab(exitDirs[i], neighborPos);
+            if (prefab == null) continue;
+
+            // ВАЖНО: проверяем что у префаба есть встречный выход
+            bool hasOppositeExit = i switch
+            {
+                0 => prefab.hasRight, // мы идём влево → сосед должен иметь выход вправо
+                1 => prefab.hasLeft,  // мы идём вправо → сосед должен иметь выход влево
+                2 => prefab.hasDown,  // мы идём вверх → сосед должен иметь выход вниз
+                3 => prefab.hasUp,    // мы идём вниз → сосед должен иметь выход вверх
+                _ => false
+            };
+
+            if (!hasOppositeExit) continue; // ← ВОТ ЭТО ДОБАВЬ
+
+            RoomController newRoom = Instantiate(prefab);
+            activeRooms.Add(newRoom);
+            newRoom.gameObject.SetActive(false);
+
+            RoomNode neighborNode = new RoomNode
+            {
+                uniqueID = System.Guid.NewGuid().ToString(),
+                prefab = newRoom,
+                gridPosition = neighborPos
+            };
+
+            generated.Add(neighborPos, neighborNode);
+            MinimapManager.Instance.CreateRoom(neighborPos, GetRoomDimensions(newRoom));
+        }
     }
     
     private IEnumerator SaveAfterFrame(ExitDirection dir)
@@ -158,38 +222,86 @@ public class RoomManager : MonoBehaviour
         };
     }
 
-    private RoomController GetRandomRoom(ExitDirection dir)
+    private RoomController GetRandomRoomPrefab(ExitDirection dir, Vector2Int gridPos)
     {
+        if (!bossRoomPlaced && generated.Count >= minRoomsBeforeBoss)
+        {
+            bossRoomPlaced = true;
+            return preBossRoomPrefab;
+        }
+
         List<RoomController> valid = new();
 
-        foreach (var r in possibleRooms)
+        ExitDirection oppositeDir = dir switch
         {
-            bool fitsDirection = false;
-            if (dir == ExitDirection.Left && r.hasRight) fitsDirection = true;
-            if (dir == ExitDirection.Right && r.hasLeft) fitsDirection = true;
-            if (dir == ExitDirection.Up && r.hasDown) fitsDirection = true;
-            if (dir == ExitDirection.Down && r.hasUp) fitsDirection = true;
-        
-            if (!fitsDirection) continue;
+            ExitDirection.Left => ExitDirection.Right,
+            ExitDirection.Right => ExitDirection.Left,
+            ExitDirection.Up => ExitDirection.Down,
+            ExitDirection.Down => ExitDirection.Up,
+            _ => ExitDirection.Left
+        };
+
+        foreach (var r in possibleRoomPrefabs)
+        {
+            bool hasEntrance = oppositeDir switch
+            {
+                ExitDirection.Left => r.hasLeft,
+                ExitDirection.Right => r.hasRight,
+                ExitDirection.Up => r.hasUp,
+                ExitDirection.Down => r.hasDown,
+                _ => false
+            };
+
+            if (!hasEntrance) continue;
 
             bool alreadyGenerated = false;
             foreach (var room in generated)
             {
-                if (room.Value.prefab == r)
+                if (room.Value.prefab.name.Replace("(Clone)", "") == r.name)
                 {
                     alreadyGenerated = true;
                     break;
                 }
             }
-        
-            if (!alreadyGenerated)
-                valid.Add(r);
+            if (alreadyGenerated) continue;
+
+            if (!CanPlaceRoom(r, gridPos)) continue;
+
+            valid.Add(r);
         }
 
-        if (valid.Count == 0)
-            return null;
-
+        if (valid.Count == 0) return null;
         return valid[Random.Range(0, valid.Count)];
+    }
+    
+    private bool CanPlaceRoom(RoomController room, Vector2Int pos)
+    {
+        // Проверяем что комната не будет иметь выходов в занятые клетки с несовместимыми комнатами
+        Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+        bool[] exits = { room.hasLeft, room.hasRight, room.hasUp, room.hasDown };
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!exits[i]) continue;
+
+            Vector2Int neighborPos = pos + dirs[i];
+            if (!generated.ContainsKey(neighborPos)) continue; // пустая клетка — ок
+
+            // Там уже есть комната — проверяем что у неё есть встречный выход
+            RoomNode neighbor = generated[neighborPos];
+            bool hasMatchingExit = i switch
+            {
+                0 => neighbor.prefab.hasRight, // мы смотрим влево → сосед должен иметь выход вправо
+                1 => neighbor.prefab.hasLeft,  // мы смотрим вправо → сосед должен иметь выход влево
+                2 => neighbor.prefab.hasDown,  // мы смотрим вверх → сосед должен иметь выход вниз
+                3 => neighbor.prefab.hasUp,    // мы смотрим вниз → сосед должен иметь выход вверх
+                _ => false
+            };
+
+            if (!hasMatchingExit) return false; // выход упирается в стену соседа
+        }
+
+        return true;
     }
 
     public bool IsRoomGenerated(Vector2Int pos)
@@ -294,40 +406,33 @@ public class RoomManager : MonoBehaviour
         for (int i = 0; i < data.generatedRooms.Count; i++)
         {
             string[] split = data.generatedRooms[i].Split(';');
+            Vector2Int pos = new Vector2Int(int.Parse(split[0]), int.Parse(split[1]));
 
-            Vector2Int pos = new Vector2Int(
-                int.Parse(split[0]),
-                int.Parse(split[1])
-            );
-
-            if (generated.ContainsKey(pos))
-                continue;
+            if (generated.ContainsKey(pos)) continue;
 
             int prefabIndex = int.Parse(data.roomPrefabs[i]);
-        
-            RoomController prefab;
+            RoomController prefab = null;
+
             if (prefabIndex == -1)
-            {
-                prefab = startRoom;
-            }
-            else if (prefabIndex >= 0 && prefabIndex < possibleRooms.Length)
-            {
-                prefab = possibleRooms[prefabIndex];
-            }
-            else
-            {
-                continue;
-            }
+                prefab = startRoomPrefab;
+            else if (prefabIndex >= 0 && prefabIndex < possibleRoomPrefabs.Length)
+                prefab = possibleRoomPrefabs[prefabIndex];
+
+            if (prefab == null) continue;
+
+            RoomController newRoom = Instantiate(prefab);
+            newRoom.gameObject.SetActive(false);
+            activeRooms.Add(newRoom);
 
             RoomNode node = new RoomNode
             {
                 uniqueID = System.Guid.NewGuid().ToString(),
-                prefab = prefab,
+                prefab = newRoom,
                 gridPosition = pos
             };
 
             generated.Add(pos, node);
-            MinimapManager.Instance.CreateRoom(pos, GetRoomDimensions(prefab));
+            MinimapManager.Instance.CreateRoom(pos, GetRoomDimensions(newRoom));
         }
 
         // 2. Установить текущую комнату
@@ -360,6 +465,7 @@ public class RoomManager : MonoBehaviour
         cameraFollow.InstantSnap();
 
         MinimapManager.Instance.SetCurrent(roomPos);
+        MinimapManager.Instance.RevealRoom(roomPos);
     
         // Отрисовка соединений
         foreach (var room in generated)

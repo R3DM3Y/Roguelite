@@ -16,6 +16,7 @@ public class Chest : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        chestID = System.Guid.NewGuid().ToString();
     }
     
     private void Start()
@@ -99,11 +100,5 @@ public class Chest : MonoBehaviour
             return;
 
         playerInside = false;
-    }
-    
-    private void OnValidate()
-    {
-        if (string.IsNullOrEmpty(chestID))
-            chestID = System.Guid.NewGuid().ToString();
     }
 }
