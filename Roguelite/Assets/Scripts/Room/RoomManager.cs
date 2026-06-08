@@ -48,7 +48,13 @@ public class RoomManager : MonoBehaviour
     {
         cameraFollow = Camera.main.GetComponent<CameraFollow2D>();
 
-        // Создаём стартовую комнату
+        if (GameBootstrap.LoadSave)
+        {
+            LoadGame();
+            return;
+        }
+
+        // Создаём стартовую комнату только для новой игры
         RoomController startRoom = Instantiate(startRoomPrefab);
         activeRooms.Add(startRoom);
 
@@ -70,11 +76,8 @@ public class RoomManager : MonoBehaviour
         cameraFollow.SetBounds(startRoom.cameraBounds);
         cameraFollow.InstantSnap();
 
-        if (!loadedFromSave)
-            currentNode.prefab.ResetRoom();
-
-        if (GameBootstrap.LoadSave)
-            LoadGame();
+        currentNode.prefab.ResetRoom();
+        bossRoomPlaced = false;
     }
 
     public void ChangeRoom(ExitDirection dir)
@@ -322,196 +325,211 @@ public class RoomManager : MonoBehaviour
     }
     
     public void SaveGame()
+{
+    SaveData data = new SaveData();
+
+    data.hasRun = true;
+
+    // coins
+    data.coins = CoinManager.Instance.Coins;
+
+    // chest
+    data.openedChests = new List<string>(openedChests);
+
+    // room
+    data.currentRoomX = currentNode.gridPosition.x;
+    data.currentRoomY = currentNode.gridPosition.y;
+
+    // player HP
+    data.playerHP = playerController != null ? playerController.CurrentHealth : 0;
+
+    // player position
+    data.playerX = player.position.x;
+    data.playerY = player.position.y;
+
+    // enemies
+    data.killedEnemies = new List<string>(killedEnemies);
+
+    // rooms
+    data.generatedRooms.Clear();
+    data.roomPrefabs.Clear();
+
+    foreach (var room in generated)
     {
-        SaveData data = new SaveData();
-
-        data.hasRun = true;
-
-        // coins
-        data.coins = CoinManager.Instance.Coins;
-    
-        // chest
-        data.openedChests = new List<string>(openedChests);
-
-        // room
-        data.currentRoomX = currentNode.gridPosition.x;
-        data.currentRoomY = currentNode.gridPosition.y;
-
-        
-        // player HP
-        data.playerHP = playerController != null ? playerController.CurrentHealth : 0;
-
-        // player position
-        data.playerX = player.position.x;
-        data.playerY = player.position.y;
-
-        // enemies
-        data.killedEnemies = new List<string>(killedEnemies);
-
-        // rooms
-        data.generatedRooms.Clear();
-        data.roomPrefabs.Clear();
-
-        foreach (var room in generated)
-        {
-            data.generatedRooms.Add($"{room.Key.x};{room.Key.y}");
-
-            int prefabIndex = System.Array.IndexOf(possibleRooms, room.Value.prefab);
-            data.roomPrefabs.Add(prefabIndex.ToString());
-        }
-
-        if (UpgradeManager.Instance != null)
-        {
-            // Получаем значения через рефлексию или делаем публичные геттеры
-            // Но проще сохранять напрямую из PlayerController
-            data.upgrades.swordDamageLevel = playerController.bonusDamage;
-            data.upgrades.airDamageLevel = playerController.bonusAirDamage;
-            data.upgrades.airBounceLevel = Mathf.RoundToInt(playerController.bonusBounceForce);
-            data.upgrades.hpLevel = playerController.bonusHealth;
-            data.upgrades.speedLevel = Mathf.RoundToInt(playerController.bonusSpeed * 10); // speedBase=0.1
-            data.upgrades.shieldLevel = Mathf.RoundToInt(playerController.bonusShieldReduction * 50); // 0.02*50=1
-            data.upgrades.shieldEfficiencyLevel = Mathf.RoundToInt(playerController.bonusShieldDrainReduction * 2); // 0.5*2=1
-            data.upgrades.jumpLevel = playerController.extraJumps;
-            data.upgrades.dashUnlocked = playerController.canDash;
-        }
-        
-        SaveSystem.Save(data);
+        data.generatedRooms.Add($"{room.Key.x};{room.Key.y}");
+        data.roomPrefabs.Add(room.Value.prefab.name.Replace("(Clone)", ""));
     }
     
-    public void LoadGame()
+    Debug.Log($"[SaveGame] Saved {data.generatedRooms.Count} rooms");
+    for (int i = 0; i < data.generatedRooms.Count; i++)
     {
-        SaveData data = SaveSystem.Load();
+        Debug.Log($"[SaveGame] Room {i}: pos={data.generatedRooms[i]}, prefab={data.roomPrefabs[i]}");
+    }
+    Debug.Log($"[SaveGame] Current room: {data.currentRoomX}, {data.currentRoomY}");
+    Debug.Log($"[SaveGame] Player pos: {data.playerX}, {data.playerY}");
+
+    if (UpgradeManager.Instance != null)
+    {
+        data.upgrades.swordDamageLevel = playerController.bonusDamage;
+        data.upgrades.airDamageLevel = playerController.bonusAirDamage;
+        data.upgrades.airBounceLevel = Mathf.RoundToInt(playerController.bonusBounceForce);
+        data.upgrades.hpLevel = playerController.bonusHealth;
+        data.upgrades.speedLevel = Mathf.RoundToInt(playerController.bonusSpeed * 10);
+        data.upgrades.shieldLevel = Mathf.RoundToInt(playerController.bonusShieldReduction * 50);
+        data.upgrades.shieldEfficiencyLevel = Mathf.RoundToInt(playerController.bonusShieldDrainReduction * 2);
+        data.upgrades.jumpLevel = playerController.extraJumps;
+        data.upgrades.dashUnlocked = playerController.canDash;
+    }
+
+    SaveSystem.Save(data);
+}
     
-        if (data == null)
+    public void LoadGame()
+{
+    SaveData data = SaveSystem.Load();
+
+    if (data == null)
+    {
+        Debug.Log("[LoadGame] No save data found");
+        return;
+    }
+
+    if (!data.hasRun)
+    {
+        Debug.Log("[LoadGame] hasRun is false");
+        return;
+    }
+
+    Debug.Log($"[LoadGame] Loading {data.generatedRooms.Count} rooms");
+    Debug.Log($"[LoadGame] Current room from save: {data.currentRoomX}, {data.currentRoomY}");
+    Debug.Log($"[LoadGame] Player pos from save: {data.playerX}, {data.playerY}");
+
+    loadedFromSave = true;
+
+    CoinManager.Instance.SetCoins(data.coins);
+    killedEnemies = new HashSet<string>(data.killedEnemies);
+    openedChests = new HashSet<string>(data.openedChests);
+
+    Vector2Int roomPos = new Vector2Int(data.currentRoomX, data.currentRoomY);
+
+    // Восстанавливаем комнаты
+    for (int i = 0; i < data.generatedRooms.Count; i++)
+    {
+        string[] split = data.generatedRooms[i].Split(';');
+        Vector2Int pos = new Vector2Int(int.Parse(split[0]), int.Parse(split[1]));
+
+        if (generated.ContainsKey(pos)) continue;
+
+        string prefabName = data.roomPrefabs[i];
+        RoomController prefab = null;
+
+        if (prefabName == startRoomPrefab.name)
+            prefab = startRoomPrefab;
+        else if (prefabName == preBossRoomPrefab.name)
+            prefab = preBossRoomPrefab;
+        else if (prefabName == bossRoomPrefab.name)
+            prefab = bossRoomPrefab;
+        else
         {
-            return;
-        }
-
-        if (!data.hasRun)
-        {
-            return;
-        }
-
-
-        loadedFromSave = true;
-
-        CoinManager.Instance.SetCoins(data.coins);
-        killedEnemies = new HashSet<string>(data.killedEnemies);
-        openedChests = new HashSet<string>(data.openedChests);
-
-        // Координаты текущей комнаты из сохранения
-        Vector2Int roomPos = new Vector2Int(data.currentRoomX, data.currentRoomY);
-
-        // 1. Восстановить комнаты
-        for (int i = 0; i < data.generatedRooms.Count; i++)
-        {
-            string[] split = data.generatedRooms[i].Split(';');
-            Vector2Int pos = new Vector2Int(int.Parse(split[0]), int.Parse(split[1]));
-
-            if (generated.ContainsKey(pos)) continue;
-
-            int prefabIndex = int.Parse(data.roomPrefabs[i]);
-            RoomController prefab = null;
-
-            if (prefabIndex == -1)
-                prefab = startRoomPrefab;
-            else if (prefabIndex >= 0 && prefabIndex < possibleRoomPrefabs.Length)
-                prefab = possibleRoomPrefabs[prefabIndex];
-
-            if (prefab == null) continue;
-
-            RoomController newRoom = Instantiate(prefab);
-            newRoom.gameObject.SetActive(false);
-            activeRooms.Add(newRoom);
-
-            RoomNode node = new RoomNode
+            foreach (var p in possibleRoomPrefabs)
             {
-                uniqueID = System.Guid.NewGuid().ToString(),
-                prefab = newRoom,
-                gridPosition = pos
-            };
-
-            generated.Add(pos, node);
-            MinimapManager.Instance.CreateRoom(pos, GetRoomDimensions(newRoom));
-        }
-
-        // 2. Установить текущую комнату
-        if (!generated.TryGetValue(roomPos, out currentNode))
-        {
-            roomPos = Vector2Int.zero;
-            if (!generated.TryGetValue(roomPos, out currentNode))
-            {   
-                return;
-            }
-        }
-
-        // 3. Выключить все комнаты кроме стартовой
-        foreach (var r in generated)
-        {
-            if (r.Value.gridPosition != Vector2Int.zero) 
-                r.Value.prefab.gameObject.SetActive(false);
-        }
-
-        // 4. Включить текущую комнату
-        if (currentNode.prefab != startRoom)
-        {
-            startRoom.gameObject.SetActive(false);
-            currentNode.prefab.gameObject.SetActive(true);
-        }
-    
-        currentNode.prefab.ResetRoom();
-
-        cameraFollow.SetBounds(currentNode.prefab.cameraBounds);
-        cameraFollow.InstantSnap();
-
-        MinimapManager.Instance.SetCurrent(roomPos);
-        MinimapManager.Instance.RevealRoom(roomPos);
-    
-        // Отрисовка соединений
-        foreach (var room in generated)
-        {
-            Vector2Int pos = room.Key;
-            Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
-
-            foreach (var dir in dirs)
-            {
-                Vector2Int neighbour = pos + dir;
-                if (generated.ContainsKey(neighbour))
+                if (p.name == prefabName)
                 {
-                    MinimapManager.Instance.DrawConnection(pos, neighbour);
+                    prefab = p;
+                    break;
                 }
             }
         }
 
-        // 5. Позиция игрока — ИЗ СОХРАНЕНИЯ
-        player.position = new Vector3(data.playerX, data.playerY, 0);
-        
-        // Восстанавливаем улучшения
-        if (data.upgrades != null)
+        if (prefab == null) continue;
+
+        RoomController newRoom = Instantiate(prefab);
+        newRoom.gameObject.SetActive(false);
+        activeRooms.Add(newRoom);
+
+        RoomNode node = new RoomNode
         {
-            playerController.bonusDamage = data.upgrades.swordDamageLevel;
-            playerController.bonusAirDamage = data.upgrades.airDamageLevel;
-            playerController.bonusBounceForce = data.upgrades.airBounceLevel;
-            playerController.bonusHealth = data.upgrades.hpLevel;
-            playerController.bonusSpeed = data.upgrades.speedLevel / 10f;
-            playerController.bonusShieldReduction = data.upgrades.shieldLevel / 50f;
-            playerController.bonusShieldDrainReduction = data.upgrades.shieldEfficiencyLevel / 2f;
-            playerController.extraJumps = data.upgrades.jumpLevel;
-            playerController.canDash = data.upgrades.dashUnlocked;
+            uniqueID = System.Guid.NewGuid().ToString(),
+            prefab = newRoom,
+            gridPosition = pos
+        };
+
+        generated.Add(pos, node);
+        MinimapManager.Instance.CreateRoom(pos, GetRoomDimensions(newRoom));
+    }
     
-            Debug.Log($"Loaded upgrades: HP+{data.upgrades.hpLevel}, DMG+{data.upgrades.swordDamageLevel}, Dash={data.upgrades.dashUnlocked}");
-        }
-        
-        // 6. HP игрока
-        if (playerController != null)
+    bossRoomPlaced = false;
+
+    foreach (var room in generated.Values)
+    {
+        if (room.prefab.name.Replace("(Clone)", "") == preBossRoomPrefab.name)
         {
-            playerController.SetHealth(data.playerHP);
-        }
-        else
-        {
-            Debug.LogError("playerController is null!");
+            bossRoomPlaced = true;
+            break;
         }
     }
+
+    // Устанавливаем текущую комнату
+    if (!generated.TryGetValue(roomPos, out currentNode))
+    {
+        Debug.LogError($"[LoadGame] Room {roomPos} not found!");
+        return;
+    }
+
+    // Выключаем все комнаты
+    foreach (var r in generated)
+        r.Value.prefab.gameObject.SetActive(false);
+
+    // Включаем текущую
+    currentNode.prefab.gameObject.SetActive(true);
+    currentNode.prefab.ResetRoom();
+
+    cameraFollow.SetBounds(currentNode.prefab.cameraBounds);
+    cameraFollow.InstantSnap();
+
+    MinimapManager.Instance.SetCurrent(roomPos);
+    MinimapManager.Instance.RevealRoom(roomPos);
+
+    // Отрисовка соединений
+    foreach (var room in generated)
+    {
+        Vector2Int pos = room.Key;
+        Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+
+        foreach (var dir in dirs)
+        {
+            Vector2Int neighbour = pos + dir;
+            if (generated.ContainsKey(neighbour))
+                MinimapManager.Instance.DrawConnection(pos, neighbour);
+        }
+    }
+    
+    foreach (var room in generated)
+    {
+        MinimapManager.Instance.RevealRoom(room.Key);
+    }
+
+    // Позиция игрока
+    player.position = new Vector3(data.playerX, data.playerY, 0);
+
+    // Улучшения
+    if (data.upgrades != null)
+    {
+        playerController.bonusDamage = data.upgrades.swordDamageLevel;
+        playerController.bonusAirDamage = data.upgrades.airDamageLevel;
+        playerController.bonusBounceForce = data.upgrades.airBounceLevel;
+        playerController.bonusHealth = data.upgrades.hpLevel;
+        playerController.bonusSpeed = data.upgrades.speedLevel / 10f;
+        playerController.bonusShieldReduction = data.upgrades.shieldLevel / 50f;
+        playerController.bonusShieldDrainReduction = data.upgrades.shieldEfficiencyLevel / 2f;
+        playerController.extraJumps = data.upgrades.jumpLevel;
+        playerController.canDash = data.upgrades.dashUnlocked;
+    }
+
+    // HP
+    if (playerController != null)
+        playerController.SetHealth(data.playerHP);
+}
     
     public void OnPlayerDeath()
     {
@@ -537,5 +555,13 @@ public class RoomManager : MonoBehaviour
     public bool IsChestOpened(string id)
     {
         return openedChests.Contains(id);
+    }
+    
+    public RoomController GetRoom(Vector2Int pos)
+    {
+        if (generated.TryGetValue(pos, out RoomNode node))
+            return node.prefab;
+
+        return null;
     }
 }

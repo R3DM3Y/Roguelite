@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1306100012789937596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.186, y: -0.018, z: 0}
+  m_LocalPosition: {x: 0.303, y: -0.018, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -413,11 +413,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackHitbox: {fileID: 7911115131134228565}
+  patrolOnly: 0
   minBounds: {x: 0, y: 0}
   maxBounds: {x: 0, y: 0}
   popupSpawner: {fileID: -4038929007359727111}
   headPoint: {fileID: 5945355239565433798}
   enemyID: a07776e7-d96a-40be-8c21-193f8562c866
+  destroyOnDeath: 0
   coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
   coinDropChance: 0.2
 --- !u!95 &1610979385911682934

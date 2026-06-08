@@ -209,19 +209,31 @@ public class MinimapManager : MonoBehaviour
     private void RedrawAllConnections()
     {
         foreach (var line in lines)
-            if (line != null) Destroy(line.gameObject);
+        {
+            if (line != null)
+                Destroy(line.gameObject);
+        }
+
         lines.Clear();
 
         foreach (var a in rooms.Keys)
         {
-            Vector2Int[] dirs = { Vector2Int.left, Vector2Int.right, Vector2Int.up, Vector2Int.down };
+            Vector2Int[] dirs =
+            {
+                Vector2Int.left,
+                Vector2Int.right,
+                Vector2Int.up,
+                Vector2Int.down
+            };
+
             foreach (var dir in dirs)
             {
                 Vector2Int b = a + dir;
-                if (!rooms.ContainsKey(b)) continue;
 
-                // Проверяем что в RoomManager есть соединение
-                DrawConnectionLine(a, b);
+                if (!rooms.ContainsKey(b))
+                    continue;
+
+                DrawConnection(a, b);
             }
         }
     }
@@ -289,12 +301,36 @@ public class MinimapManager : MonoBehaviour
     // Оригинальный DrawConnection теперь вызывает RedrawAllConnections
     public void DrawConnection(Vector2Int a, Vector2Int b)
     {
-        // Этот метод оставлен для обратной совместимости
-        // Новые соединения будут добавлены при следующем CreateRoom
+        if (!rooms.ContainsKey(a) || !rooms.ContainsKey(b))
+            return;
+
+        RoomController roomA = RoomManager.Instance.GetRoom(a);
+        RoomController roomB = RoomManager.Instance.GetRoom(b);
+
+        if (roomA == null || roomB == null)
+            return;
+
+        Vector2Int diff = b - a;
+
+        bool connected = false;
+
+        if (diff == Vector2Int.right)
+            connected = roomA.hasRight && roomB.hasLeft;
+        else if (diff == Vector2Int.left)
+            connected = roomA.hasLeft && roomB.hasRight;
+        else if (diff == Vector2Int.up)
+            connected = roomA.hasUp && roomB.hasDown;
+        else if (diff == Vector2Int.down)
+            connected = roomA.hasDown && roomB.hasUp;
+
+        if (!connected)
+            return;
+
         var connection1 = (a, b);
         var connection2 = (b, a);
-    
-        if (!drawnConnections.Contains(connection1) && !drawnConnections.Contains(connection2))
+
+        if (!drawnConnections.Contains(connection1) &&
+            !drawnConnections.Contains(connection2))
         {
             drawnConnections.Add(connection1);
             DrawConnectionLine(a, b);

@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private EnemyAttackHitbox attackHitbox;
     
+    [Header("Behavior")]
+    [SerializeField] private bool patrolOnly = false;
+    
     private float orbitAngle;
     private bool isDashing;
     
@@ -133,6 +136,12 @@ public class EnemyController : MonoBehaviour
 
     private void HandleGroundEnemy()
 {
+    if (patrolOnly)
+    {
+        Patrol();
+        return;
+    }
+    
     float distance = Vector2.Distance(transform.position, player.position);
     float distanceX = Mathf.Abs(player.position.x - transform.position.x);
     float distanceY = player.position.y - transform.position.y;

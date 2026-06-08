@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 1015640332149815308}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.175, y: -0.021, z: 0}
+  m_LocalPosition: {x: 0.328, y: -0.021, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -438,7 +438,7 @@ BoxCollider2D:
   m_Offset: {x: -0.14325428, y: 0.7248106}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.33942592, y: 0}
     oldSize: {x: 1.0625, y: 1.4375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -481,11 +481,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackHitbox: {fileID: 5663256521389029585}
+  patrolOnly: 0
   minBounds: {x: 0, y: 0}
   maxBounds: {x: 0, y: 0}
   popupSpawner: {fileID: 3048312491433903580}
   headPoint: {fileID: 5013924749542962582}
   enemyID: cb9356d3-10ae-4c18-bac9-8c959390afb8
+  destroyOnDeath: 0
   coinPrefab: {fileID: 2269876122078619273, guid: 2364ebb6a8121034085fa6d674ef3bb1, type: 3}
   coinDropChance: 0.2
 --- !u!1 &6097371295678049636
